@@ -13,8 +13,8 @@ window.PORTFOLIO_CONFIG = {
   fullName: "Orlando Vivas",
   brandTag: "orlandovivas.dev",
   location: {
-    en: "United States (Open to On-site, Hybrid & Remote)",
-    es: "Estados Unidos (Disponible Presencial, Híbrido y Remoto)",
+    en: "Springfield, VA (Open to On-site, Hybrid & Remote)",
+    es: "Springfield, VA (Disponible Presencial, Híbrido y Remoto)",
   },
   availability: {
     en: "Open to Junior Software Developer Roles",
