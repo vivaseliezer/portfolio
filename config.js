@@ -936,7 +936,7 @@ window.PORTFOLIO_CONFIG = {
           "Lazy yield-return alert stream comparing live totals against configured category budgets",
         ],
         codeSnippetTitle: "projects/csharp/ExpenseAnalytics.cs",
-        codeSnippet: `public Dictionary<string, decimal> GetCategoryTotals() =>\n    _expenses\n        .GroupBy(e => e.Category, StringComparer.OrdinalIgnoreCase)\n        .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount), StringComparer.OrdinalIgnoreCase);\n\npublic IEnumerable<string> GetOverBudgetAlerts()\n{\n    var totals = GetCategoryTotals();\n    foreach (var (cat, limit) in _budgets)\n        if (totals.TryGetValue(cat, out decimal spent) && spent > limit)\n            yield return $"{cat}: spent ${spent:F2} (limit ${limit:F2})";\n}`,
+        codeSnippet: `public Dictionary<string, decimal> GetCategoryTotals() =>\n    _expenses\n        .GroupBy(e => e.Category, StringComparer.OrdinalIgnoreCase)\n        .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount), StringComparer.OrdinalIgnoreCase);\n\npublic IEnumerable<string> GetOverBudgetAlerts()\n{\n    var totals = GetCategoryTotals();\n    foreach (var (cat, limit) in _budgets)\n        if (totals.TryGetValue(cat, out decimal spent) && spent > limit)\n            yield return $"{cat}: spent \${spent:F2} (limit \${limit:F2})";\n}`,
       },
       es: {
         tag: "csharp / analítica y linq",
@@ -952,7 +952,7 @@ window.PORTFOLIO_CONFIG = {
           "Flujo de alertas con yield return comparando gasto real contra límite configurado",
         ],
         codeSnippetTitle: "projects/csharp/ExpenseAnalytics.cs",
-        codeSnippet: `public Dictionary<string, decimal> GetCategoryTotals() =>\n    _expenses\n        .GroupBy(e => e.Category, StringComparer.OrdinalIgnoreCase)\n        .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount), StringComparer.OrdinalIgnoreCase);\n\npublic IEnumerable<string> GetOverBudgetAlerts()\n{\n    var totals = GetCategoryTotals();\n    foreach (var (cat, limit) in _budgets)\n        if (totals.TryGetValue(cat, out decimal spent) && spent > limit)\n            yield return $"{cat}: spent ${spent:F2} (limit ${limit:F2})";\n}`,
+        codeSnippet: `public Dictionary<string, decimal> GetCategoryTotals() =>\n    _expenses\n        .GroupBy(e => e.Category, StringComparer.OrdinalIgnoreCase)\n        .ToDictionary(g => g.Key, g => g.Sum(x => x.Amount), StringComparer.OrdinalIgnoreCase);\n\npublic IEnumerable<string> GetOverBudgetAlerts()\n{\n    var totals = GetCategoryTotals();\n    foreach (var (cat, limit) in _budgets)\n        if (totals.TryGetValue(cat, out decimal spent) && spent > limit)\n            yield return $"{cat}: spent \${spent:F2} (limit \${limit:F2})";\n}`,
       },
     },
     {
