@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Goat vs The Legends (4K Anime Edition)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="ui-screen">
+            <h1>THE GOAT</h1>
+            <p style="font-size: 2rem;">4K Anime Edition</p>
+            <p>Save your home from El Cadejo, La Llorona, and El Duende.</p>
+            <p class="controls">Controls: WASD or Arrows to move.<br>SPACE to ram.</p>
+            <button id="start-btn">START GAME</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="ui-screen hidden">
+            <h1>Game Over</h1>
+            <p>The legends overtook your home.</p>
+            <p id="final-score" style="font-size: 3rem;">Score: 0</p>
+            <button id="restart-btn">TRY AGAIN</button>
+        </div>
+
+        <!-- HUD: Health and Score -->
+        <div id="hud" class="hidden">
+            <div id="health-bar">
+                <div id="health-fill"></div>
+            </div>
+            <div id="score-display">Score: <span id="score">0</span></div>
+        </div>
+
+        <!-- The game canvas in TRUE 4K resolution (Ultra HD) -->
+        <canvas id="gameCanvas" width="3840" height="2160"></canvas>
+    </div>
+
+    <!-- Game Engine Scripts -->
+    <script src="js/entities.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

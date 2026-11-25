@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0d0c13;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    /* Maintain 16:9 aspect ratio dynamically */
+    width: 95vw;
+    height: 53.43vw; /* 95 * 9 / 16 */
+    max-height: 95vh;
+    max-width: 168.88vh; /* 95 * 16 / 9 */
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    background-color: #000;
+}
+
+#game-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Dark vignette for immersive horror */
+    background: radial-gradient(circle at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.95) 100%);
+    pointer-events: none; /* Let clicks pass through */
+    z-index: 2; /* Over the game, under the UI */
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Temporary HD background before image loads */
+    background: radial-gradient(circle at center, #232233 0%, #0d0c13 100%);
+}
+
+.ui-screen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-family: 'Creepster', cursive;
+    font-size: clamp(2.6rem, 8vw, 6.2rem);
+    color: #c9b139;
+    text-shadow: 0 0 20px #e82a2a, 0 0 10px #e82a2a;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: clamp(0.95rem, 2.2vw, 1.45rem);
+    margin-bottom: 16px;
+    color: #ccc;
+}
+
+.controls {
+    color: #888;
+    font-size: clamp(0.85rem, 1.8vw, 1.15rem);
+}
+
+button {
+    padding: 12px 30px;
+    font-size: clamp(1.2rem, 2.8vw, 1.9rem);
+    font-family: 'Creepster', cursive;
+    color: #fff;
+    background-color: #5c0f0f;
+    border: 2px solid #a32222;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #a32222;
+    box-shadow: 0 0 30px #a32222;
+    transform: scale(1.05);
+}
+
+/* HUD System */
+#hud {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+#health-bar {
+    width: min(320px, 44vw);
+    height: 26px;
+    background-color: #333;
+    border: 3px solid #111;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+#health-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #b01515, #ff3636);
+    transition: width 0.2s ease-out;
+}
+
+#score-display {
+    font-family: 'Creepster', cursive;
+    font-size: clamp(1.4rem, 3.5vw, 2.6rem);
+    color: #fff;
+    text-shadow: 0 0 10px #ffdb58;
+}

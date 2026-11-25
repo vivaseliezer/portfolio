@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orlando Vivas | Junior Full-Stack Software Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Orlando Vivas — Bilingual (English/Spanish) Junior Full-Stack Software Developer specializing in C#, Python, JavaScript, HTML/CSS, and MySQL. Explore software projects and 1-click playable browser games."
+    />
+
+    <!-- LinkedIn & Social Open Graph Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Orlando Vivas — Junior Full-Stack Software Developer" />
+    <meta
+      property="og:description"
+      content="Bilingual (EN/ES) Junior Software Developer building web apps, Python desktop tools, MySQL systems, and playable HTML5 games."
+    />
+    <meta property="og:image" content="./og-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Orlando Vivas — Junior Full-Stack Software Developer" />
+    <meta
+      name="twitter:description"
+      content="Bilingual Junior Software Developer | C# • Python • JavaScript • MySQL • Playable Games"
+    />
+    <meta name="twitter:image" content="./og-preview.png" />
+
+    <!-- Clean SVG Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f172a'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%2338bdf8' font-family='monospace' font-weight='700' font-size='28'%3E%3CO/%3E%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Prevent theme flash before paint -->
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("portfolio-theme");
+        if (savedTheme === "light" || savedTheme === "dark") {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+        }
+      })();
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css?v=4" />
+
+    <!-- Structured Data for Search & Recruiters -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Orlando Vivas",
+        "jobTitle": "Junior Full-Stack Software Developer",
+        "url": "https://github.com/vivaseliezer",
+        "sameAs": [
+          "https://github.com/vivaseliezer",
+          "https://www.linkedin.com/in/orlando-vivas"
+        ],
+        "knowsAbout": ["HTML5", "CSS3", "JavaScript", "Python", "C#", "MySQL", "REST APIs", "Git"],
+        "knowsLanguage": ["English", "Spanish"]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link" data-i18n="a11y.skip">Skip to main content</a>
+
+    <!-- Navigation -->
+    <header class="site-header" id="top">
+      <div class="container nav-container">
+        <a href="#top" class="brand" aria-label="Orlando Home">
+          <span class="brand-mark" aria-hidden="true">&lt;O/&gt;</span>
+          <span class="brand-text" id="brand-name">orlando.dev</span>
+        </a>
+
+        <nav class="main-nav" id="main-nav" aria-label="Primary Navigation">
+          <ul class="nav-links">
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+            <li><a href="#games" data-i18n="nav.games">Games</a></li>
+            <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+            <li><a href="#experience" data-i18n="nav.journey">Journey</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Language Toggle -->
+          <button
+            type="button"
+            class="icon-pill"
+            id="lang-toggle"
+            aria-label="Switch language between English and Spanish"
+            title="Switch Language (EN / ES)"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="lang-label">ES</span>
+          </button>
+
+          <!-- Theme Toggle -->
+          <button
+            type="button"
+            class="icon-btn"
+            id="theme-toggle"
+            aria-label="Toggle dark and light mode"
+            title="Toggle Dark / Light Mode"
+          >
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <!-- Resume CTA -->
+          <a href="./resume.html" class="btn btn-sm btn-primary nav-resume-btn" id="nav-resume-link" data-i18n="nav.resume">
+            Resume
+          </a>
+
+          <!-- Mobile Hamburger -->
+          <button
+            type="button"
+            class="icon-btn mobile-menu-btn"
+            id="mobile-menu-btn"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="main-nav"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- HERO SECTION -->
+      <section class="hero-section">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="status-badge">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span id="availability-text">Open to Junior Software Developer Roles</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span data-i18n="hero.greeting">Hi, I’m</span>
+              <span class="gradient-text" id="hero-name">Orlando</span>.<br />
+              <span data-i18n="hero.role">Junior Full-Stack Software Developer</span>
+            </h1>
+
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+              I build clean web applications, reliable REST APIs, and structured MySQL databases using
+              <strong>C#</strong>, <strong>Python</strong>, and <strong>JavaScript</strong>. Bilingual
+              (English / Spanish) and ready to add value to a US engineering team from day one.
+            </p>
+
+            <div class="hero-meta">
+              <span class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span id="hero-location">United States (Open to On-site, Hybrid &amp; Remote)</span>
+              </span>
+              <span class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M5 8l6 6"></path>
+                  <path d="M4 14l6-6 2-3"></path>
+                  <path d="M2 5h12"></path>
+                  <path d="M7 2h1"></path>
+                  <path d="M22 22l-5-10-5 10"></path>
+                  <path d="M14 18h6"></path>
+                </svg>
+                <span data-i18n="hero.bilingual">Bilingual: English &amp; Spanish</span>
+              </span>
+            </div>
+
+            <div class="hero-cta">
+              <a href="#projects" class="btn btn-primary">
+                <span data-i18n="hero.viewProjects">View Projects</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="./resume.html" class="btn btn-secondary" id="hero-resume-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span data-i18n="hero.resume">View / Download CV</span>
+              </a>
+            </div>
+
+            <div class="social-row">
+              <a href="#" id="hero-linkedin" target="_blank" rel="noopener noreferrer" class="social-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+              <a href="#" id="hero-github" target="_blank" rel="noopener noreferrer" class="social-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+                </svg>
+                <span>GitHub</span>
+              </a>
+              <button type="button" id="copy-email-hero" class="social-link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span data-i18n="hero.copyEmail">Copy Email</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Code Card -->
+          <div class="hero-visual">
+            <div class="code-card" aria-label="Developer profile code preview">
+              <div class="code-card-header">
+                <div class="window-dots" aria-hidden="true">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="code-tabs" role="tablist" aria-label="Language preview tabs">
+                  <button type="button" class="code-tab active" role="tab" aria-selected="true" data-code-tab="csharp">
+                    Developer.cs
+                  </button>
+                  <button type="button" class="code-tab" role="tab" aria-selected="false" data-code-tab="python">
+                    profile.py
+                  </button>
+                  <button type="button" class="code-tab" role="tab" aria-selected="false" data-code-tab="sql">
+                    skills.sql
+                  </button>
+                </div>
+              </div>
+              <pre class="code-body"><code id="hero-code-content"></code></pre>
+              <div class="code-card-footer">
+                <span class="terminal-pill">UTF-8</span>
+                <span class="terminal-pill" id="code-lang-pill">C# / .NET</span>
+                <span class="terminal-pill success">Ready to Ship</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT & VALUE SECTION -->
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-eyebrow" data-i18n="about.eyebrow">About Me</span>
+            <h2 class="section-title" data-i18n="about.title">Built on Fundamentals, Ready for Production Teams</h2>
+            <p class="section-lead" data-i18n="about.lead">
+              I focus on writing readable, maintainable code across the full stack — connecting responsive user interfaces with dependable backend APIs and relational databases.
+            </p>
+          </div>
+
+          <div class="value-grid">
+            <article class="value-card reveal">
+              <div class="value-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <h3 data-i18n="about.card1Title">Full-Stack Foundation</h3>
+              <p data-i18n="about.card1Body">
+                Comfortable building across HTML, CSS, and JavaScript on the front end, and C#, Python, and MySQL on the back end.
+              </p>
+            </article>
+
+            <article class="value-card reveal">
+              <div class="value-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <h3 data-i18n="about.card2Title">Data &amp; SQL Mindset</h3>
+              <p data-i18n="about.card2Body">
+                I design normalized relational tables, write clean JOIN queries, and protect apps with parameterized queries and input validation.
+              </p>
+            </article>
+
+            <article class="value-card reveal">
+              <div class="value-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h3 data-i18n="about.card3Title">Bilingual Team Communicator</h3>
+              <p data-i18n="about.card3Body">
+                Fluent in English and Spanish — able to document technical decisions clearly, pair program, and collaborate with diverse US teams and stakeholders.
+              </p>
+            </article>
+
+            <article class="value-card reveal">
+              <div class="value-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <h3 data-i18n="about.card4Title">Clean Workflow &amp; Growth</h3>
+              <p data-i18n="about.card4Body">
+                Practicing Git branching, pull requests, debugging systematically, and adopting team coding conventions quickly.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS SECTION -->
+      <section class="section section-alt" id="projects">
+        <div class="container">
+          <div class="section-header-row">
+            <div>
+              <span class="section-eyebrow" data-i18n="projects.eyebrow">Selected Work</span>
+              <h2 class="section-title" data-i18n="projects.title">Projects Solving Real Business Problems</h2>
+              <p class="section-lead" data-i18n="projects.lead">
+                Each project highlights architecture choices, database design, and code quality aligned with US engineering teams.
+              </p>
+            </div>
+
+            <div class="filter-bar" role="tablist" aria-label="Filter projects by category">
+              <button type="button" class="filter-btn active" data-filter="all" data-i18n="projects.filterAll">All</button>
+              <button type="button" class="filter-btn" data-filter="fullstack" data-i18n="projects.filterFullstack">Full-Stack</button>
+              <button type="button" class="filter-btn" data-filter="backend" data-i18n="projects.filterBackend">Backend &amp; SQL</button>
+              <button type="button" class="filter-btn" data-filter="frontend" data-i18n="projects.filterFrontend">Frontend</button>
+            </div>
+          </div>
+
+          <div class="projects-grid" id="projects-grid">
+            <!-- Rendered dynamically from config.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE GAMES ARCADE SECTION -->
+      <section class="section" id="games">
+        <div class="container">
+          <div class="section-header-row">
+            <div>
+              <span class="section-eyebrow" data-i18n="games.eyebrow">Interactive Arcade Lab</span>
+              <h2 class="section-title" data-i18n="games.title">Play My Games in One Click</h2>
+              <p class="section-lead" data-i18n="games.lead">
+                A dedicated playground for the games I’m creating. Click any playable title to launch it instantly in your browser — no downloads required.
+              </p>
+            </div>
+            <div class="arcade-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="2" y="6" width="20" height="12" rx="4"></rect>
+                <line x1="6" y1="12" x2="10" y2="12"></line>
+                <line x1="8" y1="10" x2="8" y2="14"></line>
+                <circle cx="15" cy="11" r="1"></circle>
+                <circle cx="17.5" cy="13" r="1"></circle>
+              </svg>
+              <span data-i18n="games.instantBadge">Instant Browser Play</span>
+            </div>
+          </div>
+
+          <div class="games-grid" id="games-grid">
+            <!-- Rendered dynamically from config.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section class="section section-alt" id="skills">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-eyebrow" data-i18n="skills.eyebrow">Technical Toolkit</span>
+            <h2 class="section-title" data-i18n="skills.title">Skills &amp; Technologies</h2>
+            <p class="section-lead" data-i18n="skills.lead">
+              Organized around real-world software engineering responsibilities — from UI semantics to backend APIs and relational SQL.
+            </p>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-group reveal">
+              <div class="skill-group-header">
+                <span class="skill-dot blue" aria-hidden="true"></span>
+                <h3 data-i18n="skills.frontend">Frontend Development</h3>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">HTML5 (Semantic)</span>
+                <span class="skill-tag">CSS3 / Flexbox / Grid</span>
+                <span class="skill-tag">JavaScript (ES6+)</span>
+                <span class="skill-tag">Responsive Design</span>
+                <span class="skill-tag">DOM &amp; Fetch API</span>
+                <span class="skill-tag">Web Accessibility (WCAG)</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal">
+              <div class="skill-group-header">
+                <span class="skill-dot purple" aria-hidden="true"></span>
+                <h3 data-i18n="skills.backend">Backend Development</h3>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">C#</span>
+                <span class="skill-tag">.NET Basics / Web API</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Flask / REST APIs</span>
+                <span class="skill-tag">Object-Oriented Programming</span>
+                <span class="skill-tag">Input Validation &amp; CRUD</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal">
+              <div class="skill-group-header">
+                <span class="skill-dot emerald" aria-hidden="true"></span>
+                <h3 data-i18n="skills.database">Databases &amp; Data</h3>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">MySQL</span>
+                <span class="skill-tag">SQL (JOINs, GROUP BY)</span>
+                <span class="skill-tag">Schema Normalization</span>
+                <span class="skill-tag">Relational ERD Design</span>
+                <span class="skill-tag">CSV / JSON Processing</span>
+                <span class="skill-tag">Parameterized Queries</span>
+              </div>
+            </div>
+
+            <div class="skill-group reveal">
+              <div class="skill-group-header">
+                <span class="skill-dot amber" aria-hidden="true"></span>
+                <h3 data-i18n="skills.tools">Engineering Tools &amp; Workflow</h3>
+              </div>
+              <div class="skill-tags">
+                <span class="skill-tag">Git &amp; GitHub</span>
+                <span class="skill-tag">VS Code / Visual Studio</span>
+                <span class="skill-tag">Postman / API Testing</span>
+                <span class="skill-tag">Agile / Scrum Basics</span>
+                <span class="skill-tag">Debugging &amp; DevTools</span>
+                <span class="skill-tag" data-i18n="skills.bilingualTag">Bilingual (EN / ES)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- JOURNEY / EDUCATION SECTION -->
+      <section class="section" id="experience">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-eyebrow" data-i18n="journey.eyebrow">Background</span>
+            <h2 class="section-title" data-i18n="journey.title">Learning Path &amp; Engineering Milestones</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <span class="timeline-date" data-i18n="journey.item1Date">2025 — Present</span>
+              <div class="timeline-content">
+                <h3 data-i18n="journey.item1Title">BYU-Pathway Worldwide — Software Development &amp; Full-Stack Projects</h3>
+                <p data-i18n="journey.item1Body">
+                  Studying software development through BYU-Pathway Worldwide while building end-to-end apps, Python desktop tools, and interactive HTML5 games with C#, Python, JavaScript, and MySQL.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <span class="timeline-date" data-i18n="journey.item2Date">Core Stack</span>
+              <div class="timeline-content">
+                <h3 data-i18n="journey.item2Title">Backend &amp; Relational Database Foundations (C#, Python, MySQL)</h3>
+                <p data-i18n="journey.item2Body">
+                  Practicing object-oriented design in C#, scripting &amp; backend APIs in Python, and normalized database modeling, indexing basics, and complex queries in MySQL.
+                </p>
+              </div>
+            </article>
+
+            <article class="timeline-item reveal">
+              <span class="timeline-date" data-i18n="journey.item3Date">Frontend Craft</span>
+              <div class="timeline-content">
+                <h3 data-i18n="journey.item3Title">Responsive Web Interfaces (HTML5, CSS3, Modern JavaScript)</h3>
+                <p data-i18n="journey.item3Body">
+                  Developing fast, accessible, mobile-first interfaces with semantic HTML, modern CSS layouts, and interactive vanilla JavaScript without unnecessary bloat.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section class="section section-alt" id="contact">
+        <div class="container">
+          <div class="contact-card">
+            <div class="contact-info">
+              <span class="section-eyebrow" data-i18n="contact.eyebrow">Let’s Connect</span>
+              <h2 class="section-title" data-i18n="contact.title">Looking for a Driven Junior Software Developer?</h2>
+              <p class="section-lead" data-i18n="contact.lead">
+                I’m actively interviewing for Junior Software Developer, Entry-Level Full-Stack, and Backend/SQL roles in the United States. Feel free to reach out on LinkedIn or send a quick message here.
+              </p>
+
+              <div class="contact-direct">
+                <button type="button" class="contact-pill" id="copy-email-contact">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <span id="contact-email-display">oralvivas122@gmail.com</span>
+                </button>
+                <a href="mailto:ovivasramirez@byupathway.edu" class="contact-pill" id="contact-school-email">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  <span id="contact-school-email-display">ovivasramirez@byupathway.edu</span>
+                </a>
+
+                <div class="contact-links">
+                  <a href="#" id="contact-linkedin" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <span data-i18n="contact.linkedinCta">Connect on LinkedIn</span>
+                  </a>
+                  <a href="#" id="contact-github" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <span data-i18n="contact.githubCta">View GitHub</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Netlify-ready Contact Form (also gracefully opens email fallback locally) -->
+            <form
+              class="contact-form"
+              id="contact-form"
+              name="portfolio-contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="portfolio-contact" />
+              <p class="sr-only">
+                <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+              </p>
+
+              <div class="form-group">
+                <label for="sender-name" data-i18n="contact.formName">Name / Company</label>
+                <input type="text" id="sender-name" name="name" required placeholder="Jane Doe — Tech Recruiter" />
+              </div>
+
+              <div class="form-group">
+                <label for="sender-email" data-i18n="contact.formEmail">Email</label>
+                <input type="email" id="sender-email" name="email" required placeholder="jane@company.com" />
+              </div>
+
+              <div class="form-group">
+                <label for="sender-message" data-i18n="contact.formMessage">Message</label>
+                <textarea
+                  id="sender-message"
+                  name="message"
+                  rows="4"
+                  required
+                  placeholder="Tell me about the role or team..."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" data-i18n="contact.formSubmit">
+                Send Message
+              </button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          &copy; <span id="current-year">2026</span> <span id="footer-name">Orlando</span>.
+          <span data-i18n="footer.rights">Built with semantic HTML, modern CSS, and vanilla JavaScript.</span>
+        </p>
+        <div class="footer-links">
+          <a href="#top" data-i18n="footer.backToTop">Back to top &uarr;</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- PROJECT CASE STUDY MODAL -->
+    <div
+      class="modal-backdrop"
+      id="project-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      hidden
+    >
+      <div class="modal-dialog">
+        <button type="button" class="modal-close" id="modal-close" aria-label="Close project details">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <span class="project-badge" id="modal-badge"></span>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <div class="project-tags" id="modal-tags"></div>
+        <div class="modal-preview-wrap" id="modal-preview-wrap" hidden>
+          <img id="modal-preview-img" src="" alt="Project interface preview" />
+        </div>
+
+        <div class="modal-grid">
+          <div class="modal-block">
+            <h4 data-i18n="modal.problem">The Problem</h4>
+            <p id="modal-problem"></p>
+          </div>
+          <div class="modal-block">
+            <h4 data-i18n="modal.solution">My Solution</h4>
+            <p id="modal-solution"></p>
+          </div>
+        </div>
+
+        <div class="modal-block">
+          <h4 data-i18n="modal.highlights">Key Engineering Highlights</h4>
+          <ul class="modal-list" id="modal-highlights"></ul>
+        </div>
+
+        <div class="modal-code-wrap">
+          <div class="modal-code-header" id="modal-code-title"></div>
+          <pre class="modal-code"><code id="modal-code-content"></code></pre>
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" id="modal-github" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span data-i18n="modal.viewCode">View Repository on GitHub</span>
+          </a>
+          <a href="#" id="modal-demo" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" hidden>
+            <span data-i18n="modal.liveDemo">Live Demo</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1-CLICK GAME PLAYER MODAL -->
+    <div
+      class="modal-backdrop"
+      id="game-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="game-modal-title"
+      hidden
+    >
+      <div class="game-modal-dialog">
+        <div class="game-modal-bar">
+          <div class="game-modal-meta">
+            <span class="game-live-dot" aria-hidden="true"></span>
+            <h3 id="game-modal-title">Game Player</h3>
+          </div>
+          <div class="game-modal-controls">
+            <button type="button" class="btn btn-sm btn-secondary" id="game-restart-btn" data-i18n="games.restart">
+              Restart
+            </button>
+            <a href="#" id="game-newtab-link" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary" data-i18n="games.openFull">
+              Full Tab &nearr;
+            </a>
+            <button type="button" class="modal-close game-close-btn" id="game-modal-close" aria-label="Close game player">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="game-frame-wrap">
+          <iframe
+            id="game-iframe"
+            title="Playable Game"
+            src="about:blank"
+            allow="fullscreen; gamepad"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="game-modal-footer">
+          <span id="game-modal-controls-hint"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="./config.js?v=5"></script>
+    <script src="./script.js?v=5"></script>
+  </body>
+</html>

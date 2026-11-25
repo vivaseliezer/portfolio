@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Stack Memory — Playable Demo</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0b1120;
+        color: #f1f5f9;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
+      .top-bar {
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #131e35;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 12px;
+        padding: 10px 16px;
+        margin-bottom: 14px;
+      }
+      .metric-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #94a3b8;
+      }
+      .metric-val {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #38bdf8;
+      }
+      .restart-btn {
+        background: rgba(56, 189, 248, 0.14);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.82rem;
+        cursor: pointer;
+      }
+      .restart-btn:hover {
+        background: #38bdf8;
+        color: #0b1120;
+      }
+      .grid {
+        width: 100%;
+        max-width: 440px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .card {
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        background: #131e35;
+        color: #f8fafc;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 1.05rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+      .card:hover:not(.matched):not(.flipped) {
+        border-color: #38bdf8;
+        transform: translateY(-2px);
+      }
+      .card .back-mark {
+        color: #64748b;
+        font-size: 1.2rem;
+      }
+      .card .face {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+      .card .face small {
+        font-size: 0.65rem;
+        font-weight: 500;
+        color: #94a3b8;
+      }
+      .card.flipped .back-mark,
+      .card.matched .back-mark {
+        display: none;
+      }
+      .card.flipped .face,
+      .card.matched .face {
+        display: flex;
+      }
+      .card.flipped {
+        background: #1e293b;
+        border-color: #38bdf8;
+      }
+      .card.matched {
+        background: rgba(16, 185, 129, 0.16);
+        border-color: #10b981;
+        color: #34d399;
+        cursor: default;
+      }
+      .banner {
+        margin-top: 14px;
+        min-height: 28px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: #34d399;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div>
+        <div class="metric-label">Moves</div>
+        <div class="metric-val" id="moves">0</div>
+      </div>
+      <div>
+        <div class="metric-label">Matches</div>
+        <div class="metric-val" id="matches">0 / 8</div>
+      </div>
+      <div>
+        <div class="metric-label">Time</div>
+        <div class="metric-val" id="timer">0s</div>
+      </div>
+      <button class="restart-btn" id="restart">Reset</button>
+    </div>
+
+    <div class="grid" id="grid" aria-label="Memory card board"></div>
+    <div class="banner" id="banner">Match all 8 tech stack pairs!</div>
+
+    <script>
+      const PAIRS = [
+        { code: "C#", label: ".NET" },
+        { code: "PY", label: "Python" },
+        { code: "JS", label: "ES6+" },
+        { code: "SQL", label: "MySQL" },
+        { code: "HTML", label: "Semantic" },
+        { code: "CSS", label: "Grid/Flex" },
+        { code: "GIT", label: "Version" },
+        { code: "API", label: "REST" },
+      ];
+
+      const gridEl = document.getElementById("grid");
+      const movesEl = document.getElementById("moves");
+      const matchesEl = document.getElementById("matches");
+      const timerEl = document.getElementById("timer");
+      const bannerEl = document.getElementById("banner");
+      const restartBtn = document.getElementById("restart");
+
+      let firstCard = null;
+      let secondCard = null;
+      let lock = false;
+      let moves = 0;
+      let matchedPairs = 0;
+      let seconds = 0;
+      let timerId = null;
+
+      function shuffle(list) {
+        const arr = [...list];
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function startTimer() {
+        if (timerId) return;
+        timerId = setInterval(() => {
+          seconds += 1;
+          timerEl.textContent = seconds + "s";
+        }, 1000);
+      }
+
+      function init() {
+        clearInterval(timerId);
+        timerId = null;
+        firstCard = null;
+        secondCard = null;
+        lock = false;
+        moves = 0;
+        matchedPairs = 0;
+        seconds = 0;
+        movesEl.textContent = "0";
+        matchesEl.textContent = "0 / 8";
+        timerEl.textContent = "0s";
+        bannerEl.textContent = "Match all 8 tech stack pairs!";
+
+        const deck = shuffle([...PAIRS, ...PAIRS]);
+        gridEl.innerHTML = "";
+
+        deck.forEach((item) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "card";
+          btn.dataset.code = item.code;
+          btn.innerHTML = `
+            <span class="back-mark">&lt;/&gt;</span>
+            <span class="face">
+              <span>${item.code}</span>
+              <small>${item.label}</small>
+            </span>
+          `;
+          btn.addEventListener("click", () => flipCard(btn));
+          gridEl.appendChild(btn);
+        });
+      }
+
+      function flipCard(card) {
+        if (lock || card.classList.contains("flipped") || card.classList.contains("matched")) return;
+        startTimer();
+        card.classList.add("flipped");
+
+        if (!firstCard) {
+          firstCard = card;
+          return;
+        }
+
+        secondCard = card;
+        moves += 1;
+        movesEl.textContent = moves;
+        lock = true;
+
+        if (firstCard.dataset.code === secondCard.dataset.code) {
+          firstCard.classList.add("matched");
+          secondCard.classList.add("matched");
+          matchedPairs += 1;
+          matchesEl.textContent = `${matchedPairs} / ${PAIRS.length}`;
+          resetTurn();
+
+          if (matchedPairs === PAIRS.length) {
+            clearInterval(timerId);
+            bannerEl.textContent = `Cleared in ${moves} moves and ${seconds}s!`;
+          }
+        } else {
+          setTimeout(() => {
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            resetTurn();
+          }, 680);
+        }
+      }
+
+      function resetTurn() {
+        firstCard = null;
+        secondCard = null;
+        lock = false;
+      }
+
+      restartBtn.addEventListener("click", init);
+      init();
+    </script>
+  </body>
+</html>

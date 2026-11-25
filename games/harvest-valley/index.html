@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harvest Valley Farm</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root {
+  /* Layout: one phone-width game column on a sunflower frame; navy panels stacked like a handheld farm sim */
+  --frame: #f3b51b;
+  --frame-ink: #1d3f9a;
+  --shell: #0b1427;
+  --panel: #111d36;
+  --panel-2: #182a4d;
+  --line: #2b4271;
+  --ink: #eef3ff;
+  --muted: #9cafd3;
+  --gold: #ffd24a;
+  --good: #7fdc5a;
+  --bad: #ff7b6b;
+  --green: #4aa634; --green-d: #276b1b;
+  --blue: #2f63c4; --blue-d: #1b3f86;
+  --orange: #e2832a; --orange-d: #9c4c12;
+  --purple: #3b2e80;
+  --display: 'Lilita One', 'Trebuchet MS', system-ui, sans-serif;
+  --body: 'Nunito', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 22px, rgba(29,63,154,.9) 22px 30px) top right / 140px 140px no-repeat,
+    radial-gradient(circle, rgba(29,63,154,.35) 2px, transparent 2.5px) 0 0 / 22px 22px,
+    var(--frame);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 600;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 28px;
+}
+button { font: inherit; color: inherit; cursor: pointer; border: 0; }
+button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+svg { display: block; }
+
+.game {
+  max-width: 620px; margin: 0 auto;
+  background: var(--shell);
+  border: 3px solid #070d1b;
+  border-radius: 22px;
+  padding: 12px;
+  display: grid; gap: 10px;
+  box-shadow: 0 14px 0 rgba(7,13,27,.35), 0 24px 50px rgba(7,13,27,.35);
+}
+.panel {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  min-width: 0;
+}
+.panel h2 {
+  margin: 0; padding: 8px 12px;
+  font: 400 1.05rem/1 var(--display); letter-spacing: .06em; text-transform: uppercase;
+  text-align: center; border-bottom: 2px solid var(--line);
+}
+
+/* HUD */
+.hud { display: grid; grid-template-columns: 1fr 1fr 1.2fr auto; align-items: center; gap: 0; padding: 8px 10px; }
+.hud > div { padding: 2px 10px; min-width: 0; }
+.hud > div + div { border-left: 2px solid var(--line); }
+.hud .day { display: flex; align-items: center; gap: 8px; }
+.hud .day svg { width: 38px; height: 38px; flex: none; }
+.hud .big { font: 400 1.15rem/1.1 var(--display); letter-spacing: .03em; }
+.hud .sub { color: var(--muted); font-size: .82rem; }
+.hud .label { font: 400 .78rem/1 var(--display); letter-spacing: .1em; color: var(--muted); text-align: center; }
+.money { text-align: center; }
+.money .big { color: var(--gold); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.energy .bar { margin-top: 5px; height: 18px; border-radius: 99px; background: #0a1222; border: 2px solid #22375e; position: relative; overflow: hidden; }
+.energy .fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(#8be36a, #3f9c2a); transition: width .3s; }
+.energy .txt { position: relative; display: block; text-align: center; font-size: .75rem; line-height: 14px; font-variant-numeric: tabular-nums; text-shadow: 0 1px 0 #000; }
+.gear { width: 42px; height: 42px; border-radius: 10px; background: var(--panel-2); border: 2px solid var(--line); display: grid; place-items: center; margin-left: 8px; }
+.gear svg { width: 24px; height: 24px; }
+
+/* Scene */
+.scene { position: relative; border-radius: 14px; overflow: hidden; border: 2px solid var(--line); background: #6cae3c; }
+.scene canvas { display: block; width: 100%; height: auto; aspect-ratio: 640 / 400; max-width: 100%; touch-action: manipulation; }
+.toast {
+  position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+  background: rgba(11,20,39,.92); border: 2px solid var(--gold); color: var(--ink);
+  padding: 6px 14px; border-radius: 99px; font-size: .9rem; white-space: nowrap; max-width: 92%;
+  overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+
+/* Tables */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rows { padding: 4px 12px 8px; }
+.row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 1.02rem; }
+.row + .row { border-top: 1px solid var(--line); }
+.row svg { width: 24px; height: 24px; flex: none; }
+.row .name { flex: 1; min-width: 0; }
+.row .val { font: 400 1.15rem/1 var(--display); font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.row .price { color: var(--gold); }
+.trend { font-size: .7rem; margin-left: 4px; }
+.trend.up { color: var(--good); } .trend.down { color: var(--bad); }
+.seedcount { display: block; font-size: .72rem; color: var(--muted); }
+
+/* Actions */
+.actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.act {
+  display: flex; align-items: center; gap: 8px; text-align: left;
+  padding: 10px; border-radius: 14px; border: 2px solid rgba(0,0,0,.35);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.18), 0 4px 0 rgba(0,0,0,.35);
+  transition: transform .08s, filter .15s; position: relative; min-width: 0;
+}
+.act:active { transform: translateY(3px); box-shadow: inset 0 2px 0 rgba(255,255,255,.18), 0 1px 0 rgba(0,0,0,.35); }
+.act:hover { filter: brightness(1.08); }
+.act svg { width: 40px; height: 40px; flex: none; }
+.act b { font: 400 1.25rem/1 var(--display); letter-spacing: .04em; display: block; }
+.act small { font-size: .74rem; line-height: 1.15; display: block; opacity: .9; }
+.act.plant { background: linear-gradient(var(--green), var(--green-d)); }
+.act.harvest { background: linear-gradient(var(--blue), var(--blue-d)); }
+.act.sell { background: linear-gradient(var(--orange), var(--orange-d)); }
+.act[aria-pressed="true"] { outline: 3px solid var(--gold); outline-offset: 2px; }
+.badge { position: absolute; top: -8px; right: -6px; background: var(--gold); color: #3a2a00; font: 400 .85rem/1 var(--display); padding: 4px 7px; border-radius: 99px; border: 2px solid #070d1b; }
+
+/* Tray */
+.tray { padding: 10px 12px; display: grid; gap: 8px; }
+.tray .hint { color: var(--muted); font-size: .85rem; margin: 0; }
+.chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.chip { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 10px; background: var(--panel-2); border: 2px solid var(--line); text-align: left; min-width: 0; }
+.chip svg { width: 26px; height: 26px; flex: none; }
+.chip.on { border-color: var(--gold); background: #2a3a20; }
+.chip span { min-width: 0; }
+.chip small { display: block; color: var(--muted); font-size: .74rem; }
+.sellrow { display: grid; grid-template-columns: 26px 1fr auto auto; align-items: center; gap: 8px; }
+.sellrow svg { width: 24px; height: 24px; }
+.sellrow .meta small { display: block; color: var(--muted); font-size: .74rem; }
+.btn {
+  padding: 7px 12px; border-radius: 9px; font: 400 .95rem/1 var(--display); letter-spacing: .04em;
+  background: linear-gradient(#6ccf4a, #2f8a1f); border: 2px solid rgba(0,0,0,.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 2px 0 rgba(0,0,0,.35);
+}
+.btn:disabled { filter: grayscale(.9) brightness(.7); cursor: not-allowed; }
+.btn.alt { background: linear-gradient(#e9953b, #a8561a); }
+.btn.ghost { background: var(--panel-2); }
+.btn.danger { background: linear-gradient(#e2574c, #9b2b22); }
+.settings ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .88rem; line-height: 1.45; }
+.settings .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* Shop + tasks */
+.lower { display: grid; grid-template-columns: 1.15fr 1fr; gap: 10px; }
+.shop { background: linear-gradient(var(--purple), var(--panel) 60%); }
+.shop h2 { border-color: #5a4bb0; }
+.items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; }
+.item { background: var(--panel-2); border: 2px solid var(--line); border-radius: 10px; padding: 8px 6px; display: grid; justify-items: center; gap: 4px; text-align: center; min-width: 0; }
+.item .t { font-size: .82rem; }
+.item svg { width: 44px; height: 30px; }
+.item .p { font: 400 1.1rem/1 var(--display); color: var(--gold); }
+.item .p small { font: 600 .68rem var(--body); color: var(--muted); }
+.item .btn { width: 100%; padding: 6px 4px; font-size: .85rem; }
+.task { display: grid; grid-template-columns: 20px 1fr auto; gap: 4px 8px; align-items: center; padding: 7px 0; }
+.task + .task { border-top: 1px solid var(--line); }
+.task svg { width: 20px; height: 20px; }
+.task .n { font-size: .9rem; min-width: 0; }
+.task .c { font: 400 .95rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.task.done .c { color: var(--good); }
+.task .track { grid-column: 2 / 4; height: 6px; border-radius: 9px; background: #0a1222; overflow: hidden; }
+.task .track i { display: block; height: 100%; background: var(--good); }
+.task .btn { grid-column: 2 / 4; justify-self: start; padding: 5px 10px; font-size: .82rem; }
+.task .reward { color: var(--muted); font-size: .72rem; }
+
+/* Console */
+.console { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; padding: 0 12px 12px; }
+.console h2 { grid-column: 1 / -1; margin: 0 -12px; }
+.log { font-family: var(--mono); font-size: .8rem; line-height: 1.55; height: 7.8em; overflow-y: auto; min-width: 0; padding-top: 8px; }
+.log p { margin: 0; }
+.log .plant { color: #cfe0ff; } .log .harvest { color: #9fd0ff; } .log .sell { color: var(--good); }
+.log .gold { color: var(--gold); } .log .info { color: var(--muted); } .log .warn { color: var(--bad); }
+.next { padding: 12px 16px; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.next svg { width: 16px; height: 16px; }
+
+@media (max-width: 560px) {
+  .game { padding: 8px; border-radius: 16px; }
+  .hud { grid-template-columns: 1fr 1fr auto; row-gap: 8px; }
+  .hud .energy { grid-column: 1 / 3; grid-row: 2; border-left: 0 !important; }
+  .hud .gear { grid-row: 1; grid-column: 3; }
+  .two, .lower { grid-template-columns: 1fr; }
+  .act { flex-direction: column; text-align: center; gap: 4px; padding: 8px 4px; }
+  .act small { display: none; }
+  .chips { grid-template-columns: 1fr; }
+  .console { grid-template-columns: 1fr; }
+  .next { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .energy .fill, .act { transition: none; } }
+</style>
+
+<main class="game" id="game">
+  <header class="panel hud">
+    <div class="day"><span id="wxIcon"></span><div><div class="big" id="dayLbl">DAY 1</div><div class="sub" id="wxLbl">Sunny</div></div></div>
+    <div class="money"><div class="label">MONEY</div><div class="big" id="moneyLbl">$1,500</div></div>
+    <div class="energy"><div class="label">ENERGY</div><div class="bar"><span class="fill" id="enFill"></span><span class="txt" id="enLbl">100 / 100</span></div></div>
+    <button class="gear" id="gearBtn" data-act="settings" aria-label="Settings and help">
+      <svg viewBox="0 0 24 24"><path fill="#d8e2f7" d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.6 7.6 0 0 0-1.7-1L15 3h-4l-.3 2.9a7.6 7.6 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.6 7.6 0 0 0 1.7 1L11 21h4l.3-2.9a7.6 7.6 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg>
+    </button>
+  </header>
+
+  <section class="scene">
+    <canvas id="farm" aria-label="Your farm. Tap a field plot to plant or harvest."></canvas>
+    <div class="toast" id="toast" hidden></div>
+  </section>
+
+  <div class="two">
+    <section class="panel"><h2>Market Prices</h2><div class="rows" id="market"></div></section>
+    <section class="panel"><h2>Inventory</h2><div class="rows" id="inventory"></div></section>
+  </div>
+
+  <div class="actions">
+    <button class="act plant" data-act="mode" data-mode="plant" id="btnPlant">
+      <svg viewBox="0 0 48 48"><ellipse cx="24" cy="40" rx="15" ry="5" fill="#6b3d1e"/><path d="M24 40V22" stroke="#9be36f" stroke-width="3.5" stroke-linecap="round"/><path d="M24 26c-2-7-8-10-14-9 1 6 7 10 14 9z" fill="#7fd14f"/><path d="M24 22c2-7 8-10 14-9-1 6-7 10-14 9z" fill="#a8eb6c"/></svg>
+      <span><b>PLANT</b><small>Plant seeds in your field</small></span>
+    </button>
+    <button class="act harvest" data-act="harvestAll" id="btnHarvest">
+      <svg viewBox="0 0 48 48"><path d="M30 6c10 4 13 16 7 24-2-9-9-15-19-15 3-6 7-9 12-9z" fill="#dfe6f2"/><path d="M30 6c6 4 8 11 6 18" stroke="#9aa6bb" stroke-width="2" fill="none"/><path d="M18 15l-9 27" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/></svg>
+      <span><b>HARVEST</b><small>Gather every ripe plot</small></span>
+    </button>
+    <button class="act sell" data-act="mode" data-mode="sell" id="btnSell">
+      <svg viewBox="0 0 48 48"><path d="M6 22h30l-3 20H9z" fill="#b8742f"/><path d="M8 28h26M8 35h25" stroke="#7d4a19" stroke-width="2"/><circle cx="14" cy="18" r="6" fill="#f07f23"/><circle cx="25" cy="16" r="7" fill="#e74b3c"/><path d="M19 10c2-3 5-4 8-3" stroke="#4aa634" stroke-width="2.5" fill="none"/><circle cx="38" cy="36" r="8" fill="#ffd24a" stroke="#b8860b" stroke-width="2"/><text x="38" y="40.5" font-size="11" text-anchor="middle" fill="#8a6100" font-family="Arial" font-weight="bold">$</text></svg>
+      <span><b>SELL</b><small>Sell crops at the market</small></span>
+    </button>
+  </div>
+
+  <section class="panel tray" id="tray" hidden></section>
+
+  <div class="lower">
+    <section class="panel shop"><h2>Seed Shop</h2><div class="items" id="shop"></div></section>
+    <section class="panel"><h2>Tasks</h2><div class="rows" id="tasks"></div></section>
+  </div>
+
+  <section class="panel console">
+    <h2>Console</h2>
+    <div class="log" id="log" aria-live="polite"></div>
+    <button class="btn next" data-act="nextDay">NEXT DAY <svg viewBox="0 0 16 16"><path d="M4 2l9 6-9 6z" fill="currentColor"/></svg></button>
+  </section>
+</main>
+
+<script>
+const CROPS = {
+  Wheat:  { seed: 10, base: 25, days: 2 },
+  Corn:   { seed: 15, base: 30, days: 3 },
+  Carrot: { seed: 20, base: 35, days: 4 },
+};
+const NAMES = Object.keys(CROPS);
+const PLOTS = 8, PER_PLOT = 10, MAX_ENERGY = 100, PACK = 10;
+const COST = { plant: 5, harvest: 4 };
+const WEATHER = {
+  Sunny:  { weight: 5, growth: 1, note: 'Sunny: harvests today yield +20%.' },
+  Cloudy: { weight: 3, growth: 1, note: 'Cloudy: a calm day on the farm.' },
+  Rainy:  { weight: 2, growth: 2, note: 'Rainy: crops grow twice as fast tonight.' },
+};
+const SAVE_KEY = 'harvest-valley-v1';
+
+const ICON = {
+  Wheat: `<svg viewBox="0 0 24 24"><path d="M12 23V7" stroke="#b98a24" stroke-width="1.6"/><g fill="#f1c24a">${[6,10,14].map(y=>`<ellipse cx="9.4" cy="${y}" rx="1.8" ry="3" transform="rotate(-30 9.4 ${y})"/><ellipse cx="14.6" cy="${y}" rx="1.8" ry="3" transform="rotate(30 14.6 ${y})"/>`).join('')}<ellipse cx="12" cy="3.5" rx="1.6" ry="2.8"/></g></svg>`,
+  Corn: `<svg viewBox="0 0 24 24"><path d="M12 22c-6-2-8-8-7-14 3 3 5 7 7 14z" fill="#5fb43a"/><ellipse cx="13" cy="10.5" rx="4" ry="8.5" fill="#f6d33f" transform="rotate(12 13 10.5)"/><path d="M12 22c5-2 8-7 8-13-3 3-6 7-8 13z" fill="#7fd14f"/><g fill="#d9a91f">${[5,8,11,14].map(y=>`<circle cx="12.4" cy="${y}" r=".8"/><circle cx="14.6" cy="${y+1}" r=".8"/>`).join('')}</g></svg>`,
+  Carrot: `<svg viewBox="0 0 24 24"><path d="M12 6l-3 2-2 5 4-1z M12 6l3 2 2 5-4-1z" fill="#56b03a"/><path d="M11 3c0 3 .3 5 1 7 .7-2 1-4 1-7z" fill="#7fd14f"/><path d="M7.5 10.5c3-1.4 6-1.4 9 0L12.6 22.5a.7.7 0 0 1-1.2 0z" fill="#f07f23"/><path d="M9.5 13.5h2.5M10.5 16.5h2.5M11 19h1.6" stroke="#b9561a" stroke-width=".9"/></svg>`,
+};
+const SEED_ICON = c => {
+  const col = { Wheat: '#e2b046', Corn: '#f2cf3c', Carrot: '#ef8a3a' }[c];
+  return `<svg viewBox="0 0 44 30"><g fill="${col}" stroke="rgba(0,0,0,.35)" stroke-width="1"><ellipse cx="13" cy="19" rx="7" ry="5" transform="rotate(-20 13 19)"/><ellipse cx="29" cy="20" rx="7" ry="5" transform="rotate(15 29 20)"/><ellipse cx="21" cy="11" rx="7" ry="5" transform="rotate(-5 21 11)"/></g></svg>`;
+};
+const WX_ICON = {
+  Sunny: `<svg viewBox="0 0 40 40"><g stroke="#ffcc33" stroke-width="3" stroke-linecap="round">${[0,45,90,135,180,225,270,315].map(a=>`<line x1="20" y1="3" x2="20" y2="8" transform="rotate(${a} 20 20)"/>`).join('')}</g><circle cx="20" cy="20" r="8.5" fill="#ffd84a"/></svg>`,
+  Cloudy: `<svg viewBox="0 0 40 40"><circle cx="27" cy="13" r="6" fill="#ffd84a"/><path d="M10 31a7 7 0 0 1 1-14 9 9 0 0 1 17 2 6 6 0 0 1 1 12z" fill="#dfe6f2"/></svg>`,
+  Rainy: `<svg viewBox="0 0 40 40"><path d="M10 25a7 7 0 0 1 1-14 9 9 0 0 1 17 2 6 6 0 0 1 1 12z" fill="#aab6cc"/><g stroke="#6fb4ff" stroke-width="2.5" stroke-linecap="round"><line x1="13" y1="29" x2="11" y2="35"/><line x1="20" y1="29" x2="18" y2="35"/><line x1="27" y1="29" x2="25" y2="35"/></g></svg>`,
+};
+const TASK_ICON = { plant: '#7fd14f', harvest: '#6fb4ff', sell: '#ffd24a' };
+
+const $ = s => document.querySelector(s);
+const el = {
+  wxIcon: $('#wxIcon'), dayLbl: $('#dayLbl'), wxLbl: $('#wxLbl'), money: $('#moneyLbl'),
+  enFill: $('#enFill'), enLbl: $('#enLbl'), market: $('#market'), inv: $('#inventory'),
+  tray: $('#tray'), shop: $('#shop'), tasks: $('#tasks'), log: $('#log'), toast: $('#toast'),
+  btnHarvest: $('#btnHarvest'), btnPlant: $('#btnPlant'), btnSell: $('#btnSell'),
+};
+const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+let state;
+let ui = { mode: 'plant', confirmReset: false };
+
+function makeTask(type, crop, goal) {
+  const reward = Math.round(goal * CROPS[crop].base * (type === 'sell' ? 0.3 : 0.45) / 10) * 10;
+  return { type, crop, goal, progress: 0, reward };
+}
+function randomTask() {
+  for (let i = 0; i < 20; i++) {
+    const type = pick(['plant', 'harvest', 'sell']), crop = pick(NAMES);
+    if (state.tasks.some(t => t.type === type && t.crop === crop)) continue;
+    const goal = pick([20, 30, 40, 50, 60]) + Math.min(60, Math.floor(state.day / 5) * 10);
+    return makeTask(type, crop, goal);
+  }
+  return makeTask('sell', 'Wheat', 40);
+}
+function newState() {
+  return {
+    day: 1, weather: 'Sunny', money: 1500, energy: MAX_ENERGY,
+    seeds: { Wheat: 20, Corn: 0, Carrot: 0 },
+    inv: { Wheat: 0, Corn: 0, Carrot: 0 },
+    plots: Array(PLOTS).fill(null),
+    prices: { Wheat: 25, Corn: 30, Carrot: 35 },
+    prev: { Wheat: 25, Corn: 30, Carrot: 35 },
+    plantCrop: 'Wheat',
+    tasks: [makeTask('plant', 'Wheat', 50), makeTask('harvest', 'Corn', 30), makeTask('sell', 'Carrot', 20)],
+    log: [
+      { t: 'Welcome to Harvest Valley! You start with 20 Wheat seeds.', k: 'info' },
+      { t: 'Tap an empty plot in the field to plant.', k: 'info' },
+    ],
+  };
+}
+function save() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {} }
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SAVE_KEY));
+    if (s && s.plots && s.plots.length === PLOTS) return s;
+  } catch (e) {}
+  return null;
+}
+
+/* ---------- game actions ---------- */
+function log(t, k = 'info') { state.log.push({ t, k }); if (state.log.length > 40) state.log.shift(); }
+let toastTimer;
+function toast(msg) {
+  el.toast.textContent = msg; el.toast.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.toast.hidden = true, 2000);
+}
+function spend(n) {
+  if (state.energy < n) { toast('Too tired! Press Next Day to rest.'); return false; }
+  state.energy -= n; return true;
+}
+function progress(type, crop, n) {
+  for (const t of state.tasks) if (t.type === type && t.crop === crop) t.progress = Math.min(t.goal, t.progress + n);
+}
+function isReady(p) { return p && p.age >= CROPS[p.crop].days; }
+
+function plantAt(i) {
+  const crop = state.plantCrop, have = state.seeds[crop];
+  if (have <= 0) { toast(`No ${crop} seeds left. Buy more in the Seed Shop.`); return; }
+  if (!spend(COST.plant)) return;
+  const qty = Math.min(PER_PLOT, have);
+  state.seeds[crop] -= qty;
+  state.plots[i] = { crop, qty, age: 0 };
+  progress('plant', crop, qty);
+  log(`Planted ${qty} ${crop}.`, 'plant');
+  walkTo(i); floatText(i, `${qty} ${crop} planted`, '#ffffff');
+}
+function harvestAt(i, quiet) {
+  const p = state.plots[i];
+  if (!isReady(p)) return 0;
+  if (!spend(COST.harvest)) return -1;
+  const n = p.qty + (state.weather === 'Sunny' ? Math.ceil(p.qty * 0.2) : 0);
+  state.inv[p.crop] += n;
+  state.plots[i] = null;
+  progress('harvest', p.crop, n);
+  if (!quiet) log(`Harvested ${n} ${p.crop}.`, 'harvest');
+  walkTo(i); floatText(i, `+${n} ${p.crop}`, '#ffe066');
+  return n;
+}
+function harvestAll() {
+  const got = {};
+  let any = false;
+  for (let i = 0; i < PLOTS; i++) {
+    const p = state.plots[i];
+    if (!isReady(p)) continue;
+    any = true;
+    const crop = p.crop, n = harvestAt(i, true);
+    if (n < 0) break;
+    got[crop] = (got[crop] || 0) + n;
+  }
+  if (!any) { toast('Nothing is ripe yet. Press Next Day to let crops grow.'); return; }
+  for (const c in got) log(`Harvested ${got[c]} ${c}.`, 'harvest');
+}
+function onPlot(i) {
+  const p = state.plots[i];
+  if (!p) { plantAt(i); }
+  else if (isReady(p)) { harvestAt(i); }
+  else {
+    const left = CROPS[p.crop].days - p.age;
+    toast(`${p.crop} will be ripe in ${left} day${left > 1 ? 's' : ''}.`);
+    return;
+  }
+  commit();
+}
+function sell(crop, qty) {
+  const have = state.inv[crop];
+  const q = qty === 'all' ? have : Math.min(qty, have);
+  if (q <= 0) { toast(`You have no ${crop} to sell.`); return; }
+  const amt = q * state.prices[crop];
+  state.inv[crop] -= q; state.money += amt;
+  progress('sell', crop, q);
+  log(`Sold ${q} ${crop} for ${fmt(amt)}.`, 'sell');
+  commit();
+}
+function buy(crop) {
+  const cost = CROPS[crop].seed * PACK;
+  if (state.money < cost) { toast(`Not enough money! ${PACK} ${crop} seeds cost ${fmt(cost)}.`); return; }
+  state.money -= cost; state.seeds[crop] += PACK;
+  state.plantCrop = crop;
+  log(`Bought ${PACK} ${crop} seeds for ${fmt(cost)}.`, 'plant');
+  commit();
+}
+function claim(idx) {
+  const t = state.tasks[idx];
+  if (!t || t.progress < t.goal) return;
+  state.money += t.reward;
+  log(`Task complete: ${taskName(t)}. Reward ${fmt(t.reward)}!`, 'gold');
+  state.tasks[idx] = randomTask();
+  commit();
+}
+function rollWeather() {
+  const total = Object.values(WEATHER).reduce((a, w) => a + w.weight, 0);
+  let r = Math.random() * total;
+  for (const [name, w] of Object.entries(WEATHER)) { if ((r -= w.weight) < 0) return name; }
+  return 'Sunny';
+}
+function nextDay() {
+  const g = WEATHER[state.weather].growth;
+  for (const p of state.plots) if (p) p.age += g;
+  log(`Day ${state.day} completed!`, 'gold');
+  state.day++;
+  state.weather = rollWeather();
+  state.prev = { ...state.prices };
+  for (const c of NAMES) state.prices[c] = Math.round(CROPS[c].base * (0.75 + Math.random() * 0.55));
+  state.energy = MAX_ENERGY;
+  const ripe = state.plots.filter(isReady).length;
+  log(WEATHER[state.weather].note, 'info');
+  if (ripe) log(`${ripe} plot${ripe > 1 ? 's are' : ' is'} ready to harvest.`, 'harvest');
+  commit();
+}
+function resetGame() { state = newState(); ui = { mode: 'plant', confirmReset: false }; commit(); }
+function commit() { save(); render(); }
+
+/* ---------- rendering ---------- */
+function taskName(t) { return `${t.type[0].toUpperCase() + t.type.slice(1)} ${t.goal} ${t.crop}`; }
+
+function render() {
+  el.wxIcon.innerHTML = WX_ICON[state.weather];
+  el.dayLbl.textContent = `DAY ${state.day}`;
+  el.wxLbl.textContent = state.weather;
+  el.money.textContent = fmt(state.money);
+  el.enFill.style.width = (state.energy / MAX_ENERGY * 100) + '%';
+  el.enLbl.textContent = `${state.energy} / ${MAX_ENERGY}`;
+
+  el.market.innerHTML = NAMES.map(c => {
+    const d = state.prices[c] - state.prev[c];
+    const tr = d > 0 ? `<span class="trend up" title="Up from yesterday">&#9650;</span>` : d < 0 ? `<span class="trend down" title="Down from yesterday">&#9660;</span>` : '';
+    return `<div class="row">${ICON[c]}<span class="name">${c}</span><span class="val price">$${state.prices[c]}</span>${tr}</div>`;
+  }).join('');
+  el.inv.innerHTML = NAMES.map(c =>
+    `<div class="row">${ICON[c]}<span class="name">${c}<span class="seedcount">${state.seeds[c]} seeds</span></span><span class="val">${state.inv[c]}</span></div>`
+  ).join('');
+
+  const ripe = state.plots.filter(isReady).length;
+  el.btnHarvest.querySelector('.badge')?.remove();
+  if (ripe) el.btnHarvest.insertAdjacentHTML('beforeend', `<span class="badge">${ripe}</span>`);
+  el.btnPlant.setAttribute('aria-pressed', ui.mode === 'plant');
+  el.btnSell.setAttribute('aria-pressed', ui.mode === 'sell');
+
+  renderTray();
+
+  el.shop.innerHTML = NAMES.map(c => `
+    <div class="item"><span class="t">${c} Seeds</span>${SEED_ICON(c)}
+      <span class="p">$${CROPS[c].seed}<small> each</small></span>
+      <button class="btn" data-act="buy" data-crop="${c}" ${state.money < CROPS[c].seed * PACK ? 'disabled' : ''}>BUY ${PACK}</button>
+    </div>`).join('');
+
+  el.tasks.innerHTML = state.tasks.map((t, i) => {
+    const done = t.progress >= t.goal;
+    return `<div class="task ${done ? 'done' : ''}">
+      <svg viewBox="0 0 20 20">${done ? `<path d="M3 10l5 5 9-10" stroke="${TASK_ICON[t.type]}" stroke-width="3" fill="none" stroke-linecap="round"/>` : `<circle cx="10" cy="10" r="6" fill="${TASK_ICON[t.type]}"/>`}</svg>
+      <span class="n">${taskName(t)}<span class="reward"> · ${fmt(t.reward)}</span></span>
+      <span class="c">${t.progress} / ${t.goal}</span>
+      ${done ? `<button class="btn" data-act="claim" data-i="${i}">CLAIM ${fmt(t.reward)}</button>` : `<span class="track"><i style="width:${t.progress / t.goal * 100}%"></i></span>`}
+    </div>`;
+  }).join('');
+
+  el.log.innerHTML = state.log.slice(-12).map(l => `<p class="${l.k}">${l.t}</p>`).join('');
+  el.log.scrollTop = el.log.scrollHeight;
+}
+
+function renderTray() {
+  const m = ui.mode;
+  el.tray.hidden = !m;
+  if (m === 'plant') {
+    el.tray.innerHTML = `
+      <div class="chips">${NAMES.map(c => `
+        <button class="chip ${state.plantCrop === c ? 'on' : ''}" data-act="pickCrop" data-crop="${c}" aria-pressed="${state.plantCrop === c}">
+          ${ICON[c]}<span>${c}<small>${state.seeds[c]} seeds · ${CROPS[c].days} days</small></span>
+        </button>`).join('')}</div>
+      <p class="hint">Tap an empty plot to plant ${PER_PLOT} ${state.plantCrop} seeds (${COST.plant} energy). Tap a ripe plot to harvest it.</p>`;
+  } else if (m === 'sell') {
+    el.tray.innerHTML = NAMES.map(c => `
+      <div class="sellrow">${ICON[c]}
+        <span class="meta">${c}<small>You have ${state.inv[c]} · $${state.prices[c]} each</small></span>
+        <button class="btn alt" data-act="sell" data-crop="${c}" data-q="10" ${state.inv[c] ? '' : 'disabled'}>SELL 10</button>
+        <button class="btn alt" data-act="sell" data-crop="${c}" data-q="all" ${state.inv[c] ? '' : 'disabled'}>ALL ${fmt(state.inv[c] * state.prices[c])}</button>
+      </div>`).join('') + `<p class="hint">Prices change every day. Watch the arrows in Market Prices.</p>`;
+  } else if (m === 'settings') {
+    el.tray.innerHTML = `<div class="settings">
+      <ul>
+        <li>Buy seeds in the Seed Shop, then tap empty plots to plant (${COST.plant} energy each).</li>
+        <li>Press Next Day to let crops grow. Wheat takes 2 days, Corn 3, Carrot 4. Rain doubles growth.</li>
+        <li>Harvest ripe plots (${COST.harvest} energy). Sunny days give +20% harvest.</li>
+        <li>Sell when prices are high, and claim task rewards. Energy refills every morning.</li>
+      </ul>
+      <div class="btns" style="margin-top:10px">${ui.confirmReset
+        ? `<span>Erase this farm and start over?</span><button class="btn danger" data-act="reset">YES, START OVER</button><button class="btn ghost" data-act="cancelReset">CANCEL</button>`
+        : `<button class="btn ghost" data-act="askReset">NEW FARM</button>`}</div>
+    </div>`;
+  } else el.tray.innerHTML = '';
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled) return;
+  const a = b.dataset.act, crop = b.dataset.crop;
+  if (a === 'mode') { ui.mode = ui.mode === b.dataset.mode ? null : b.dataset.mode; render(); }
+  else if (a === 'settings') { ui.mode = ui.mode === 'settings' ? null : 'settings'; ui.confirmReset = false; render(); }
+  else if (a === 'pickCrop') { state.plantCrop = crop; commit(); }
+  else if (a === 'harvestAll') { harvestAll(); commit(); }
+  else if (a === 'sell') { sell(crop, b.dataset.q === 'all' ? 'all' : +b.dataset.q); }
+  else if (a === 'buy') buy(crop);
+  else if (a === 'claim') claim(+b.dataset.i);
+  else if (a === 'nextDay') nextDay();
+  else if (a === 'askReset') { ui.confirmReset = true; render(); }
+  else if (a === 'cancelReset') { ui.confirmReset = false; render(); }
+  else if (a === 'reset') resetGame();
+});
+
+/* ---------- farm scene (canvas) ---------- */
+const W = 640, H = 400;
+const cv = $('#farm'), ctx = cv.getContext('2d');
+cv.width = W * 2; cv.height = H * 2; ctx.scale(2, 2);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = rng(7);
+const grass = Array.from({ length: 260 }, () => ({ x: R() * W, y: 150 + R() * 250, s: 1 + R() * 2, c: R() > .5 ? '#5b9a31' : '#7fbf47' }));
+const flowers = Array.from({ length: 26 }, () => ({ x: R() * W, y: 160 + R() * 30, c: pick(['#fff4c2', '#ffd1e0', '#ffe066']) }));
+const drops = Array.from({ length: 120 }, () => ({ x: R() * W, y: R() * H, v: 6 + R() * 4 }));
+
+function plotRect(i) { const c = i % 4, r = Math.floor(i / 4); return { x: 40 + c * 144, y: 194 + r * 100, w: 128, h: 84 }; }
+function plotAt(x, y) { for (let i = 0; i < PLOTS; i++) { const r = plotRect(i); if (x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h) return i; } return -1; }
+
+const farmer = { x: 320, y: 186, tx: 320, ty: 186, face: 1 };
+function walkTo(i) { const r = plotRect(i); farmer.tx = r.x + r.w / 2; farmer.ty = r.y + r.h + 4; }
+const floaters = [];
+function floatText(i, text, color) { const r = plotRect(i); floaters.push({ x: r.x + r.w / 2, y: r.y + 20, text, color, t: 0 }); }
+
+let hover = -1;
+function toLocal(e) { const b = cv.getBoundingClientRect(); return [(e.clientX - b.left) / b.width * W, (e.clientY - b.top) / b.height * H]; }
+cv.addEventListener('click', e => { const i = plotAt(...toLocal(e)); if (i >= 0) onPlot(i); });
+cv.addEventListener('mousemove', e => { hover = plotAt(...toLocal(e)); cv.style.cursor = hover >= 0 ? 'pointer' : 'default'; });
+cv.addEventListener('mouseleave', () => hover = -1);
+
+function rrect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, r) : ctx.rect(x, y, w, h); }
+function circle(x, y, r, c) { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+
+function drawSky(t) {
+  const sky = { Sunny: ['#5db7f0', '#bfe6ff'], Cloudy: ['#7d9bb8', '#c9d7e3'], Rainy: ['#566a80', '#93a4b5'] }[state.weather];
+  const g = ctx.createLinearGradient(0, 0, 0, 150); g.addColorStop(0, sky[0]); g.addColorStop(1, sky[1]);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, 150);
+  if (state.weather !== 'Rainy') {
+    circle(470, 42, 24, 'rgba(255,230,120,.35)'); circle(470, 42, 17, '#ffe066');
+  }
+  const n = state.weather === 'Sunny' ? 2 : 5;
+  for (let k = 0; k < n; k++) {
+    const x = ((k * 160 + t * (6 + k)) % (W + 140)) - 70, y = 26 + (k % 3) * 18;
+    const c = state.weather === 'Rainy' ? '#8492a3' : '#f4f8fc';
+    circle(x, y, 14, c); circle(x + 16, y - 6, 17, c); circle(x + 34, y, 13, c); ctx.fillRect(x, y, 34, 12);
+  }
+}
+function drawLand() {
+  ctx.fillStyle = '#4f8f3a';
+  ctx.beginPath(); ctx.moveTo(0, 120); ctx.quadraticCurveTo(120, 80, 260, 118); ctx.quadraticCurveTo(420, 70, 640, 112); ctx.lineTo(640, 160); ctx.lineTo(0, 160); ctx.fill();
+  ctx.fillStyle = '#6cae3c'; ctx.fillRect(0, 148, W, H - 148);
+  ctx.beginPath(); ctx.moveTo(0, 152); ctx.quadraticCurveTo(320, 132, 640, 152); ctx.fill();
+  for (const d of grass) { ctx.fillStyle = d.c; ctx.fillRect(d.x, d.y, d.s, d.s * 2); }
+  // dirt paths
+  ctx.fillStyle = '#c9a26a';
+  ctx.beginPath(); ctx.moveTo(380, 160); ctx.quadraticCurveTo(340, 170, 330, 186); ctx.lineTo(310, 186); ctx.quadraticCurveTo(318, 165, 368, 156); ctx.fill();
+  ctx.fillRect(306, 182, 28, H - 182);
+  ctx.fillRect(20, 280, 600, 12);
+  for (const f of flowers) circle(f.x, f.y, 1.6, f.c);
+}
+function tree(x, y, s) {
+  ctx.fillStyle = '#6b4423'; ctx.fillRect(x - 3 * s, y - 14 * s, 6 * s, 14 * s);
+  circle(x, y - 24 * s, 13 * s, '#2f7a2a'); circle(x - 9 * s, y - 18 * s, 10 * s, '#3b8f31'); circle(x + 9 * s, y - 18 * s, 10 * s, '#3b8f31'); circle(x - 3 * s, y - 28 * s, 8 * s, '#4fa83c');
+}
+function barn(x, y) {
+  ctx.fillStyle = '#b5322a'; ctx.fillRect(x, y - 66, 116, 66);
+  ctx.fillStyle = '#9a2a23'; for (let i = 6; i < 116; i += 12) ctx.fillRect(x + i, y - 66, 1.5, 66);
+  ctx.fillStyle = '#4b505c';
+  ctx.beginPath(); ctx.moveTo(x - 8, y - 64); ctx.lineTo(x + 14, y - 96); ctx.lineTo(x + 58, y - 114); ctx.lineTo(x + 102, y - 96); ctx.lineTo(x + 124, y - 64); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#b5322a'; ctx.beginPath(); ctx.moveTo(x + 8, y - 66); ctx.lineTo(x + 22, y - 90); ctx.lineTo(x + 58, y - 104); ctx.lineTo(x + 94, y - 90); ctx.lineTo(x + 108, y - 66); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = '#f4f1ea'; ctx.lineWidth = 3;
+  ctx.strokeRect(x + 36, y - 40, 44, 40);
+  ctx.beginPath(); ctx.moveTo(x + 36, y - 40); ctx.lineTo(x + 80, y); ctx.moveTo(x + 80, y - 40); ctx.lineTo(x + 36, y); ctx.stroke();
+  ctx.fillStyle = '#5a1512'; ctx.fillRect(x + 48, y - 84, 20, 16); ctx.strokeRect(x + 48, y - 84, 20, 16);
+  ctx.beginPath(); ctx.moveTo(x + 48, y - 84); ctx.lineTo(x + 68, y - 68); ctx.moveTo(x + 68, y - 84); ctx.lineTo(x + 48, y - 68); ctx.stroke();
+}
+function silo(x, y) {
+  ctx.fillStyle = '#a7b0bc'; ctx.fillRect(x, y - 110, 34, 110);
+  ctx.fillStyle = '#8c95a2'; for (let i = 10; i < 110; i += 14) ctx.fillRect(x, y - i, 34, 2);
+  ctx.fillStyle = '#c3cad3'; ctx.fillRect(x + 4, y - 110, 6, 110);
+  ctx.fillStyle = '#6f7885'; ctx.beginPath(); ctx.arc(x + 17, y - 110, 17, Math.PI, 0); ctx.fill();
+}
+function house(x, y, t) {
+  for (let k = 0; k < 3; k++) {
+    const p = ((t * 0.35 + k / 3) % 1);
+    circle(x + 92 + p * 10, y - 92 - p * 40, 4 + p * 6, `rgba(235,240,245,${0.7 * (1 - p)})`);
+  }
+  ctx.fillStyle = '#8a5530'; ctx.fillRect(x + 84, y - 92, 12, 24);
+  ctx.fillStyle = '#b07a46'; ctx.fillRect(x, y - 52, 110, 52);
+  ctx.fillStyle = '#9a6638'; for (let i = 8; i < 52; i += 9) ctx.fillRect(x, y - i, 110, 1.5);
+  ctx.fillStyle = '#2f55a8'; ctx.beginPath(); ctx.moveTo(x - 10, y - 50); ctx.lineTo(x + 20, y - 82); ctx.lineTo(x + 90, y - 82); ctx.lineTo(x + 120, y - 50); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#1f3f85'; ctx.fillRect(x - 10, y - 52, 130, 4);
+  ctx.fillStyle = '#5a3418'; ctx.fillRect(x + 48, y - 30, 16, 30);
+  for (const wx of [x + 14, x + 76]) { ctx.fillStyle = '#ffe9a3'; ctx.fillRect(wx, y - 38, 20, 16); ctx.strokeStyle = '#5a3418'; ctx.lineWidth = 2; ctx.strokeRect(wx, y - 38, 20, 16); ctx.beginPath(); ctx.moveTo(wx + 10, y - 38); ctx.lineTo(wx + 10, y - 22); ctx.stroke(); }
+}
+function windmill(x, y, t) {
+  ctx.strokeStyle = '#7a5a3a'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(x - 18, y); ctx.lineTo(x - 4, y - 92); ctx.moveTo(x + 18, y); ctx.lineTo(x + 4, y - 92); ctx.stroke();
+  ctx.lineWidth = 1.5; ctx.beginPath();
+  for (let k = 0; k < 4; k++) { const a = y - k * 22, b = y - (k + 1) * 22, wa = 18 - k * 3.5, wb = 18 - (k + 1) * 3.5; ctx.moveTo(x - wa, a); ctx.lineTo(x + wb, b); ctx.moveTo(x + wa, a); ctx.lineTo(x - wb, b); }
+  ctx.stroke();
+  const rot = reduced ? 0.3 : t * (state.weather === 'Sunny' ? 1.2 : 2.4);
+  ctx.save(); ctx.translate(x, y - 94); ctx.rotate(rot);
+  for (let k = 0; k < 8; k++) { ctx.rotate(Math.PI / 4); ctx.fillStyle = k % 2 ? '#d9dee6' : '#b9c0cb'; ctx.fillRect(2, -3, 30, 6); }
+  ctx.restore(); circle(x, y - 94, 4, '#5c3d22');
+  ctx.fillStyle = '#7a5a3a'; ctx.beginPath(); ctx.moveTo(x, y - 94); ctx.lineTo(x - 30, y - 100); ctx.lineTo(x - 30, y - 88); ctx.fill();
+}
+function fence(y) {
+  ctx.fillStyle = '#f2efe6';
+  for (let x = 6; x < W; x += 22) { if (x > 292 && x < 340) continue; ctx.fillRect(x, y - 14, 4, 16); }
+  ctx.fillRect(0, y - 11, 296, 3); ctx.fillRect(0, y - 4, 296, 3); ctx.fillRect(338, y - 11, W, 3); ctx.fillRect(338, y - 4, W, 3);
+}
+
+function drawPlant(crop, x, y, s, ready, sway) {
+  if (s < 0.34) { // sprout
+    ctx.strokeStyle = '#7fd14f'; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 3, y - 5); ctx.moveTo(x, y); ctx.lineTo(x + 3, y - 6); ctx.stroke();
+    return;
+  }
+  if (crop === 'Wheat') {
+    const h = 8 + 18 * s, c = ready ? '#e3b23a' : '#9bc94a';
+    ctx.strokeStyle = c; ctx.lineWidth = 1.4;
+    for (const dx of [-3, 0, 3]) { ctx.beginPath(); ctx.moveTo(x + dx, y); ctx.lineTo(x + dx * 1.4 + sway, y - h); ctx.stroke(); }
+    ctx.fillStyle = ready ? '#f1c24a' : '#b6d65a';
+    for (const dx of [-3, 0, 3]) { ctx.beginPath(); ctx.ellipse(x + dx * 1.4 + sway, y - h - 3, 1.8, 4.5, dx * 0.1, 0, Math.PI * 2); ctx.fill(); }
+  } else if (crop === 'Corn') {
+    const h = 10 + 24 * s;
+    ctx.strokeStyle = '#3f9b2c'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + sway, y - h); ctx.stroke();
+    ctx.fillStyle = '#4fb13a';
+    ctx.beginPath(); ctx.ellipse(x - 5, y - h * 0.45, 7, 2, -0.6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(x + 5, y - h * 0.65, 7, 2, 0.6, 0, Math.PI * 2); ctx.fill();
+    if (ready) { ctx.fillStyle = '#f6d33f'; ctx.beginPath(); ctx.ellipse(x + 3, y - h * 0.55, 2.6, 5.5, 0.3, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = ready ? '#e8c45a' : '#8fd06a'; ctx.fillRect(x + sway - 1, y - h - 4, 2, 4);
+  } else {
+    const h = 6 + 10 * s;
+    ctx.strokeStyle = '#4caf3a'; ctx.lineWidth = 2;
+    ctx.beginPath(); for (const dx of [-4, 0, 4]) { ctx.moveTo(x, y - 2); ctx.lineTo(x + dx + sway, y - h); } ctx.stroke();
+    if (ready) { ctx.fillStyle = '#f07f23'; ctx.beginPath(); ctx.ellipse(x, y, 3.6, 2.6, 0, 0, Math.PI * 2); ctx.fill(); }
+  }
+}
+function drawPlots(t) {
+  for (let i = 0; i < PLOTS; i++) {
+    const r = plotRect(i), p = state.plots[i];
+    ctx.fillStyle = 'rgba(0,0,0,.18)'; rrect(r.x + 2, r.y + 4, r.w, r.h, 8); ctx.fill();
+    ctx.fillStyle = '#7a4a26'; rrect(r.x, r.y, r.w, r.h, 8); ctx.fill();
+    ctx.fillStyle = '#653a1c'; for (let k = 0; k < 4; k++) ctx.fillRect(r.x + 6, r.y + 14 + k * 20, r.w - 12, 4);
+    ctx.strokeStyle = '#4a2a12'; ctx.lineWidth = 2; rrect(r.x, r.y, r.w, r.h, 8); ctx.stroke();
+    if (p) {
+      const s = Math.min(1, (p.age + 0.6) / CROPS[p.crop].days), ready = isReady(p);
+      const count = Math.max(1, Math.round(15 * p.qty / PER_PLOT));
+      for (let k = 0; k < count; k++) {
+        const col = k % 5, row = Math.floor(k / 5);
+        const px = r.x + 16 + col * 24, py = r.y + 30 + row * 22;
+        drawPlant(p.crop, px, py, s, ready, reduced ? 0 : Math.sin(t * 2 + k) * 1.2);
+      }
+      if (ready) {
+        ctx.strokeStyle = `rgba(255,220,80,${0.55 + 0.45 * Math.sin(t * 4)})`; ctx.lineWidth = 3; rrect(r.x - 2, r.y - 2, r.w + 4, r.h + 4, 10); ctx.stroke();
+        badge(r.x + r.w - 6, r.y - 6, 'READY', '#ffd24a', '#3a2a00');
+      } else {
+        const left = CROPS[p.crop].days - p.age;
+        badge(r.x + r.w - 6, r.y - 6, `${left}d`, '#111d36', '#eef3ff');
+      }
+    } else if (ui.mode === 'plant' || hover === i) {
+      ctx.strokeStyle = hover === i ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.35)'; ctx.setLineDash([6, 5]); ctx.lineWidth = 2;
+      rrect(r.x + 5, r.y + 5, r.w - 10, r.h - 10, 6); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = hover === i ? '#fff' : 'rgba(255,255,255,.55)'; ctx.font = '600 13px Nunito, system-ui, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(hover === i ? `Plant ${state.plantCrop}` : '+', r.x + r.w / 2, r.y + r.h / 2 + 5);
+    }
+    if (hover === i && p) { ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 2; rrect(r.x, r.y, r.w, r.h, 8); ctx.stroke(); }
+  }
+}
+function badge(right, y, text, bg, fg) {
+  ctx.font = '400 12px "Lilita One", system-ui, sans-serif';
+  const w = ctx.measureText(text).width + 12;
+  ctx.fillStyle = bg; rrect(right - w, y, w, 18, 9); ctx.fill();
+  ctx.strokeStyle = '#070d1b'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.fillText(text, right - w / 2, y + 13);
+}
+function drawFarmer(t) {
+  const dx = farmer.tx - farmer.x, dy = farmer.ty - farmer.y, d = Math.hypot(dx, dy);
+  const moving = d > 1;
+  if (moving) { const sp = Math.min(d, 3.2); farmer.x += dx / d * sp; farmer.y += dy / d * sp; if (Math.abs(dx) > 0.5) farmer.face = Math.sign(dx); }
+  const { x, y } = farmer, step = moving && !reduced ? Math.sin(t * 14) * 3 : 0, bob = moving ? 0 : Math.sin(t * 2) * 0.6;
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.ellipse(x, y, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#3b2a1e'; ctx.fillRect(x - 5 + step, y - 4, 4, 4); ctx.fillRect(x + 1 - step, y - 4, 4, 4);
+  ctx.fillStyle = '#2f55a8'; ctx.fillRect(x - 5, y - 14 + bob, 10, 11);
+  ctx.fillStyle = '#d23b30'; ctx.fillRect(x - 6, y - 22 + bob, 12, 9);
+  ctx.fillStyle = '#2f55a8'; ctx.fillRect(x - 4, y - 21 + bob, 2, 8); ctx.fillRect(x + 2, y - 21 + bob, 2, 8);
+  ctx.fillStyle = '#f2c79a'; ctx.fillRect(x - 9, y - 21 + bob, 3, 7); ctx.fillRect(x + 6, y - 21 + bob, 3, 7);
+  circle(x, y - 27 + bob, 5.5, '#f2c79a');
+  ctx.fillStyle = '#222'; ctx.fillRect(x + farmer.face * 2 - 0.5, y - 28 + bob, 1.6, 1.6);
+  ctx.fillStyle = '#e9c45a'; ctx.beginPath(); ctx.ellipse(x, y - 31 + bob, 10, 2.6, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#d9ad3e'; ctx.fillRect(x - 5, y - 37 + bob, 10, 6);
+  ctx.fillStyle = '#b8322a'; ctx.fillRect(x - 5, y - 33 + bob, 10, 1.6);
+}
+function drawRain() {
+  if (state.weather !== 'Rainy') return;
+  ctx.strokeStyle = 'rgba(200,225,255,.55)'; ctx.lineWidth = 1.2; ctx.beginPath();
+  for (const d of drops) { if (!reduced) { d.y += d.v; d.x -= 1; if (d.y > H) { d.y = -10; d.x = Math.random() * W; } } ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - 2, d.y + 9); }
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(40,60,90,.12)'; ctx.fillRect(0, 0, W, H);
+}
+function drawFloaters() {
+  for (let k = floaters.length - 1; k >= 0; k--) {
+    const f = floaters[k]; f.t += 1 / 60;
+    if (f.t > 1.4) { floaters.splice(k, 1); continue; }
+    ctx.globalAlpha = Math.max(0, 1 - f.t / 1.4);
+    ctx.font = '400 16px "Lilita One", system-ui, sans-serif'; ctx.textAlign = 'center';
+    ctx.lineWidth = 4; ctx.strokeStyle = '#1b1206'; ctx.strokeText(f.text, f.x, f.y - f.t * 30);
+    ctx.fillStyle = f.color; ctx.fillText(f.text, f.x, f.y - f.t * 30);
+    ctx.globalAlpha = 1;
+  }
+}
+function draw(ms) {
+  const t = ms / 1000;
+  drawSky(t); drawLand();
+  tree(20, 150, 1.1); tree(612, 156, 1.2); tree(250, 150, 0.8); tree(470, 152, 0.9);
+  silo(166, 160); barn(40, 160); house(352, 160, t); windmill(560, 162, t);
+  fence(180);
+  drawPlots(t); drawFarmer(t); drawRain(); drawFloaters();
+  requestAnimationFrame(draw);
+}
+
+/* ---------- boot ---------- */
+function start(data) {
+  state = (data && data.state) || load() || newState();
+  render();
+  requestAnimationFrame(draw);
+}
+window.claude?.hot?.snapshot?.(() => ({ state }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+
+</html>
