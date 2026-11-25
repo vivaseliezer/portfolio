@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PyDoku — Interactive Sudoku Game & Backtracking Solver</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Space Grotesk", -apple-system, sans-serif;
+        background: #f6f4ef;
+        color: #141413;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        gap: 14px;
+      }
+      .top {
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      h1 { font-size: 1.35rem; letter-spacing: -0.02em; }
+      .status {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.78rem;
+        color: #5a5852;
+      }
+      .board {
+        width: min(440px, 94vw);
+        aspect-ratio: 1 / 1;
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        background: #141413;
+        border: 3px solid #141413;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 14px 32px rgba(20, 20, 19, 0.1);
+      }
+      .cell {
+        border: 1px solid #d6d3cb;
+        background: #ffffff;
+        text-align: center;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: clamp(1rem, 3.6vw, 1.35rem);
+        font-weight: 600;
+        color: #d9480f;
+        outline: none;
+        width: 100%;
+        height: 100%;
+      }
+      .cell.fixed {
+        background: #edeae2;
+        color: #141413;
+        font-weight: 700;
+      }
+      .cell.solved {
+        color: #157347;
+      }
+      .cell.error {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .cell:nth-child(3n) { border-right: 2.5px solid #141413; }
+      .cell:nth-child(9n) { border-right: 1px solid #d6d3cb; }
+      .cell.row-sep { border-bottom: 2.5px solid #141413; }
+      .actions {
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      button {
+        flex: 1;
+        min-width: 96px;
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.22);
+        background: #ffffff;
+        color: #141413;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 0.88rem;
+        cursor: pointer;
+      }
+      button.primary {
+        background: #d9480f;
+        border-color: #d9480f;
+        color: #fff;
+      }
+      button.dark {
+        background: #141413;
+        border-color: #141413;
+        color: #f6f4ef;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <h1>PyDoku — Sudoku Solver</h1>
+      <span class="status" id="status">Ready · Backtracking</span>
+    </div>
+
+    <div class="board" id="board" aria-label="9 by 9 Sudoku grid"></div>
+
+    <div class="actions">
+      <button type="button" class="primary" id="solve-btn">Auto-Solve</button>
+      <button type="button" class="dark" id="new-btn">New Puzzle</button>
+      <button type="button" id="check-btn">Check</button>
+      <button type="button" id="reset-btn">Reset</button>
+    </div>
+
+    <script>
+      const PUZZLES = [
+        [
+          [3,0,6,5,0,8,4,0,0],
+          [5,2,0,0,0,0,0,0,0],
+          [0,8,7,0,0,0,0,3,1],
+          [0,0,3,0,1,0,0,8,0],
+          [9,0,0,8,6,3,0,0,5],
+          [0,5,0,0,9,0,6,0,0],
+          [1,3,0,0,0,0,2,5,0],
+          [0,0,0,0,0,0,0,7,4],
+          [0,0,5,2,0,6,3,0,0],
+        ],
+        [
+          [0,5,0,0,0,0,0,0,0],
+          [3,0,8,0,7,0,2,0,0],
+          [0,0,9,3,0,6,8,0,0],
+          [0,8,0,0,0,9,5,0,0],
+          [9,0,0,0,0,0,0,0,1],
+          [0,0,3,8,0,0,0,9,0],
+          [0,0,6,5,0,7,3,0,0],
+          [0,0,1,0,4,0,6,0,7],
+          [0,0,0,0,0,0,0,4,0],
+        ],
+        [
+          [5,3,0,0,7,0,0,0,0],
+          [6,0,0,1,9,5,0,0,0],
+          [0,9,8,0,0,0,0,6,0],
+          [8,0,0,0,6,0,0,0,3],
+          [4,0,0,8,0,3,0,0,1],
+          [7,0,0,0,2,0,0,0,6],
+          [0,6,0,0,0,0,2,8,0],
+          [0,0,0,4,1,9,0,0,5],
+          [0,0,0,0,8,0,0,7,9],
+        ],
+      ];
+
+      let puzzleIdx = 0;
+      let baseBoard = [];
+      const boardEl = document.getElementById("board");
+      const statusEl = document.getElementById("status");
+      const inputs = [];
+
+      function loadPuzzle(idx) {
+        puzzleIdx = idx % PUZZLES.length;
+        baseBoard = PUZZLES[puzzleIdx].map((r) => [...r]);
+        boardEl.innerHTML = "";
+        inputs.length = 0;
+        for (let r = 0; r < 9; r++) {
+          for (let c = 0; c < 9; c++) {
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.inputMode = "numeric";
+            inp.maxLength = 1;
+            inp.className = "cell" + (r === 2 || r === 5 ? " row-sep" : "");
+            const val = baseBoard[r][c];
+            if (val !== 0) {
+              inp.value = val;
+              inp.readOnly = true;
+              inp.classList.add("fixed");
+            } else {
+              inp.addEventListener("input", () => {
+                inp.value = inp.value.replace(/[^1-9]/g, "");
+                inp.classList.remove("error", "solved");
+              });
+            }
+            boardEl.appendChild(inp);
+            inputs.push(inp);
+          }
+        }
+        statusEl.textContent = `Puzzle #${puzzleIdx + 1} · Ready`;
+      }
+
+      function readGrid() {
+        const g = [];
+        for (let r = 0; r < 9; r++) {
+          const row = [];
+          for (let c = 0; c < 9; c++) {
+            const v = parseInt(inputs[r * 9 + c].value, 10);
+            row.push(Number.isNaN(v) ? 0 : v);
+          }
+          g.push(row);
+        }
+        return g;
+      }
+
+      function isSafe(g, r, c, num) {
+        for (let i = 0; i < 9; i++) {
+          if (g[r][i] === num || g[i][c] === num) return false;
+        }
+        const sr = Math.floor(r / 3) * 3;
+        const sc = Math.floor(c / 3) * 3;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (g[sr + i][sc + j] === num) return false;
+          }
+        }
+        return true;
+      }
+
+      function solveBacktrack(g, stats) {
+        for (let r = 0; r < 9; r++) {
+          for (let c = 0; c < 9; c++) {
+            if (g[r][c] === 0) {
+              stats.steps++;
+              for (let n = 1; n <= 9; n++) {
+                if (isSafe(g, r, c, n)) {
+                  g[r][c] = n;
+                  if (solveBacktrack(g, stats)) return true;
+                  g[r][c] = 0;
+                }
+              }
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      document.getElementById("solve-btn").addEventListener("click", () => {
+        const g = baseBoard.map((r) => [...r]);
+        const stats = { steps: 0 };
+        if (solveBacktrack(g, stats)) {
+          for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+              const inp = inputs[r * 9 + c];
+              if (!inp.readOnly) {
+                inp.value = g[r][c];
+                inp.classList.remove("error");
+                inp.classList.add("solved");
+              }
+            }
+          }
+          statusEl.textContent = `Solved in ${stats.steps} backtracking steps`;
+        } else {
+          statusEl.textContent = "No solution found";
+        }
+      });
+
+      document.getElementById("check-btn").addEventListener("click", () => {
+        const g = readGrid();
+        let errors = 0;
+        let filled = 0;
+        for (let r = 0; r < 9; r++) {
+          for (let c = 0; c < 9; c++) {
+            const inp = inputs[r * 9 + c];
+            inp.classList.remove("error");
+            const val = g[r][c];
+            if (val === 0) continue;
+            filled++;
+            g[r][c] = 0;
+            if (!isSafe(g, r, c, val)) {
+              if (!inp.readOnly) inp.classList.add("error");
+              errors++;
+            }
+            g[r][c] = val;
+          }
+        }
+        if (errors > 0) statusEl.textContent = `${errors} conflict(s) highlighted`;
+        else if (filled === 81) statusEl.textContent = "Puzzle completed cleanly!";
+        else statusEl.textContent = "Looking good so far!";
+      });
+
+      document.getElementById("new-btn").addEventListener("click", () => loadPuzzle(puzzleIdx + 1));
+      document.getElementById("reset-btn").addEventListener("click", () => loadPuzzle(puzzleIdx));
+
+      loadPuzzle(0);
+    </script>
+  </body>
+</html>

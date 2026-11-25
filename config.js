@@ -109,11 +109,11 @@ window.PORTFOLIO_CONFIG = {
       path: "python/",
       en: {
         name: "Python",
-        summary: "Billing POS, PDF receipts, Tkinter arcade & 120+ scripts",
+        summary: "Billing POS, Sudoku Solver, Parking, Phonebook & 120+ scripts",
       },
       es: {
         name: "Python",
-        summary: "Facturación POS, recibos PDF, arcade Tkinter y 120+ scripts",
+        summary: "Billing POS, Sudoku Solver, Parking, Phonebook y 120+ scripts",
       },
     },
     {
@@ -467,6 +467,129 @@ window.PORTFOLIO_CONFIG = {
     },
 
     // ================= FOLDER: PYTHON PROJECTS =================
+    {
+      id: "sudoku-solver",
+      folder: "python",
+      kind: "live",
+      image: "./assets/previews/sudoku.png",
+      liveUrl: "./projects/python/sudoku-demo.html",
+      githubUrl: "https://github.com/vivaseliezer/portfolio/blob/main/projects/python/sudoku_solver.py",
+      stack: ["Python", "Tkinter GUI", "Backtracking Recursion", "Interactive Demo"],
+      en: {
+        tag: "python / backtracking game",
+        title: "PyDoku — Sudoku Game & Backtracking Solver",
+        summary:
+          "9×9 Sudoku puzzle game and automated recursive backtracking solver built in Python Tkinter (with a live browser version right here so you can play or click Auto-Solve in 1 click).",
+        controls: "Type digits 1–9 · Click Check to validate · Click Auto-Solve to run Backtracking",
+        actionLabel: "Play & Solve Live",
+        problem: "Validating row, column, and 3×3 subgrid rules while solving arbitrary 9×9 Sudoku boards recursively.",
+        solution: "Implemented a recursive backtracking algorithm checking row/column/box safety constraints, paired with a Tkinter Canvas GUI and interactive web demo.",
+        highlights: [
+          "Recursive backtracking solver (`solve()`) tracking step counts until completion",
+          "Row, column, and 3×3 box constraint validators (`is_subgrid_safe`, `is_cell_safe`)",
+          "Includes both full Python Tkinter desktop code (`sudoku_solver.py`) and 1-click browser demo",
+        ],
+        codeSnippetTitle: "projects/python/sudoku_solver.py — Backtracking Solver",
+        codeSnippet: `def solve(self) -> bool:\n    x, y = self.find_empty()\n    if (x, y) == (None, None):\n        return True\n    for num in range(1, 10):\n        if self.is_subgrid_safe(num, x, y) and self.is_cell_safe(num, x, y):\n            self.update_cell(num, x, y, False)\n            if self.solve():\n                return True\n            self.update_cell(0, x, y, True)\n    return False`,
+      },
+      es: {
+        tag: "python / juego backtracking",
+        title: "PyDoku — Juego de Sudoku y Solver Backtracking",
+        summary:
+          "Juego de Sudoku 9×9 con resolvedor automático por recursión (Backtracking) en Python Tkinter — incluye versión jugable en vivo aquí mismo para jugar o probar Auto-Solve en 1 clic.",
+        controls: "Escribe números 1–9 · Haz clic en Check · Haz clic en Auto-Solve",
+        actionLabel: "Jugar y Resolver",
+        problem: "Validar filas, columnas y subcuadros 3×3 mientras se resuelve cualquier tablero Sudoku recursivamente.",
+        solution: "Implementé un algoritmo de backtracking con validación de reglas de fila/columna/caja en Tkinter Canvas y un demo interactivo en navegador.",
+        highlights: [
+          "Algoritmo recursivo de backtracking (`solve()`) con conteo de pasos",
+          "Validación de subcuadros 3×3, filas y columnas (`is_subgrid_safe`, `is_cell_safe`)",
+          "Incluye el código completo de Python Tkinter (`sudoku_solver.py`) y demo en 1 clic",
+        ],
+        codeSnippetTitle: "projects/python/sudoku_solver.py — Backtracking",
+        codeSnippet: `def solve(self) -> bool:\n    x, y = self.find_empty()\n    if (x, y) == (None, None):\n        return True\n    for num in range(1, 10):\n        if self.is_subgrid_safe(num, x, y) and self.is_cell_safe(num, x, y):\n            self.update_cell(num, x, y, False)\n            if self.solve():\n                return True\n            self.update_cell(0, x, y, True)\n    return False`,
+      },
+    },
+    {
+      id: "parking-management",
+      folder: "python",
+      kind: "code",
+      image: "./assets/previews/parking-management.png",
+      githubUrl: "https://github.com/vivaseliezer/portfolio/blob/main/projects/python/parking_management.py",
+      stack: ["Python 3", "OOP", "CLI Menu", "Billing & Tax Logic"],
+      en: {
+        tag: "python / management cli",
+        title: "Parking Management System (CLI)",
+        summary:
+          "Menu-driven Python system tracking vehicle check-in/out, real-time slot capacity for Cars (250), Bikes (100), and Bicycles (78), duplicate-plate checks, and hourly billing with 18% tax.",
+        actionLabel: "View Source & Notes",
+        problem: "Automating lot capacity tracking, vehicle entry/removal records, and hourly parking fee calculation.",
+        solution: "Refactored into a clean ParkingSystem class with duplicate-plate guards, automatic timestamps, slot counters, and accurate hourly + 18% tax billing.",
+        highlights: [
+          "Tracks live available spots separately for Cars, Bikes, and Bicycles",
+          "Prevents duplicate license plates and validates vehicle type and hours",
+          "Computes itemized hourly base charge, 18% tax, and final total cleanly",
+        ],
+        codeSnippetTitle: "projects/python/parking_management.py",
+        codeSnippet: `def calculate_bill(self, vehicle_type: str, hours: int) -> dict:\n    billable_hours = max(1, int(hours))\n    base = billable_hours * RATES[vehicle_type]\n    tax = round(base * TAX_RATE, 2)\n    return {"hours": billable_hours, "base": base, "tax": tax, "total": round(base + tax, 2)}`,
+      },
+      es: {
+        tag: "python / sistema cli",
+        title: "Sistema de Gestión de Estacionamiento (CLI)",
+        summary:
+          "Sistema de consola en Python para registrar entradas/salidas de vehículos, controlar espacios disponibles (Autos 250, Motos 100, Bicicletas 78), evitar placas duplicadas y calcular cobros por hora + 18% de impuesto.",
+        actionLabel: "Ver Código y Notas",
+        problem: "Automatizar el control de cupos, registros de entrada/salida y cálculo de tarifas por hora.",
+        solution: "Estructuré la clase ParkingSystem con validación de placas únicas, fechas automáticas, contadores de espacios y cálculo exacto de tarifa e impuestos.",
+        highlights: [
+          "Controla cupos libres por separado para Autos, Motos y Bicicletas",
+          "Evita placas duplicadas y valida tipo de vehículo y horas",
+          "Calcula tarifa base por hora, 18% de impuesto y total final",
+        ],
+        codeSnippetTitle: "projects/python/parking_management.py",
+        codeSnippet: `def calculate_bill(self, vehicle_type: str, hours: int) -> dict:\n    billable_hours = max(1, int(hours))\n    base = billable_hours * RATES[vehicle_type]\n    tax = round(base * TAX_RATE, 2)\n    return {"hours": billable_hours, "base": base, "tax": tax, "total": round(base + tax, 2)}`,
+      },
+    },
+    {
+      id: "phonebook-cli",
+      folder: "python",
+      kind: "code",
+      image: "./assets/previews/phonebook.png",
+      githubUrl: "https://github.com/vivaseliezer/portfolio/blob/main/projects/python/phonebook.py",
+      stack: ["Python 3", "Dictionaries", "CRUD Search", "CLI"],
+      en: {
+        tag: "python / data structures",
+        title: "Phonebook Contact Directory (CLI)",
+        summary:
+          "Clean Python dictionary-backed contact directory supporting adding entries with validation, sorted listing, case-insensitive partial name search, and contact deletion.",
+        actionLabel: "View Source & Notes",
+        problem: "Building a fast in-memory contact lookup utility practicing Python dictionaries, input validation, and CRUD operations.",
+        solution: "Encapsulated contact storage inside a Phonebook class with O(1) exact lookup/deletion and case-insensitive substring search.",
+        highlights: [
+          "Dictionary-backed contact management (Add, List Sorted, Search, Delete)",
+          "Case-insensitive partial-match search across saved contacts",
+          "Input validation preventing empty contact names or phone numbers",
+        ],
+        codeSnippetTitle: "projects/python/phonebook.py",
+        codeSnippet: `def search(self, query: str) -> list[tuple[str, str]]:\n    q = query.strip().lower()\n    return [(n, p) for n, p in self.contacts.items() if q in n.lower()]`,
+      },
+      es: {
+        tag: "python / estructuras de datos",
+        title: "Agenda Telefónica (Phonebook CLI)",
+        summary:
+          "Directorio de contactos en Python usando diccionarios con validación de entradas, listado ordenado alfabéticamente, búsqueda parcial sin distinguir mayúsculas y eliminación.",
+        actionLabel: "Ver Código y Notas",
+        problem: "Construir un buscador rápido de contactos practicando diccionarios, validaciones y operaciones CRUD en Python.",
+        solution: "Encapsulé la lógica en la clase Phonebook con operaciones rápidas O(1) y búsqueda flexible por nombre.",
+        highlights: [
+          "Gestión CRUD completa (Agregar, Listar ordenado, Buscar, Eliminar)",
+          "Búsqueda parcial sin distinguir mayúsculas/minúsculas",
+          "Validación contra nombres o teléfonos vacíos",
+        ],
+        codeSnippetTitle: "projects/python/phonebook.py",
+        codeSnippet: `def search(self, query: str) -> list[tuple[str, str]]:\n    q = query.strip().lower()\n    return [(n, p) for n, p in self.contacts.items() if q in n.lower()]`,
+      },
+    },
     {
       id: "billing-software",
       folder: "python",
