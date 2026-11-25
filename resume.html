@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Orlando — Resume / CV | Junior Full-Stack Software Developer</title>
+    <title>Orlando Vivas — Junior Full-Stack Software Developer Resume</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,11 +23,15 @@
         margin: 0;
         padding: 0;
       }
+      @page {
+        size: letter;
+        margin: 0.36in 0.48in;
+      }
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background: var(--bg-page);
         color: var(--ink);
-        line-height: 1.5;
+        line-height: 1.38;
         padding: 24px 16px 48px;
       }
       .toolbar {
@@ -68,21 +72,21 @@
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 10px;
-        padding: 40px 46px;
+        padding: 36px 42px;
         box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
       }
       header {
         border-bottom: 2px solid var(--ink);
-        padding-bottom: 14px;
-        margin-bottom: 18px;
+        padding-bottom: 12px;
+        margin-bottom: 15px;
       }
       h1 {
-        font-size: 1.9rem;
+        font-size: 1.85rem;
         font-weight: 800;
         letter-spacing: -0.02em;
       }
       .headline {
-        font-size: 1.02rem;
+        font-size: 0.98rem;
         font-weight: 600;
         color: var(--accent);
         margin-top: 2px;
@@ -90,9 +94,9 @@
       .contact-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px 18px;
-        margin-top: 8px;
-        font-size: 0.86rem;
+        gap: 5px 14px;
+        margin-top: 7px;
+        font-size: 0.82rem;
         color: var(--muted);
       }
       .contact-row a {
@@ -101,31 +105,34 @@
         border-bottom: 1px dotted var(--border);
       }
       section {
-        margin-bottom: 18px;
+        margin-bottom: 14px;
       }
       h2 {
-        font-size: 0.86rem;
+        font-size: 0.83rem;
         text-transform: uppercase;
         letter-spacing: 0.09em;
         color: var(--accent);
         border-bottom: 1px solid var(--border);
-        padding-bottom: 4px;
-        margin-bottom: 10px;
+        padding-bottom: 3px;
+        margin-bottom: 8px;
       }
       p {
-        font-size: 0.91rem;
+        font-size: 0.88rem;
         color: #1e293b;
       }
       .skills-list {
         display: grid;
-        gap: 5px;
-        font-size: 0.9rem;
+        gap: 4px;
+        font-size: 0.87rem;
       }
       .skills-list strong {
         color: var(--ink);
       }
       .item {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+      }
+      .item:last-child {
+        margin-bottom: 0;
       }
       .item-head {
         display: flex;
@@ -133,26 +140,27 @@
         justify-content: space-between;
         gap: 6px;
         font-weight: 700;
-        font-size: 0.94rem;
+        font-size: 0.91rem;
       }
       .item-sub {
-        font-size: 0.84rem;
+        font-size: 0.81rem;
         color: var(--muted);
         font-weight: 500;
       }
       ul {
-        margin-top: 4px;
-        padding-left: 18px;
-        font-size: 0.89rem;
+        margin-top: 3px;
+        padding-left: 17px;
+        font-size: 0.86rem;
         color: #1e293b;
       }
       li {
-        margin-bottom: 3px;
+        margin-bottom: 2.5px;
       }
       @media print {
         body {
           background: #ffffff;
           padding: 0;
+          line-height: 1.32;
         }
         .toolbar {
           display: none;
@@ -163,6 +171,47 @@
           box-shadow: none;
           padding: 0;
           max-width: 100%;
+        }
+        header {
+          padding-bottom: 9px;
+          margin-bottom: 11px;
+        }
+        h1 {
+          font-size: 1.65rem;
+        }
+        .headline {
+          font-size: 0.9rem;
+        }
+        .contact-row {
+          font-size: 0.77rem;
+          margin-top: 5px;
+          gap: 3px 12px;
+        }
+        section {
+          margin-bottom: 10px;
+        }
+        h2 {
+          font-size: 0.78rem;
+          margin-bottom: 6px;
+        }
+        p,
+        .skills-list {
+          font-size: 0.81rem;
+        }
+        .item {
+          margin-bottom: 7px;
+        }
+        .item-head {
+          font-size: 0.85rem;
+        }
+        .item-sub {
+          font-size: 0.76rem;
+        }
+        ul {
+          font-size: 0.8rem;
+        }
+        li {
+          margin-bottom: 2px;
         }
       }
       @media (max-width: 600px) {
@@ -185,144 +234,138 @@
 
     <main class="sheet">
       <header>
-        <h1 id="res-name">Orlando</h1>
+        <h1>Orlando Vivas</h1>
         <div class="headline" id="res-role">
-          Junior Full-Stack Software Developer | C# • Python • JavaScript • MySQL
+          Junior Full-Stack Software Developer | C# • Python • JavaScript • MySQL • HTML5 / CSS3
         </div>
         <div class="contact-row">
-          <span id="res-location">United States (On-site, Hybrid &amp; Remote)</span>
-          <a href="#" id="res-email">oralvivas122@gmail.com</a>
-          <a href="mailto:ovivasramirez@byupathway.edu" id="res-school-email">ovivasramirez@byupathway.edu</a>
-          <a href="#" id="res-linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="#" id="res-github" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <span id="res-location">United States (Open to On-site, Hybrid &amp; Remote)</span>
+          <a href="mailto:oralvivas122@gmail.com">oralvivas122@gmail.com</a>
+          <a href="mailto:ovivasramirez@byupathway.edu">ovivasramirez@byupathway.edu</a>
+          <a href="https://orlandovivas.netlify.app/" target="_blank" rel="noopener noreferrer">orlandovivas.netlify.app</a>
+          <a href="https://github.com/vivaseliezer" target="_blank" rel="noopener noreferrer">github.com/vivaseliezer</a>
+          <a href="https://www.linkedin.com/in/orlando-vivas-a7278544/" target="_blank" rel="noopener noreferrer">linkedin.com/in/orlando-vivas-a7278544</a>
         </div>
       </header>
 
       <section>
         <h2 id="sec-summary">Professional Summary</h2>
         <p id="res-summary">
-          Bilingual (English/Spanish) Junior Full-Stack Software Developer with a strong foundation in HTML5, CSS3, JavaScript (ES6+), C#, Python, and MySQL. Passionate about building reliable web applications, RESTful APIs, normalized relational databases, and interactive browser experiences. Eager to contribute clean, maintainable code to a collaborative US software engineering team.
+          Bilingual (English/Spanish) Junior Full-Stack Software Developer studying Software Development at BYU-Pathway Worldwide, with hands-on experience building responsive web applications, Python desktop business software, relational database schemas, and interactive HTML5 Canvas applications. Strong foundation in JavaScript (ES6+), Python, C#, MySQL, HTML5, CSS3, and Git/GitHub. Seeking an entry-level Software Developer, Junior Full-Stack, or Application Support/QA Engineering role in the United States.
         </p>
       </section>
 
       <section>
         <h2 id="sec-skills">Technical Skills</h2>
         <div class="skills-list">
-          <div><strong id="lbl-lang">Languages:</strong> JavaScript (ES6+), C#, Python, SQL, HTML5, CSS3</div>
-          <div><strong id="lbl-back">Backend &amp; Databases:</strong> .NET Web API Basics, Flask, RESTful APIs, MySQL, Relational Modeling (3NF), Parameterized Queries</div>
-          <div><strong id="lbl-tools">Tools &amp; Practices:</strong> Git, GitHub, VS Code, Visual Studio, Postman, Responsive Web Design, WCAG Accessibility, Agile/Scrum Fundamentals</div>
-          <div><strong id="lbl-spoken">Spoken Languages:</strong> English &amp; Spanish (Bilingual)</div>
+          <div><strong id="lbl-lang">Languages:</strong> JavaScript (ES6+), Python, C#, SQL, HTML5, CSS3</div>
+          <div><strong id="lbl-back">Backend, Desktop &amp; Databases:</strong> MySQL, Relational Modeling &amp; JOINs, Object-Oriented Programming (OOP), Python Tkinter GUI, REST API Fundamentals, File I/O</div>
+          <div><strong id="lbl-tools">Frontend &amp; Engineering Tools:</strong> HTML5 Canvas, Web Audio API, Responsive Design, WCAG Accessibility, Git, GitHub, VS Code, Visual Studio, Netlify</div>
+          <div><strong id="lbl-spoken">Languages &amp; Strengths:</strong> Fluent Bilingual (English &amp; Spanish), Agile/Scrum Basics, Systematic Debugging, Clean Documentation</div>
         </div>
       </section>
 
       <section>
-        <h2 id="sec-projects">Selected Software Projects</h2>
-        <div id="res-projects"></div>
+        <h2 id="sec-projects">Software Engineering Projects</h2>
+
+        <div class="item">
+          <div class="item-head">
+            <span id="p1-title">Retail Billing &amp; Receipt Management Software (Desktop App)</span>
+            <span class="item-sub">Python • Tkinter • OOP • File I/O</span>
+          </div>
+          <ul>
+            <li id="p1-b1">Built an object-oriented desktop point-of-sale billing application (Bill_App) managing 18 retail items across Medical, Grocery, and Beverage categories.</li>
+            <li id="p1-b2">Automated itemized subtotal and category tax calculations, input validation, and formatted receipt generation with auto-assigned invoice numbers.</li>
+            <li id="p1-b3">Implemented local receipt archiving and instant bill lookup by invoice number to streamline small-business record keeping.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span id="p2-title">Interactive HTML5 Browser Game Suite (4 Original Playable Titles)</span>
+            <span class="item-sub">JavaScript (ES6+) • HTML5 Canvas • Web Audio API • CSS3</span>
+          </div>
+          <ul>
+            <li id="p2-b1"><strong>Dead Night / Noche Muerta:</strong> Top-down survival shooter featuring 10 campaign levels, Survival &amp; Boss Rush modes, real-time flashlight lighting, enemy AI state machines, weather effects, and procedural Web Audio SFX (bilingual EN/ES).</li>
+            <li id="p2-b2"><strong>The Goat vs The Legends &amp; Highway Car Dodge:</strong> Built 4K Canvas action combat and highway collision-detection arcade games with progressive difficulty scaling and live high-score tracking (github.com/vivaseliezer).</li>
+            <li id="p2-b3"><strong>Harvest Valley Farm:</strong> Developed a farming economy simulator with animated canvas crops, dynamic weather cycles, fluctuating market prices, energy management, and LocalStorage persistence.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-head">
+            <span id="p3-title">Bilingual Developer Portfolio &amp; 1-Click Game Platform</span>
+            <span class="item-sub">HTML5 • CSS3 • Vanilla JavaScript • Netlify • Git</span>
+          </div>
+          <ul>
+            <li id="p3-b1">Designed and deployed a responsive bilingual (EN/ES) portfolio with dark/light theming, interactive case-study modals, and an embedded 1-click game launcher at orlandovivas.netlify.app.</li>
+            <li id="p3-b2">Configured semantic HTML, Open Graph social metadata, WCAG keyboard accessibility, Netlify Forms contact handling, and GitHub version control (vivaseliezer/portfolio).</li>
+          </ul>
+        </div>
       </section>
 
       <section>
-        <h2 id="sec-edu">Education &amp; Continuous Learning</h2>
+        <h2 id="sec-edu">Education &amp; Technical Training</h2>
         <div class="item">
           <div class="item-head">
-            <span id="edu-title">Full-Stack Software Development — Self-Directed &amp; Project-Based Training</span>
+            <span id="edu-title">BYU-Pathway Worldwide — Software Development Program</span>
             <span class="item-sub">2025 — Present</span>
           </div>
           <ul>
-            <li id="edu-b1">Built end-to-end web apps, REST APIs, data pipelines, and interactive HTML5 Canvas games using C#, Python, JavaScript, and MySQL.</li>
-            <li id="edu-b2">Applied Git version control, structured debugging, and clean code conventions aligned with US industry teams.</li>
+            <li id="edu-b1">Coursework and hands-on labs covering programming fundamentals, object-oriented design (Python, C#), web development (HTML, CSS, JavaScript), and relational database modeling (MySQL).</li>
+            <li id="edu-b2">Collaborating in weekly team engineering activities using Git/GitHub workflows, clear technical communication, and iterative debugging.</li>
           </ul>
         </div>
       </section>
     </main>
 
-    <script src="./config.js"></script>
     <script>
       (function () {
-        const cfg = window.PORTFOLIO_CONFIG;
-        if (!cfg) return;
-
         let lang = localStorage.getItem("portfolio-lang") || "en";
-
         const COPY = {
           en: {
             back: "← Back to Portfolio",
             toggle: "Español",
             print: "Print / Save as PDF",
-            role: "Junior Full-Stack Software Developer | C# • Python • JavaScript • MySQL",
-            summaryTitle: "Professional Summary",
+            location: "United States (Open to On-site, Hybrid & Remote)",
+            secSummary: "Professional Summary",
+            secSkills: "Technical Skills",
+            secProjects: "Software Engineering Projects",
+            secEdu: "Education & Technical Training",
             summary:
-              "Bilingual (English/Spanish) Junior Full-Stack Software Developer with a strong foundation in HTML5, CSS3, JavaScript (ES6+), C#, Python, and MySQL. Passionate about building reliable web applications, RESTful APIs, normalized relational databases, and interactive browser experiences. Eager to contribute clean, maintainable code to a collaborative US software engineering team.",
-            skillsTitle: "Technical Skills",
-            projectsTitle: "Selected Software Projects",
-            eduTitleSec: "Education & Continuous Learning",
-            eduTitle: "BYU-Pathway Worldwide — Software Development & Full-Stack Projects",
-            eduB1: "Built end-to-end web apps, REST APIs, data pipelines, and interactive HTML5 Canvas games using C#, Python, JavaScript, and MySQL.",
-            eduB2: "Applied Git version control, structured debugging, and clean code conventions aligned with US industry teams.",
+              "Bilingual (English/Spanish) Junior Full-Stack Software Developer studying Software Development at BYU-Pathway Worldwide, with hands-on experience building responsive web applications, Python desktop business software, relational database schemas, and interactive HTML5 Canvas applications. Strong foundation in JavaScript (ES6+), Python, C#, MySQL, HTML5, CSS3, and Git/GitHub. Seeking an entry-level Software Developer, Junior Full-Stack, or Application Support/QA Engineering role in the United States.",
           },
           es: {
             back: "← Volver al Portafolio",
             toggle: "English",
             print: "Imprimir / Guardar PDF",
-            role: "Junior Full-Stack Software Developer | C# • Python • JavaScript • MySQL",
-            summaryTitle: "Perfil Profesional",
+            location: "Estados Unidos (Presencial, Híbrido y Remoto)",
+            secSummary: "Perfil Profesional",
+            secSkills: "Habilidades Técnicas",
+            secProjects: "Proyectos de Ingeniería de Software",
+            secEdu: "Educación y Formación Técnica",
             summary:
-              "Desarrollador de Software Junior Full-Stack bilingüe (Inglés/Español) con bases sólidas en HTML5, CSS3, JavaScript (ES6+), C#, Python y MySQL. Enfocado en crear aplicaciones web limpias, APIs REST confiables, bases de datos relacionales normalizadas y experiencias interactivas en navegador. Listo para aportar código limpio a un equipo de ingeniería en EE. UU.",
-            skillsTitle: "Habilidades Técnicas",
-            projectsTitle: "Proyectos de Software Destacados",
-            eduTitleSec: "Educación y Aprendizaje Continuo",
-            eduTitle: "BYU-Pathway Worldwide — Desarrollo de Software y Proyectos Full-Stack",
-            eduB1: "Construcción de aplicaciones web completas, APIs REST, pipelines de datos y juegos HTML5 Canvas con C#, Python, JavaScript y MySQL.",
-            eduB2: "Uso de control de versiones con Git, depuración estructurada y buenas prácticas alineadas a equipos tech de EE. UU.",
+              "Desarrollador Junior Full-Stack bilingüe (Inglés/Español), estudiante de Desarrollo de Software en BYU-Pathway Worldwide, con experiencia práctica creando aplicaciones web responsivas, software de escritorio en Python, bases de datos relacionales y aplicaciones interactivas en HTML5 Canvas. Bases sólidas en JavaScript (ES6+), Python, C#, MySQL, HTML5, CSS3 y Git/GitHub.",
           },
         };
-
         function render() {
           const c = COPY[lang] || COPY.en;
           document.documentElement.lang = lang;
           document.getElementById("back-btn").textContent = c.back;
           document.getElementById("lang-btn").textContent = c.toggle;
           document.getElementById("print-btn").textContent = c.print;
-          document.getElementById("res-name").textContent = cfg.fullName;
-          document.getElementById("res-role").textContent = c.role;
-          document.getElementById("res-location").textContent = cfg.location[lang];
-          document.getElementById("res-email").textContent = cfg.links.email;
-          document.getElementById("res-email").href = "mailto:" + cfg.links.email;
-          document.getElementById("res-linkedin").href = cfg.links.linkedin;
-          document.getElementById("res-github").href = cfg.links.github;
-          document.getElementById("sec-summary").textContent = c.summaryTitle;
+          document.getElementById("res-location").textContent = c.location;
+          document.getElementById("sec-summary").textContent = c.secSummary;
+          document.getElementById("sec-skills").textContent = c.secSkills;
+          document.getElementById("sec-projects").textContent = c.secProjects;
+          document.getElementById("sec-edu").textContent = c.secEdu;
           document.getElementById("res-summary").textContent = c.summary;
-          document.getElementById("sec-skills").textContent = c.skillsTitle;
-          document.getElementById("sec-projects").textContent = c.projectsTitle;
-          document.getElementById("sec-edu").textContent = c.eduTitleSec;
-          document.getElementById("edu-title").textContent = c.eduTitle;
-          document.getElementById("edu-b1").textContent = c.eduB1;
-          document.getElementById("edu-b2").textContent = c.eduB2;
-
-          const container = document.getElementById("res-projects");
-          container.innerHTML = cfg.projects
-            .slice(0, 3)
-            .map((p) => {
-              const txt = p[lang] || p.en;
-              const bullets = txt.highlights.map((h) => `<li>${h}</li>`).join("");
-              return `
-                <div class="item">
-                  <div class="item-head">
-                    <span>${txt.title}</span>
-                    <span class="item-sub">${p.stack.join(" • ")}</span>
-                  </div>
-                  <ul>${bullets}</ul>
-                </div>
-              `;
-            })
-            .join("");
         }
-
         document.getElementById("lang-btn").addEventListener("click", () => {
           lang = lang === "en" ? "es" : "en";
           localStorage.setItem("portfolio-lang", lang);
           render();
         });
-
         render();
       })();
     </script>
