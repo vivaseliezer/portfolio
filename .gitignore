@@ -1,4 +1,10 @@
 .netlify
 .DS_Store
 Thumbs.db
+bin/
+obj/
+__pycache__/
+*.pyc
+promo/
 CHILAQUI.png
+

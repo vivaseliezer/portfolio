@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>120+ Python Projects Archive — Orlando Vivas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+        background: #f6f4ef;
+        color: #141413;
+        padding: 20px;
+        line-height: 1.5;
+      }
+      .wrap { max-width: 960px; margin: 0 auto; }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 14px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(20, 20, 19, 0.16);
+        margin-bottom: 18px;
+      }
+      h1 { font-family: "Space Grotesk", sans-serif; font-size: 1.55rem; letter-spacing: -0.02em; }
+      .sub { font-size: 0.88rem; color: #5a5852; margin-top: 3px; }
+      .count {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #d9480f;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      input[type="search"] {
+        flex: 1;
+        min-width: 220px;
+        padding: 9px 13px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.24);
+        background: #ffffff;
+        font-family: inherit;
+        font-size: 0.9rem;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+      .chip {
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.2);
+        background: #ffffff;
+        color: #4b4a45;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .chip.active { background: #141413; color: #f6f4ef; border-color: #141413; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+        gap: 10px;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid rgba(20, 20, 19, 0.12);
+        border-radius: 8px;
+        padding: 12px 14px;
+      }
+      .cat {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.68rem;
+        color: #d9480f;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .name { font-weight: 600; font-size: 0.88rem; color: #141413; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Python Practice Archive (115+ Projects)</h1>
+          <p class="sub">Searchable catalog of Python scripts, desktop GUIs, games, scrapers, vision &amp; automation labs.</p>
+        </div>
+        <span class="count" id="result-count"></span>
+      </header>
+
+      <div class="controls">
+        <input type="search" id="search" placeholder="Search projects (e.g. QR, PDF, Snake, OCR, Encryption, Weather)..." aria-label="Search Python projects" />
+      </div>
+
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <script>
+      const CATALOG = [
+        // Desktop GUI
+        { name: "Billing System (Tkinter POS)", cat: "Desktop GUI" },
+        { name: "PyDoku — Sudoku Solver GUI", cat: "Desktop GUI" },
+        { name: "Calendar GUI", cat: "Desktop GUI" },
+        { name: "Calculator App", cat: "Desktop GUI" },
+        { name: "Create Calculator GUI", cat: "Desktop GUI" },
+        { name: "Contact Book", cat: "Desktop GUI" },
+        { name: "Music Player GUI", cat: "Desktop GUI" },
+        { name: "MusicPlayer", cat: "Desktop GUI" },
+        { name: "Text Editor GUI", cat: "Desktop GUI" },
+        { name: "Easy Video Player", cat: "Desktop GUI" },
+        { name: "Digital Clock", cat: "Desktop GUI" },
+        { name: "Alarm Clock", cat: "Desktop GUI" },
+        { name: "Set Alarm", cat: "Desktop GUI" },
+        { name: "Countdown Timer", cat: "Desktop GUI" },
+        { name: "Simple Stopwatch", cat: "Desktop GUI" },
+        { name: "Screen Pet", cat: "Desktop GUI" },
+        { name: "GUI Rock-Paper-Scissors", cat: "Desktop GUI" },
+
+        // Games & Simulations
+        { name: "Egg Catcher Game", cat: "Games & Sims" },
+        { name: "Snake Game", cat: "Games & Sims" },
+        { name: "Space Bullet Shooter", cat: "Games & Sims" },
+        { name: "Tic-Tac-Toe with AI", cat: "Games & Sims" },
+        { name: "Tic-Tac-Toe Classic", cat: "Games & Sims" },
+        { name: "Hangman Game", cat: "Games & Sims" },
+        { name: "MasterMind", cat: "Games & Sims" },
+        { name: "Maze Solver", cat: "Games & Sims" },
+        { name: "Quiz Games", cat: "Games & Sims" },
+        { name: "Rock Paper Scissors CLI", cat: "Games & Sims" },
+        { name: "Number Guessing Game", cat: "Games & Sims" },
+        { name: "Bouncing Ball Simulator", cat: "Games & Sims" },
+        { name: "Chessboard Renderer", cat: "Games & Sims" },
+
+        // Automation & Files
+        { name: "Parking Management System", cat: "Automation & Files" },
+        { name: "Phonebook Contact Directory", cat: "Automation & Files" },
+        { name: "Automated PDF Receipt Generator", cat: "Automation & Files" },
+        { name: "Merge CSV Files", cat: "Automation & Files" },
+        { name: "Merge PDFs", cat: "Automation & Files" },
+        { name: "Duplicate Files Remover", cat: "Automation & Files" },
+        { name: "Extract ZIP Files", cat: "Automation & Files" },
+        { name: "Compress Folder & Files", cat: "Automation & Files" },
+        { name: "Split Folder into Subfolders", cat: "Automation & Files" },
+        { name: "Send Automatic Emails", cat: "Automation & Files" },
+        { name: "Send Emails from CSV", cat: "Automation & Files" },
+        { name: "Store Emails in CSV", cat: "Automation & Files" },
+        { name: "CLI To-Do Manager", cat: "Automation & Files" },
+        { name: "Battery Notification", cat: "Automation & Files" },
+        { name: "Website Blocker", cat: "Automation & Files" },
+        { name: "Shutdown / Restart Utility", cat: "Automation & Files" },
+        { name: "Terminal Progress Bar + Image Resize", cat: "Automation & Files" },
+        { name: "Operating System Info Script", cat: "Automation & Files" },
+
+        // Web & Networking
+        { name: "Scrape Hacker News", cat: "Web & Network" },
+        { name: "Scrape Quotes", cat: "Web & Network" },
+        { name: "Scraping Medium Articles", cat: "Web & Network" },
+        { name: "Download GeeksForGeeks Articles", cat: "Web & Network" },
+        { name: "All Links from Given Webpage", cat: "Web & Network" },
+        { name: "Download Images from Website", cat: "Web & Network" },
+        { name: "Web Scraping YouTube Comments", cat: "Web & Network" },
+        { name: "Snapshot of Given Website", cat: "Web & Network" },
+        { name: "Fetch Current Weather", cat: "Web & Network" },
+        { name: "Fetch HTTP Status Code", cat: "Web & Network" },
+        { name: "Check Website Connectivity", cat: "Web & Network" },
+        { name: "Internet Connection Check", cat: "Web & Network" },
+        { name: "DNS Record Lookup", cat: "Web & Network" },
+        { name: "Hostname & IP Address Lookup", cat: "Web & Network" },
+        { name: "Fetch Open Ports", cat: "Web & Network" },
+        { name: "Time to Load Website", cat: "Web & Network" },
+        { name: "Network Usage Tracker", cat: "Web & Network" },
+        { name: "URL Shortener", cat: "Web & Network" },
+        { name: "Find IMDb Rating", cat: "Web & Network" },
+        { name: "Instagram Profile Info", cat: "Web & Network" },
+        { name: "Fetch and Store Tweets", cat: "Web & Network" },
+        { name: "Random Wikipedia Article", cat: "Web & Network" },
+        { name: "Telegram Bot", cat: "Web & Network" },
+        { name: "WhatsApp Bot", cat: "Web & Network" },
+
+        // AI, Vision & Media
+        { name: "Barcode & QR Code Reader", cat: "AI, Vision & Media" },
+        { name: "QR Code Generator", cat: "AI, Vision & Media" },
+        { name: "Multi-Language OCR", cat: "AI, Vision & Media" },
+        { name: "Drowsiness Detection", cat: "AI, Vision & Media" },
+        { name: "Detect & Align Faces", cat: "AI, Vision & Media" },
+        { name: "Compute IoU (Object Detection)", cat: "AI, Vision & Media" },
+        { name: "Dominant Color Extractor", cat: "AI, Vision & Media" },
+        { name: "Easy Cartoonify", cat: "AI, Vision & Media" },
+        { name: "Image Watermark", cat: "AI, Vision & Media" },
+        { name: "Reduce Image File Size", cat: "AI, Vision & Media" },
+        { name: "Convert Image to PDF", cat: "AI, Vision & Media" },
+        { name: "Convert JPEG to PNG", cat: "AI, Vision & Media" },
+        { name: "Convert PNG to ICO Format", cat: "AI, Vision & Media" },
+        { name: "Batch Image Converter", cat: "AI, Vision & Media" },
+        { name: "Image Metadata Reader", cat: "AI, Vision & Media" },
+        { name: "Capture Screenshot", cat: "AI, Vision & Media" },
+        { name: "Capture Video Frames", cat: "AI, Vision & Media" },
+        { name: "AudioBook Reader", cat: "AI, Vision & Media" },
+        { name: "PDF to MP3 Converter", cat: "AI, Vision & Media" },
+        { name: "Speech to Text", cat: "AI, Vision & Media" },
+        { name: "Text to Speech", cat: "AI, Vision & Media" },
+        { name: "Speaking Dictionary", cat: "AI, Vision & Media" },
+        { name: "Chatbot Experiment", cat: "AI, Vision & Media" },
+        { name: "Next Word Prediction", cat: "AI, Vision & Media" },
+        { name: "Spell Checker", cat: "AI, Vision & Media" },
+        { name: "Plagiarism Checker", cat: "AI, Vision & Media" },
+        { name: "Wikipedia Search Wordcloud", cat: "AI, Vision & Media" },
+        { name: "ASCII Art Generator", cat: "AI, Vision & Media" },
+        { name: "Handwritten Notes Converter", cat: "AI, Vision & Media" },
+        { name: "Random Image Downloader", cat: "AI, Vision & Media" },
+
+        // Security & Utilities
+        { name: "Encrypt Files & Folders Script", cat: "Security & Utils" },
+        { name: "Encrypt & Decrypt Text", cat: "Security & Utils" },
+        { name: "Password Hashing Utility", cat: "Security & Utils" },
+        { name: "OTP Verification", cat: "Security & Utils" },
+        { name: "Random Password Generator", cat: "Security & Utils" },
+        { name: "Recursive Password Generator", cat: "Security & Utils" },
+        { name: "Captcha Generator", cat: "Security & Utils" },
+        { name: "Steganography Tool", cat: "Security & Utils" },
+        { name: "Currency Converter", cat: "Security & Utils" },
+        { name: "Decimal ↔ Binary Converter", cat: "Security & Utils" },
+        { name: "Convert Numbers to Words", cat: "Security & Utils" },
+        { name: "Language Translator", cat: "Security & Utils" },
+        { name: "Text to Morse Code", cat: "Security & Utils" },
+        { name: "Geocoding Utility", cat: "Security & Utils" },
+        { name: "Bitcoin Mining Simulation", cat: "Security & Utils" },
+        { name: "Calculate Age", cat: "Security & Utils" },
+        { name: "Leap Year Checker", cat: "Security & Utils" },
+        { name: "Random Word from List", cat: "Security & Utils" },
+      ];
+
+      const CATS = ["All", ...new Set(CATALOG.map((x) => x.cat))];
+      let activeCat = "All";
+      let query = "";
+
+      const chipsEl = document.getElementById("chips");
+      const gridEl = document.getElementById("grid");
+      const countEl = document.getElementById("result-count");
+
+      function renderChips() {
+        chipsEl.innerHTML = CATS.map(
+          (c) => `<button type="button" class="chip ${c === activeCat ? "active" : ""}" data-cat="${c}">${c}</button>`
+        ).join("");
+        chipsEl.querySelectorAll("[data-cat]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            activeCat = btn.getAttribute("data-cat");
+            renderChips();
+            renderGrid();
+          });
+        });
+      }
+
+      function renderGrid() {
+        const list = CATALOG.filter((item) => {
+          const okCat = activeCat === "All" || item.cat === activeCat;
+          const okQ = !query || item.name.toLowerCase().includes(query) || item.cat.toLowerCase().includes(query);
+          return okCat && okQ;
+        });
+        countEl.textContent = `${list.length} of ${CATALOG.length} projects`;
+        gridEl.innerHTML = list
+          .map((it) => `<article class="card"><span class="cat">${it.cat}</span><div class="name">${it.name}</div></article>`)
+          .join("");
+      }
+
+      document.getElementById("search").addEventListener("input", (e) => {
+        query = e.target.value.trim().toLowerCase();
+        renderGrid();
+      });
+
+      renderChips();
+      renderGrid();
+    </script>
+  </body>
+</html>
