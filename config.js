@@ -25,7 +25,7 @@ window.PORTFOLIO_CONFIG = {
   links: {
     email: "oralvivas122@gmail.com",
     schoolEmail: "ovivasramirez@byupathway.edu",
-    linkedin: "https://www.linkedin.com/in/orlando-vivas", // Verifica si tu URL de LinkedIn tiene números al final
+    linkedin: "https://www.linkedin.com/in/orlando-vivas-a7278544/",
     github: "https://github.com/vivaseliezer",
     resumeUrl: "./resume.html",
   },
