@@ -90,64 +90,76 @@ window.PORTFOLIO_CONFIG = {
     },
   ],
 
-  // 4 Separate Project Folders
+  // 5 Separate Technology Folders (JavaScript, Python, C#, MySQL, HTML & CSS)
   folders: [
     {
-      id: "games",
-      path: "games/",
+      id: "javascript",
+      path: "javascript/",
       en: {
-        name: "Playable Games",
-        summary: "4 browser games playable in 1 click + 1 Python Tkinter game",
+        name: "JavaScript",
+        summary: "4 playable browser games + live E-Commerce storefront",
       },
       es: {
-        name: "Juegos",
-        summary: "4 juegos web jugables en 1 clic + 1 juego en Python Tkinter",
-      },
-    },
-    {
-      id: "ecommerce",
-      path: "ecommerce/",
-      en: {
-        name: "E-Commerce",
-        summary: "Interactive online storefront with cart, search, promos & checkout",
-      },
-      es: {
-        name: "E-Commerce",
-        summary: "Tienda online interactiva con carrito, buscador, descuentos y checkout",
-      },
-    },
-    {
-      id: "websites",
-      path: "websites/",
-      en: {
-        name: "Websites & UI",
-        summary: "Travel agency website & CSS keyframe animation demos",
-      },
-      es: {
-        name: "Sitios Web y UI",
-        summary: "Sitio web de agencia de viajes y animaciones CSS",
+        name: "JavaScript",
+        summary: "4 juegos jugables en 1 clic + tienda E-Commerce en vivo",
       },
     },
     {
       id: "python",
       path: "python/",
       en: {
-        name: "Python Projects",
-        summary: "Billing POS, PDF receipts, Tkinter games & 120+ scripts archive",
+        name: "Python",
+        summary: "Billing POS, PDF receipts, Tkinter arcade & 120+ scripts",
       },
       es: {
-        name: "Proyectos Python",
-        summary: "Facturación POS, recibos PDF, juegos Tkinter y archivo de 120+ scripts",
+        name: "Python",
+        summary: "Facturación POS, recibos PDF, arcade Tkinter y 120+ scripts",
+      },
+    },
+    {
+      id: "csharp",
+      path: "csharp/",
+      en: {
+        name: "C#",
+        summary: "OOP models, LINQ queries & .NET backend modules",
+      },
+      es: {
+        name: "C#",
+        summary: "Modelos POO, consultas LINQ y módulos backend .NET",
+      },
+    },
+    {
+      id: "mysql",
+      path: "mysql/",
+      en: {
+        name: "MySQL",
+        summary: "Normalized 3NF schemas, foreign keys & reporting JOINs",
+      },
+      es: {
+        name: "MySQL",
+        summary: "Esquemas normalizados 3FN, llaves foráneas y reportes JOIN",
+      },
+    },
+    {
+      id: "html-css",
+      path: "html-css/",
+      en: {
+        name: "HTML & CSS",
+        summary: "Travel landing page & pure CSS keyframe animations",
+      },
+      es: {
+        name: "HTML y CSS",
+        summary: "Sitio web de viajes y animaciones en CSS puro",
       },
     },
   ],
 
-  // All items organized by folder
+  // All items organized by technology folder
   items: [
-    // ================= FOLDER: GAMES =================
+    // ================= FOLDER: JAVASCRIPT =================
     {
       id: "dead-night",
-      folder: "games",
+      folder: "javascript",
       kind: "live",
       image: "./assets/previews/dead-night.png",
       liveUrl: {
@@ -193,7 +205,7 @@ window.PORTFOLIO_CONFIG = {
     },
     {
       id: "harvest-valley",
-      folder: "games",
+      folder: "javascript",
       kind: "live",
       image: "./assets/previews/harvest-valley.png",
       liveUrl: "./games/harvest-valley/index.html",
@@ -236,7 +248,7 @@ window.PORTFOLIO_CONFIG = {
     },
     {
       id: "the-goat",
-      folder: "games",
+      folder: "javascript",
       kind: "live",
       image: "./assets/previews/goat.png",
       liveUrl: "./games/goat/index.html",
@@ -279,7 +291,7 @@ window.PORTFOLIO_CONFIG = {
     },
     {
       id: "car-game",
-      folder: "games",
+      folder: "javascript",
       kind: "live",
       image: "./assets/previews/car-game.png",
       liveUrl: "./games/car-game/index.html",
@@ -324,7 +336,7 @@ window.PORTFOLIO_CONFIG = {
     // ================= FOLDER: E-COMMERCE =================
     {
       id: "ecommerce-store",
-      folder: "ecommerce",
+      folder: "javascript",
       kind: "live",
       image: "./assets/previews/ecommerce.png",
       liveUrl: "./projects/ecommerce/index.html",
@@ -366,10 +378,10 @@ window.PORTFOLIO_CONFIG = {
       },
     },
 
-    // ================= FOLDER: WEBSITES & UI =================
+    // ================= FOLDER: HTML & CSS =================
     {
       id: "travel-website",
-      folder: "websites",
+      folder: "html-css",
       kind: "live",
       image: "./assets/previews/travel-website.png",
       liveUrl: "./projects/travel-website/index.html",
@@ -412,7 +424,7 @@ window.PORTFOLIO_CONFIG = {
     },
     {
       id: "happy-new-year",
-      folder: "websites",
+      folder: "html-css",
       kind: "live",
       image: "./assets/previews/happy-new-year.png",
       liveUrl: "./projects/happy-new-year/index.html",
@@ -613,6 +625,90 @@ window.PORTFOLIO_CONFIG = {
         ],
         codeSnippetTitle: "Categorías del Archivo (120+ Proyectos Python)",
         codeSnippet: `python-practice-lab/\n├── desktop-gui/      # Billing System, Calendar GUI, Calculator, Contact Book\n├── automation/       # File Encryption, Duplicate Remover, Website/DNS Check\n├── media-and-pdf/    # PDF Receipts, Image-to-PDF, QR/Barcode Reader, AudioBook\n└── games-and-cli/    # Egg Catcher, Bouncing Ball Sim, CLI Todo, Countdown`,
+      },
+    },
+
+    // ================= FOLDER: C# =================
+    {
+      id: "csharp-inventory",
+      folder: "csharp",
+      kind: "code",
+      image: "./assets/previews/csharp-lab.png",
+      githubUrl: "https://github.com/vivaseliezer/portfolio/blob/main/projects/csharp/InventoryManager.cs",
+      stack: ["C#", ".NET", "LINQ", "Records & OOP"],
+      en: {
+        tag: "csharp / oop & linq",
+        title: "InventoryManager — C# OOP & LINQ Module",
+        summary:
+          "Strongly-typed C# inventory engine using immutable records, defensive argument validation, LINQ low-stock alerts, case-insensitive SKU lookup, and total stock valuation.",
+        actionLabel: "View C# Source",
+        problem: "Designing clean, testable C# business logic for stock tracking and low-inventory alerts before wiring a Web API or database.",
+        solution: "Built InventoryManager with C# record types, guard clauses against invalid prices/quantities, and expressive LINQ queries.",
+        highlights: [
+          "Uses C# record types (Product) and private encapsulated collections",
+          "LINQ queries for low-stock threshold filtering, sorting, and valuation sums",
+          "Ready foundation inside projects/csharp/ to expand with ASP.NET Web API endpoints",
+        ],
+        codeSnippetTitle: "projects/csharp/InventoryManager.cs",
+        codeSnippet: `public IEnumerable<Product> GetLowStockItems() =>\n    _products\n        .Where(p => p.StockQty <= p.ReorderLevel)\n        .OrderBy(p => p.StockQty);\n\npublic decimal GetTotalInventoryValue() =>\n    _products.Sum(p => p.Price * p.StockQty);`,
+      },
+      es: {
+        tag: "csharp / poo y linq",
+        title: "InventoryManager — Módulo C# POO y LINQ",
+        summary:
+          "Motor de inventario en C# con tipos record inmutables, validación defensiva, alertas de bajo stock con LINQ, búsqueda por SKU y cálculo del valor total de inventario.",
+        actionLabel: "Ver Código C#",
+        problem: "Estructurar lógica de negocio limpia y tipada en C# para control de inventario antes de conectar APIs o bases de datos.",
+        solution: "Implementé InventoryManager usando records de C#, validaciones contra valores negativos y consultas expresivas con LINQ.",
+        highlights: [
+          "Usa tipos record de C# (Product) y colecciones encapsuladas",
+          "Consultas LINQ para alertas de stock mínimo, ordenamiento y valuación total",
+          "Base lista en projects/csharp/ para seguir agregando proyectos y APIs en .NET",
+        ],
+        codeSnippetTitle: "projects/csharp/InventoryManager.cs",
+        codeSnippet: `public IEnumerable<Product> GetLowStockItems() =>\n    _products\n        .Where(p => p.StockQty <= p.ReorderLevel)\n        .OrderBy(p => p.StockQty);\n\npublic decimal GetTotalInventoryValue() =>\n    _products.Sum(p => p.Price * p.StockQty);`,
+      },
+    },
+
+    // ================= FOLDER: MYSQL =================
+    {
+      id: "mysql-retail-schema",
+      folder: "mysql",
+      kind: "code",
+      image: "./assets/previews/mysql-lab.png",
+      githubUrl: "https://github.com/vivaseliezer/portfolio/blob/main/projects/mysql/retail_store_schema.sql",
+      stack: ["MySQL 8", "3NF Normalization", "Foreign Keys", "JOINs & GROUP BY"],
+      en: {
+        tag: "mysql / relational schema",
+        title: "Retail Store & Billing Database Schema (3NF)",
+        summary:
+          "Normalized MySQL 8 schema built to back retail billing systems — defining customers, products, invoices, and invoice_items with CHECK constraints, foreign keys, and revenue JOIN reports.",
+        actionLabel: "View SQL Schema",
+        problem: "Moving retail billing data from flat text files into a normalized relational database that prevents duplicate customer data and invalid prices.",
+        solution: "Designed four 3NF tables with strict foreign-key relationships, ENUM categories, non-negative CHECK constraints, and analytical reporting queries.",
+        highlights: [
+          "4 normalized tables: customers, products, invoices, and invoice_items",
+          "Referential integrity via FOREIGN KEY constraints and ON DELETE CASCADE",
+          "Includes low-stock alert and category revenue reporting queries using INNER JOIN & GROUP BY",
+        ],
+        codeSnippetTitle: "projects/mysql/retail_store_schema.sql",
+        codeSnippet: `SELECT p.category,\n       SUM(ii.quantity) AS units_sold,\n       ROUND(SUM(ii.quantity * ii.unit_price), 2) AS total_revenue\nFROM invoice_items ii\nINNER JOIN products p ON ii.product_id = p.product_id\nGROUP BY p.category\nORDER BY total_revenue DESC;`,
+      },
+      es: {
+        tag: "mysql / esquema relacional",
+        title: "Esquema MySQL para Tienda y Facturación (3FN)",
+        summary:
+          "Base de datos normalizada en MySQL 8 para respaldar sistemas de facturación: tablas de clientes, productos, facturas y detalle con llaves foráneas, restricciones CHECK y reportes JOIN.",
+        actionLabel: "Ver Esquema SQL",
+        problem: "Pasar registros de facturación de archivos de texto a una base de datos relacional normalizada con integridad de datos.",
+        solution: "Diseñé 4 tablas en tercera forma normal (3FN) con llaves foráneas, categorías ENUM, validaciones CHECK y consultas analíticas.",
+        highlights: [
+          "4 tablas normalizadas: customers, products, invoices e invoice_items",
+          "Integridad referencial con FOREIGN KEY y ON DELETE CASCADE",
+          "Consultas reales de alerta de stock bajo e ingresos por categoría con INNER JOIN y GROUP BY",
+        ],
+        codeSnippetTitle: "projects/mysql/retail_store_schema.sql",
+        codeSnippet: `SELECT p.category,\n       SUM(ii.quantity) AS units_sold,\n       ROUND(SUM(ii.quantity * ii.unit_price), 2) AS total_revenue\nFROM invoice_items ii\nINNER JOIN products p ON ii.product_id = p.product_id\nGROUP BY p.category\nORDER BY total_revenue DESC;`,
       },
     },
   ],

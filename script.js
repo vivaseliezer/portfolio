@@ -22,10 +22,10 @@
       "hero.browseFolders": "Browse Project Folders ↓",
       "hero.viewResume": "View Resume",
       "hero.copyEmail": "oralvivas122@gmail.com (copy)",
-      "folders.eyebrow": "Project Folders",
-      "folders.title": "Organized by category — open any folder",
+      "folders.eyebrow": "Technology Folders",
+      "folders.title": "Organized by stack — open any folder",
       "folders.lead":
-        "Each area of my work lives in its own folder: playable browser games, an interactive e-commerce storefront, responsive websites, and Python desktop & automation tools.",
+        "Every technology I work with has its own folder: JavaScript, Python, C#, MySQL, and HTML & CSS. Click a folder to open live demos or inspect source code.",
       "folders.showAll": "View All Folders",
       "folders.itemsSingular": "item",
       "folders.itemsPlural": "items",
@@ -86,10 +86,10 @@
       "hero.browseFolders": "Explorar Carpetas ↓",
       "hero.viewResume": "Ver Currículum",
       "hero.copyEmail": "oralvivas122@gmail.com (copiar)",
-      "folders.eyebrow": "Carpetas de Proyectos",
-      "folders.title": "Organizado por categoría — abre cualquier carpeta",
+      "folders.eyebrow": "Carpetas por Tecnología",
+      "folders.title": "Organizado por lenguaje — abre cualquier carpeta",
       "folders.lead":
-        "Cada área de mi trabajo tiene su propia carpeta: juegos jugables en navegador, tienda e-commerce interactiva, sitios web responsivos y aplicaciones/scripts de Python.",
+        "Cada tecnología que manejo tiene su propia carpeta: JavaScript, Python, C#, MySQL y HTML & CSS. Abre cualquiera para probar demos en vivo o ver el código.",
       "folders.showAll": "Ver Todas las Carpetas",
       "folders.itemsSingular": "proyecto",
       "folders.itemsPlural": "proyectos",
@@ -139,7 +139,7 @@
   };
 
   let currentLang = localStorage.getItem("portfolio-lang") || "en";
-  let activeFolder = "games"; // "games" | "ecommerce" | "websites" | "python" | "all"
+  let activeFolder = "javascript"; // "javascript" | "python" | "csharp" | "mysql" | "html-css" | "all"
   let activeShowcaseIdx = 0;
   let activeModalItem = null;
   let activeLiveItem = null;
@@ -547,10 +547,10 @@
     }
   });
 
-  // Nav link shortcut: clicking "Games" opens the games folder automatically
+  // Nav link shortcut: clicking "Games" opens the javascript folder automatically
   document.querySelectorAll('a[href="#games"]').forEach((a) => {
     a.addEventListener("click", () => {
-      activeFolder = "games";
+      activeFolder = "javascript";
       renderFolders();
       renderFolderItems();
     });
