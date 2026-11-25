@@ -524,6 +524,144 @@ button {
 }
 
 /* ============================================================
+   01 / INTERACTIVE FOLDERS EXPLORER
+   ============================================================ */
+.anchor-offset {
+  position: relative;
+  top: -80px;
+}
+
+.folders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.folder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease), background var(--ease);
+}
+
+.folder-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.folder-card.active {
+  background: var(--solid-bg);
+  color: var(--solid-ink);
+  border-color: var(--solid-bg);
+  box-shadow: var(--shadow-card);
+}
+
+.folder-card-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.folder-svg {
+  color: var(--accent);
+}
+
+.folder-card.active .folder-svg {
+  color: var(--accent);
+}
+
+.folder-count-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  color: var(--ink-muted);
+  border: 1px solid var(--border);
+}
+
+.folder-card.active .folder-count-pill {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--solid-ink);
+  border-color: transparent;
+}
+
+.folder-path-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.folder-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.folder-card p {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.folder-card.active p {
+  color: inherit;
+  opacity: 0.82;
+}
+
+.folder-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin-bottom: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.folder-path {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+}
+
+.folder-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.folder-count-label {
+  color: var(--ink-subtle);
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* ============================================================
    01 / PLAYABLE GAMES
    ============================================================ */
 .games-grid {
@@ -1235,10 +1373,14 @@ button {
     grid-template-columns: 1fr;
     gap: 34px;
   }
+  .folders-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 740px) {
   .games-grid,
+  .items-grid,
   .projects-grid,
   .modal-two-col {
     grid-template-columns: 1fr;

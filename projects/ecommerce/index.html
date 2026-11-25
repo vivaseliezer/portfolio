@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fieldwork Goods — E-Commerce Demo by Orlando Vivas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f4ef;
+        --surface: #ffffff;
+        --surface-2: #edeae2;
+        --ink: #141413;
+        --muted: #5a5852;
+        --border: rgba(20, 20, 19, 0.12);
+        --accent: #d9480f;
+        --green: #157347;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.5;
+      }
+      .top-bar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(246, 244, 239, 0.94);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 20px;
+      }
+      .top-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .brand span {
+        color: var(--accent);
+      }
+      .search-box {
+        flex: 1;
+        min-width: 200px;
+        max-width: 360px;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 9px 13px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.22);
+        background: var(--surface);
+        font-family: inherit;
+        font-size: 0.9rem;
+      }
+      .cart-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 16px;
+        border-radius: 6px;
+        border: none;
+        background: var(--ink);
+        color: #f6f4ef;
+        font-weight: 600;
+        font-size: 0.88rem;
+        cursor: pointer;
+      }
+      .cart-count {
+        background: var(--accent);
+        color: #fff;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.76rem;
+        padding: 2px 7px;
+        border-radius: 99px;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 24px 20px 64px;
+      }
+      .promo-strip {
+        background: #141413;
+        color: #f6f4ef;
+        border-radius: 10px;
+        padding: 18px 22px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+      .promo-strip h1 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.45rem;
+      }
+      .promo-strip p {
+        font-size: 0.88rem;
+        color: #b5b1a7;
+      }
+      .promo-code {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.82rem;
+        background: rgba(217, 72, 15, 0.2);
+        border: 1px solid var(--accent);
+        color: #fdba74;
+        padding: 6px 12px;
+        border-radius: 6px;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .cats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .cat-btn {
+        padding: 7px 14px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.2);
+        background: var(--surface);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.84rem;
+        cursor: pointer;
+      }
+      .cat-btn.active {
+        background: var(--ink);
+        color: #f6f4ef;
+        border-color: var(--ink);
+      }
+      .sort-select {
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.22);
+        background: var(--surface);
+        font-family: inherit;
+        font-size: 0.85rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+        gap: 18px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px rgba(20, 20, 19, 0.08);
+      }
+      .art {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border-bottom: 1px solid var(--border);
+      }
+      .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.92);
+        color: var(--ink);
+      }
+      .card-body {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .cat-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .card-body h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.04rem;
+        margin-bottom: 5px;
+      }
+      .card-body p {
+        font-size: 0.84rem;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+      .card-foot {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .price {
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .add-btn {
+        padding: 8px 13px;
+        border-radius: 6px;
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.82rem;
+        cursor: pointer;
+      }
+      .add-btn:hover {
+        background: #b83a09;
+      }
+      /* Cart Drawer */
+      .drawer-bg {
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 20, 19, 0.55);
+        z-index: 100;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .drawer-bg[hidden] {
+        display: none;
+      }
+      .drawer {
+        width: min(410px, 100%);
+        height: 100%;
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      .drawer-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border);
+      }
+      .drawer-head h2 {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1.2rem;
+      }
+      .close-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+      .cart-items {
+        flex: 1;
+        padding: 14px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .cart-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cart-row strong {
+        font-size: 0.9rem;
+        display: block;
+      }
+      .cart-row small {
+        font-family: "IBM Plex Mono", monospace;
+        color: var(--muted);
+      }
+      .qty-ctrl {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .qty-ctrl button {
+        width: 26px;
+        height: 26px;
+        border-radius: 4px;
+        border: 1px solid rgba(20, 20, 19, 0.2);
+        background: var(--bg);
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .promo-form {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .promo-form input {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid rgba(20, 20, 19, 0.22);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.82rem;
+      }
+      .promo-form button {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: none;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.82rem;
+        cursor: pointer;
+      }
+      .totals {
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+        display: grid;
+        gap: 6px;
+        font-size: 0.88rem;
+        margin-bottom: 14px;
+      }
+      .totals div {
+        display: flex;
+        justify-content: space-between;
+      }
+      .totals .grand {
+        font-weight: 700;
+        font-size: 1.05rem;
+        padding-top: 6px;
+        border-top: 1px solid var(--border);
+      }
+      .checkout-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: none;
+        background: var(--green);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.94rem;
+        cursor: pointer;
+      }
+      .order-msg {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 6px;
+        background: rgba(21, 115, 71, 0.12);
+        color: var(--green);
+        font-size: 0.84rem;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-bar">
+      <div class="top-inner">
+        <div class="brand">Fieldwork<span>.</span>Store</div>
+        <div class="search-box">
+          <input type="search" id="search-input" placeholder="Search gear, audio, keyboards..." aria-label="Search products" />
+        </div>
+        <button type="button" class="cart-trigger" id="open-cart">
+          Cart <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="promo-strip">
+        <div>
+          <h1>Minimal Desk &amp; Dev Gear Storefront</h1>
+          <p>Interactive E-Commerce demo with live search, filters, cart persistence, promo codes &amp; 6% VA tax.</p>
+        </div>
+        <div class="promo-code">Use code: SAVE10 (10% off)</div>
+      </section>
+
+      <div class="controls">
+        <div class="cats" role="tablist" aria-label="Product categories">
+          <button type="button" class="cat-btn active" data-cat="all">All</button>
+          <button type="button" class="cat-btn" data-cat="workspace">Workspace</button>
+          <button type="button" class="cat-btn" data-cat="audio">Audio</button>
+          <button type="button" class="cat-btn" data-cat="accessories">Accessories</button>
+        </div>
+        <select id="sort-select" class="sort-select" aria-label="Sort products">
+          <option value="featured">Sort: Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+        </select>
+      </div>
+
+      <section class="grid" id="product-grid"></section>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div class="drawer-bg" id="cart-drawer" hidden>
+      <aside class="drawer" role="dialog" aria-label="Shopping cart">
+        <div class="drawer-head">
+          <h2>Your Cart</h2>
+          <button type="button" class="close-btn" id="close-cart" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <form class="promo-form" id="promo-form">
+          <input type="text" id="promo-input" placeholder="Promo code (SAVE10)" />
+          <button type="submit">Apply</button>
+        </form>
+        <div class="totals" id="cart-totals"></div>
+        <button type="button" class="checkout-btn" id="checkout-btn">Place Demo Order</button>
+        <div class="order-msg" id="order-msg" hidden></div>
+      </aside>
+    </div>
+
+    <script>
+      const PRODUCTS = [
+        { id: "kb-65", name: "Tactile 65% Mechanical Keyboard", cat: "workspace", price: 119.0, badge: "Best Seller", bg: "#e7e2d5", icon: "⌨", desc: "Hot-swappable switches, aluminum frame, USB-C braided cable." },
+        { id: "mon-bar", name: "Warm LED Monitor Light Bar", cat: "workspace", price: 48.5, badge: "Desk Pick", bg: "#dde7e0", icon: "☀", desc: "Zero screen glare with stepless brightness and color warmth dial." },
+        { id: "anc-hp", name: "Studio Focus ANC Headphones", cat: "audio", price: 149.0, badge: "New", bg: "#dce3ec", icon: "🎧", desc: "40-hour battery, low-latency USB-C audio for deep coding sessions." },
+        { id: "usb-mic", name: "Cardioid USB-C Condenser Mic", cat: "audio", price: 79.0, badge: "Pro", bg: "#ece0d8", icon: "🎙", desc: "Crisp voice pickup for standups, technical interviews, and streams." },
+        { id: "desk-mat", name: "Merino Wool Felt Desk Mat", cat: "accessories", price: 36.0, badge: "Craft", bg: "#e6e0ea", icon: "▭", desc: "Soft acoustic dampening surface sized for keyboard + mouse." },
+        { id: "hub-7", name: "7-in-1 Aluminum USB-C Hub", cat: "accessories", price: 42.0, badge: "Essential", bg: "#e2e7df", icon: "⚡", desc: "4K HDMI, 100W pass-through charging, SD reader, and 3× USB-A." },
+        { id: "stand-al", name: "Ergonomic Aluminum Laptop Stand", cat: "workspace", price: 54.0, badge: "Popular", bg: "#eae3d2", icon: "▲", desc: "Raises screen 6 inches for better posture with open airflow vents." },
+        { id: "cable-kit", name: "Magnetic Desk Cable Organizer", cat: "accessories", price: 19.5, badge: "Tidy", bg: "#dde5ea", icon: "◎", desc: "Weighted silicone dock with 5 magnetic clips for clean setups." },
+      ];
+
+      let activeCat = "all";
+      let searchTerm = "";
+      let sortBy = "featured";
+      let discountRate = 0;
+      let cart = JSON.parse(localStorage.getItem("fieldwork-cart") || "{}");
+
+      function saveCart() {
+        localStorage.setItem("fieldwork-cart", JSON.stringify(cart));
+      }
+
+      function renderProducts() {
+        let items = PRODUCTS.filter((p) => {
+          const matchCat = activeCat === "all" || p.cat === activeCat;
+          const matchSearch =
+            !searchTerm ||
+            p.name.toLowerCase().includes(searchTerm) ||
+            p.desc.toLowerCase().includes(searchTerm);
+          return matchCat && matchSearch;
+        });
+
+        if (sortBy === "low") items.sort((a, b) => a.price - b.price);
+        if (sortBy === "high") items.sort((a, b) => b.price - a.price);
+
+        const grid = document.getElementById("product-grid");
+        grid.innerHTML = items
+          .map(
+            (p) => `
+          <article class="card">
+            <div class="art" style="background:${p.bg}">
+              <span class="badge">${p.badge}</span>
+              <span style="font-size:2.8rem;" aria-hidden="true">${p.icon}</span>
+            </div>
+            <div class="card-body">
+              <span class="cat-label">${p.cat}</span>
+              <h2>${p.name}</h2>
+              <p>${p.desc}</p>
+              <div class="card-foot">
+                <span class="price">$${p.price.toFixed(2)}</span>
+                <button type="button" class="add-btn" data-add="${p.id}">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+        `
+          )
+          .join("");
+
+        grid.querySelectorAll("[data-add]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-add");
+            cart[id] = (cart[id] || 0) + 1;
+            saveCart();
+            updateCartUI();
+            btn.textContent = "Added ✓";
+            setTimeout(() => (btn.textContent = "Add to Cart"), 700);
+          });
+        });
+      }
+
+      function updateCartUI() {
+        const entries = Object.entries(cart).filter(([, qty]) => qty > 0);
+        const totalItems = entries.reduce((sum, [, qty]) => sum + qty, 0);
+        document.getElementById("cart-count").textContent = totalItems;
+
+        const list = document.getElementById("cart-items");
+        if (!entries.length) {
+          list.innerHTML = `<p style="color:#5a5852;font-size:0.9rem;">Your cart is empty. Add any item to test checkout calculations.</p>`;
+        } else {
+          list.innerHTML = entries
+            .map(([id, qty]) => {
+              const p = PRODUCTS.find((x) => x.id === id);
+              if (!p) return "";
+              return `
+                <div class="cart-row">
+                  <div>
+                    <strong>${p.name}</strong>
+                    <small>$${p.price.toFixed(2)} × ${qty} = $${(p.price * qty).toFixed(2)}</small>
+                  </div>
+                  <div class="qty-ctrl">
+                    <button type="button" data-dec="${id}" aria-label="Decrease">−</button>
+                    <span>${qty}</span>
+                    <button type="button" data-inc="${id}" aria-label="Increase">+</button>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+
+          list.querySelectorAll("[data-inc]").forEach((b) =>
+            b.addEventListener("click", () => {
+              const id = b.getAttribute("data-inc");
+              cart[id] = (cart[id] || 0) + 1;
+              saveCart();
+              updateCartUI();
+            })
+          );
+          list.querySelectorAll("[data-dec]").forEach((b) =>
+            b.addEventListener("click", () => {
+              const id = b.getAttribute("data-dec");
+              cart[id] = Math.max(0, (cart[id] || 0) - 1);
+              if (cart[id] === 0) delete cart[id];
+              saveCart();
+              updateCartUI();
+            })
+          );
+        }
+
+        const subtotal = entries.reduce((sum, [id, qty]) => {
+          const p = PRODUCTS.find((x) => x.id === id);
+          return sum + (p ? p.price * qty : 0);
+        }, 0);
+        const discount = subtotal * discountRate;
+        const taxedBase = subtotal - discount;
+        const tax = taxedBase * 0.06;
+        const total = taxedBase + tax;
+
+        document.getElementById("cart-totals").innerHTML = `
+          <div><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+          ${discount > 0 ? `<div style="color:#157347"><span>Promo (SAVE10)</span><span>−$${discount.toFixed(2)}</span></div>` : ""}
+          <div><span>VA Sales Tax (6%)</span><span>$${tax.toFixed(2)}</span></div>
+          <div class="grand"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+        `;
+      }
+
+      document.querySelectorAll(".cat-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeCat = btn.getAttribute("data-cat");
+          document.querySelectorAll(".cat-btn").forEach((b) => b.classList.toggle("active", b === btn));
+          renderProducts();
+        });
+      });
+
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        searchTerm = e.target.value.trim().toLowerCase();
+        renderProducts();
+      });
+
+      document.getElementById("sort-select").addEventListener("change", (e) => {
+        sortBy = e.target.value;
+        renderProducts();
+      });
+
+      const drawer = document.getElementById("cart-drawer");
+      document.getElementById("open-cart").addEventListener("click", () => {
+        document.getElementById("order-msg").hidden = true;
+        drawer.hidden = false;
+      });
+      document.getElementById("close-cart").addEventListener("click", () => (drawer.hidden = true));
+      drawer.addEventListener("click", (e) => {
+        if (e.target === drawer) drawer.hidden = true;
+      });
+
+      document.getElementById("promo-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const code = document.getElementById("promo-input").value.trim().toUpperCase();
+        discountRate = code === "SAVE10" ? 0.1 : 0;
+        updateCartUI();
+      });
+
+      document.getElementById("checkout-btn").addEventListener("click", () => {
+        const msg = document.getElementById("order-msg");
+        if (!Object.keys(cart).length) {
+          msg.textContent = "Add at least one item before placing a demo order.";
+          msg.hidden = false;
+          return;
+        }
+        const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+        cart = {};
+        discountRate = 0;
+        saveCart();
+        updateCartUI();
+        msg.textContent = `Demo Order ${orderId} confirmed! Cart has been cleared.`;
+        msg.hidden = false;
+      });
+
+      renderProducts();
+      updateCartUI();
+    </script>
+  </body>
+</html>

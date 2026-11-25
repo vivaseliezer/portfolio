@@ -1,6 +1,6 @@
 /* ============================================================
    ORLANDO VIVAS — PORTFOLIO INTERACTIVITY
-   Bilingual EN/ES, Light/Dark Theme, Hero Showcase, 1-Click Games
+   4 Separate Project Folders, Bilingual EN/ES, Light/Dark, 1-Click Live Preview
    ============================================================ */
 
 (function () {
@@ -10,35 +10,30 @@
   const I18N = {
     en: {
       "a11y.skip": "Skip to content",
+      "nav.folders": "Folders",
       "nav.games": "Games",
-      "nav.work": "Work",
       "nav.about": "About",
       "nav.contact": "Contact",
       "nav.resume": "Resume PDF",
       "hero.headline":
         "I build desktop tools in Python, web apps in JavaScript, and browser games from scratch.",
       "hero.bio":
-        "I’m <strong>Orlando Vivas</strong> — a bilingual (English &amp; Spanish) software developer studying at <strong>BYU-Pathway Worldwide</strong>. Instead of only describing what I’ve learned, I put my working projects and four original games live here so you can test them in one click.",
-      "hero.playGames": "Play My 4 Games ↓",
+        "I’m <strong>Orlando Vivas</strong> — a bilingual (English &amp; Spanish) software developer studying at <strong>BYU-Pathway Worldwide</strong>. Instead of only describing what I’ve learned, I organized my games, e-commerce storefront, websites, and Python apps into folders you can open and test right here.",
+      "hero.browseFolders": "Browse Project Folders ↓",
       "hero.viewResume": "View Resume",
       "hero.copyEmail": "oralvivas122@gmail.com (copy)",
-      "games.eyebrow": "Playable in Browser",
-      "games.title": "Four original games — click any card to play",
-      "games.lead":
-        "Every game below runs directly inside this page with no downloads. Building games forced me to learn game loops, collision math, audio synthesis, and clean state management.",
-      "games.playNow": "Play Now",
-      "games.code": "Source Code",
+      "folders.eyebrow": "Project Folders",
+      "folders.title": "Organized by category — open any folder",
+      "folders.lead":
+        "Each area of my work lives in its own folder: playable browser games, an interactive e-commerce storefront, responsive websites, and Python desktop & automation tools.",
+      "folders.showAll": "View All Folders",
+      "folders.itemsSingular": "item",
+      "folders.itemsPlural": "items",
+      "games.playNow": "Open Live",
+      "games.code": "Source",
+      "games.notes": "Notes",
       "games.restart": "Restart",
       "games.openFull": "Full Tab ↗",
-      "projects.eyebrow": "Engineering Breakdown",
-      "projects.title": "How I built them",
-      "projects.lead":
-        "Real projects I’ve written and shipped — click technical notes on any project to inspect the problem, structure, and actual source code.",
-      "projects.filterAll": "All",
-      "projects.filterDesktop": "Python Desktop",
-      "projects.filterWeb": "Web & Canvas",
-      "projects.notes": "Technical Notes",
-      "projects.code": "GitHub",
       "about.eyebrow": "Background",
       "about.title": "Learning by shipping real software",
       "about.p1":
@@ -59,7 +54,7 @@
       "contact.eyebrow": "Get in Touch",
       "contact.title": "Let’s talk about your team or an open role",
       "contact.lead":
-        "Whether you’re a hiring manager in Northern Virginia / DC, a recruiter, or a fellow developer who tried one of my games, feel free to email me directly or send a quick note here.",
+        "Whether you’re a hiring manager in Northern Virginia / DC, a recruiter, or a fellow developer who tried one of my projects, feel free to email me directly or send a quick note here.",
       "contact.primaryEmail": "Email",
       "contact.studentEmail": "BYU-Pathway",
       "contact.clickCopy": "Copy",
@@ -79,35 +74,30 @@
     },
     es: {
       "a11y.skip": "Ir al contenido",
+      "nav.folders": "Carpetas",
       "nav.games": "Juegos",
-      "nav.work": "Proyectos",
       "nav.about": "Sobre mí",
       "nav.contact": "Contacto",
       "nav.resume": "CV en PDF",
       "hero.headline":
-        "Creo aplicaciones de escritorio en Python, herramientas web en JavaScript y juegos en navegador desde cero.",
+        "Creo aplicaciones de escritorio en Python, tiendas y herramientas web en JavaScript y juegos en navegador desde cero.",
       "hero.bio":
-        "Soy <strong>Orlando Vivas</strong>, desarrollador de software bilingüe (Inglés y Español) estudiando en <strong>BYU-Pathway Worldwide</strong>. En lugar de solo contar lo que sé hacer, subí mis proyectos y cuatro juegos originales aquí para que puedas probarlos con un clic.",
-      "hero.playGames": "Jugar Mis 4 Juegos ↓",
+        "Soy <strong>Orlando Vivas</strong>, desarrollador de software bilingüe (Inglés y Español) estudiando en <strong>BYU-Pathway Worldwide</strong>. Organicé mis juegos, tienda e-commerce, sitios web y herramientas de Python en carpetas separadas para que puedas abrir y probar todo aquí mismo.",
+      "hero.browseFolders": "Explorar Carpetas ↓",
       "hero.viewResume": "Ver Currículum",
       "hero.copyEmail": "oralvivas122@gmail.com (copiar)",
-      "games.eyebrow": "Jugables en Navegador",
-      "games.title": "Cuatro juegos originales — haz clic para jugar",
-      "games.lead":
-        "Cada juego corre directamente aquí sin descargar nada. Programarlos me llevó a dominar bucles de juego, física de colisiones, síntesis de audio y manejo limpio de estado.",
-      "games.playNow": "Jugar Ahora",
+      "folders.eyebrow": "Carpetas de Proyectos",
+      "folders.title": "Organizado por categoría — abre cualquier carpeta",
+      "folders.lead":
+        "Cada área de mi trabajo tiene su propia carpeta: juegos jugables en navegador, tienda e-commerce interactiva, sitios web responsivos y aplicaciones/scripts de Python.",
+      "folders.showAll": "Ver Todas las Carpetas",
+      "folders.itemsSingular": "proyecto",
+      "folders.itemsPlural": "proyectos",
+      "games.playNow": "Abrir en Vivo",
       "games.code": "Código",
+      "games.notes": "Notas",
       "games.restart": "Reiniciar",
       "games.openFull": "Pestaña Completa ↗",
-      "projects.eyebrow": "Detalle Técnico",
-      "projects.title": "Cómo los construí",
-      "projects.lead":
-        "Proyectos reales que escribí y publiqué — abre las notas técnicas de cualquiera para ver el problema, la arquitectura y fragmentos de código real.",
-      "projects.filterAll": "Todos",
-      "projects.filterDesktop": "Python Escritorio",
-      "projects.filterWeb": "Web y Canvas",
-      "projects.notes": "Notas Técnicas",
-      "projects.code": "GitHub",
       "about.eyebrow": "Historia",
       "about.title": "Aprendiendo construyendo software real",
       "about.p1":
@@ -128,7 +118,7 @@
       "contact.eyebrow": "Contacto",
       "contact.title": "Hablemos sobre tu equipo o una vacante",
       "contact.lead":
-        "Si buscas un Junior Developer en Northern Virginia / DC o remoto, o simplemente probaste alguno de mis juegos, escríbeme directo por correo o envíame un mensaje aquí.",
+        "Si buscas un Junior Developer en Northern Virginia / DC o remoto, o simplemente probaste alguno de mis proyectos, escríbeme directo por correo o envíame un mensaje aquí.",
       "contact.primaryEmail": "Correo",
       "contact.studentEmail": "BYU-Pathway",
       "contact.clickCopy": "Copiar",
@@ -149,10 +139,10 @@
   };
 
   let currentLang = localStorage.getItem("portfolio-lang") || "en";
-  let currentFilter = "all";
+  let activeFolder = "games"; // "games" | "ecommerce" | "websites" | "python" | "all"
   let activeShowcaseIdx = 0;
-  let activeModalProject = null;
-  let activeGame = null;
+  let activeModalItem = null;
+  let activeLiveItem = null;
 
   function t(key) {
     return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
@@ -170,10 +160,10 @@
     return escapeHtml(str).replace(/'/g, "&#39;");
   }
 
-  function resolveGameUrl(game) {
-    if (!game || !game.playUrl) return "";
-    if (typeof game.playUrl === "string") return game.playUrl;
-    return game.playUrl[currentLang] || game.playUrl.en || game.playUrl.es || "";
+  function resolveLiveUrl(item) {
+    if (!item || !item.liveUrl) return "";
+    if (typeof item.liveUrl === "string") return item.liveUrl;
+    return item.liveUrl[currentLang] || item.liveUrl.en || item.liveUrl.es || "";
   }
 
   function applyConfig() {
@@ -203,25 +193,25 @@
 
   // Hero Visual Showcase
   function renderShowcase() {
-    const items = cfg.showcase || [];
-    const item = items[activeShowcaseIdx] || items[0];
-    if (!item) return;
+    const list = cfg.showcase || [];
+    const entry = list[activeShowcaseIdx] || list[0];
+    if (!entry) return;
 
-    const copy = item[currentLang] || item.en;
+    const copy = entry[currentLang] || entry.en;
     const img = document.getElementById("showcase-img");
     const cap = document.getElementById("showcase-caption");
     const ctaText = document.getElementById("showcase-cta-text");
     const tabsWrap = document.getElementById("showcase-tabs");
 
     if (img) {
-      img.src = item.image;
+      img.src = entry.image;
       img.alt = copy.caption;
     }
     if (cap) cap.textContent = copy.caption;
     if (ctaText) ctaText.textContent = copy.cta;
 
     if (tabsWrap) {
-      tabsWrap.innerHTML = items
+      tabsWrap.innerHTML = list
         .map((it, idx) => {
           const tabCopy = it[currentLang] || it.en;
           const active = idx === activeShowcaseIdx;
@@ -241,51 +231,147 @@
   const showcaseBtn = document.getElementById("showcase-action-btn");
   if (showcaseBtn) {
     showcaseBtn.addEventListener("click", () => {
-      const item = (cfg.showcase || [])[activeShowcaseIdx];
+      const entry = (cfg.showcase || [])[activeShowcaseIdx];
+      if (!entry) return;
+      const item = (cfg.items || []).find((x) => x.id === entry.itemId);
       if (!item) return;
-      if (item.gameId) {
-        const g = cfg.games.find((x) => x.id === item.gameId);
-        if (g) openGameModal(g);
-      } else if (item.projectId) {
-        const p = cfg.projects.find((x) => x.id === item.projectId);
-        if (p) openProjectModal(p);
-      }
+      if (item.kind === "live") openLiveModal(item);
+      else openNotesModal(item);
     });
   }
 
-  // Render Playable Games Grid
-  function renderGames() {
-    const grid = document.getElementById("games-grid");
+  // Render 4 Interactive Category Folders
+  function renderFolders() {
+    const wrap = document.getElementById("folders-grid");
+    const allBtn = document.getElementById("show-all-folders-btn");
+    if (!wrap) return;
+
+    if (allBtn) {
+      allBtn.classList.toggle("active", activeFolder === "all");
+    }
+
+    wrap.innerHTML = (cfg.folders || [])
+      .map((folder) => {
+        const copy = folder[currentLang] || folder.en;
+        const count = (cfg.items || []).filter((i) => i.folder === folder.id).length;
+        const isActive = activeFolder === folder.id;
+        return `
+          <button
+            type="button"
+            class="folder-card ${isActive ? "active" : ""}"
+            role="tab"
+            aria-selected="${isActive}"
+            data-folder-id="${escapeAttr(folder.id)}"
+          >
+            <div class="folder-card-top">
+              <svg class="folder-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span class="folder-count-pill">${count}</span>
+            </div>
+            <span class="folder-path-tag">${escapeHtml(folder.path)}</span>
+            <h3>${escapeHtml(copy.name)}</h3>
+            <p>${escapeHtml(copy.summary)}</p>
+          </button>
+        `;
+      })
+      .join("");
+
+    wrap.querySelectorAll("[data-folder-id]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeFolder = btn.getAttribute("data-folder-id");
+        renderFolders();
+        renderFolderItems();
+      });
+    });
+  }
+
+  const allFoldersBtn = document.getElementById("show-all-folders-btn");
+  if (allFoldersBtn) {
+    allFoldersBtn.addEventListener("click", () => {
+      activeFolder = "all";
+      renderFolders();
+      renderFolderItems();
+    });
+  }
+
+  // Render Items inside Selected Folder
+  function renderFolderItems() {
+    const grid = document.getElementById("folder-items-grid");
+    const pathEl = document.getElementById("active-folder-path");
+    const countEl = document.getElementById("active-folder-count");
     if (!grid) return;
 
-    grid.innerHTML = (cfg.games || [])
-      .map((game) => {
-        const copy = game[currentLang] || game.en;
-        const tagsHtml = (game.tech || [])
-          .map((tech) => `<span class="chip">${escapeHtml(tech)}</span>`)
+    const filtered = (cfg.items || []).filter(
+      (item) => activeFolder === "all" || item.folder === activeFolder
+    );
+
+    if (pathEl) {
+      if (activeFolder === "all") {
+        pathEl.textContent = "portfolio / all-folders/";
+      } else {
+        const f = (cfg.folders || []).find((x) => x.id === activeFolder);
+        pathEl.textContent = `portfolio / ${f ? f.path : activeFolder + "/"}`;
+      }
+    }
+
+    if (countEl) {
+      const noun = filtered.length === 1 ? t("folders.itemsSingular") : t("folders.itemsPlural");
+      countEl.textContent = `${filtered.length} ${noun}`;
+    }
+
+    grid.innerHTML = filtered
+      .map((item) => {
+        const copy = item[currentLang] || item.en;
+        const isLive = item.kind === "live" && Boolean(resolveLiveUrl(item));
+        const tagsHtml = (item.stack || [])
+          .map((s) => `<span class="chip">${escapeHtml(s)}</span>`)
           .join("");
+
+        const controlsHtml = copy.controls
+          ? `<div class="game-controls-line">${escapeHtml(copy.controls)}</div>`
+          : "";
+
+        const primaryBtn = isLive
+          ? `<button type="button" class="btn btn-sm btn-accent btn-grow" data-open-live="${escapeAttr(item.id)}">
+               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+               ${escapeHtml(copy.actionLabel || t("games.playNow"))}
+             </button>`
+          : `<button type="button" class="btn btn-sm btn-solid btn-grow" data-open-notes="${escapeAttr(item.id)}">
+               ${escapeHtml(copy.actionLabel || t("games.notes"))}
+             </button>`;
+
+        const notesBtn = isLive
+          ? `<button type="button" class="btn btn-sm btn-outline" data-open-notes="${escapeAttr(item.id)}">${escapeHtml(t("games.notes"))}</button>`
+          : "";
+
+        const coverPill = isLive
+          ? `<span class="cover-play-pill">
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+               ${escapeHtml(copy.actionLabel || t("games.playNow"))}
+             </span>`
+          : `<span class="cover-play-pill">${escapeHtml(t("games.notes"))}</span>`;
+
+        const coverActionAttr = isLive
+          ? `data-open-live="${escapeAttr(item.id)}"`
+          : `data-open-notes="${escapeAttr(item.id)}"`;
 
         return `
           <article class="game-card">
-            <div class="game-cover" data-play-game="${escapeAttr(game.id)}" role="button" tabindex="0" aria-label="${escapeAttr(t("games.playNow") + " " + copy.title)}">
-              <img src="${escapeAttr(game.image)}" alt="${escapeAttr(copy.title)} screenshot" loading="lazy" />
-              <span class="cover-play-pill">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-                ${escapeHtml(t("games.playNow"))}
-              </span>
+            <div class="game-cover" ${coverActionAttr} role="button" tabindex="0" aria-label="${escapeAttr(copy.title)}">
+              <img src="${escapeAttr(item.image)}" alt="${escapeAttr(copy.title)} preview" loading="lazy" />
+              ${coverPill}
             </div>
             <div class="game-body">
               <span class="mono-tag">${escapeHtml(copy.tag)}</span>
               <h3>${escapeHtml(copy.title)}</h3>
-              <p class="game-desc">${escapeHtml(copy.description)}</p>
-              <div class="game-controls-line">${escapeHtml(copy.controls)}</div>
+              <p class="game-desc">${escapeHtml(copy.summary)}</p>
+              ${controlsHtml}
               <div class="tag-row">${tagsHtml}</div>
               <div class="card-actions">
-                <button type="button" class="btn btn-sm btn-accent btn-grow" data-play-game="${escapeAttr(game.id)}">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
-                  ${escapeHtml(t("games.playNow"))}
-                </button>
-                <a href="${escapeAttr(game.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                ${primaryBtn}
+                ${notesBtn}
+                <a href="${escapeAttr(item.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
                   ${escapeHtml(t("games.code"))} &nearr;
                 </a>
               </div>
@@ -295,102 +381,55 @@
       })
       .join("");
 
-    grid.querySelectorAll("[data-play-game]").forEach((el) => {
-      const launch = () => {
-        const id = el.getAttribute("data-play-game");
-        const g = cfg.games.find((x) => x.id === id);
-        if (g) openGameModal(g);
+    grid.querySelectorAll("[data-open-live]").forEach((el) => {
+      const go = () => {
+        const item = (cfg.items || []).find((x) => x.id === el.getAttribute("data-open-live"));
+        if (item) openLiveModal(item);
       };
-      el.addEventListener("click", launch);
+      el.addEventListener("click", go);
       if (el.getAttribute("role") === "button") {
         el.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            launch();
+            go();
+          }
+        });
+      }
+    });
+
+    grid.querySelectorAll("[data-open-notes]").forEach((el) => {
+      const go = () => {
+        const item = (cfg.items || []).find((x) => x.id === el.getAttribute("data-open-notes"));
+        if (item) openNotesModal(item);
+      };
+      el.addEventListener("click", go);
+      if (el.getAttribute("role") === "button") {
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            go();
           }
         });
       }
     });
   }
 
-  // Render Software Work Grid
-  function renderProjects() {
-    const grid = document.getElementById("projects-grid");
-    if (!grid) return;
-
-    const list = (cfg.projects || []).filter(
-      (p) => currentFilter === "all" || p.category === currentFilter
-    );
-
-    grid.innerHTML = list
-      .map((project) => {
-        const copy = project[currentLang] || project.en;
-        const tagsHtml = (project.stack || [])
-          .map((s) => `<span class="chip">${escapeHtml(s)}</span>`)
-          .join("");
-
-        const playBtn = project.playGameId
-          ? `<button type="button" class="btn btn-sm btn-outline" data-launch-game="${escapeAttr(project.playGameId)}">${escapeHtml(t("games.playNow"))}</button>`
-          : "";
-
-        return `
-          <article class="project-card">
-            <div class="project-thumb">
-              <img src="${escapeAttr(project.previewImage)}" alt="${escapeAttr(copy.title)} preview" loading="lazy" />
-            </div>
-            <div class="project-body">
-              <span class="mono-tag">${escapeHtml(copy.year)}</span>
-              <h3>${escapeHtml(copy.title)}</h3>
-              <p class="project-summary">${escapeHtml(copy.summary)}</p>
-              <div class="tag-row">${tagsHtml}</div>
-              <div class="card-actions">
-                <button type="button" class="btn btn-sm btn-solid" data-open-project="${escapeAttr(project.id)}">
-                  ${escapeHtml(t("projects.notes"))}
-                </button>
-                ${playBtn}
-                <a href="${escapeAttr(project.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
-                  ${escapeHtml(t("projects.code"))} &nearr;
-                </a>
-              </div>
-            </div>
-          </article>
-        `;
-      })
-      .join("");
-
-    grid.querySelectorAll("[data-open-project]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-open-project");
-        const proj = cfg.projects.find((p) => p.id === id);
-        if (proj) openProjectModal(proj);
-      });
-    });
-
-    grid.querySelectorAll("[data-launch-game]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-launch-game");
-        const g = cfg.games.find((x) => x.id === id);
-        if (g) openGameModal(g);
-      });
-    });
-  }
-
-  // Project Notes Modal
+  // Technical Notes Modal
   const projectModal = document.getElementById("project-modal");
   const projectModalClose = document.getElementById("modal-close");
   const modalPlayBtn = document.getElementById("modal-play-btn");
 
-  function populateProjectModal(project) {
-    const copy = project[currentLang] || project.en;
-    document.getElementById("modal-badge").textContent = copy.year;
+  function populateNotesModal(item) {
+    const copy = item[currentLang] || item.en;
+    document.getElementById("modal-badge").textContent = copy.tag;
     document.getElementById("modal-title").textContent = copy.title;
     document.getElementById("modal-problem").textContent = copy.problem;
     document.getElementById("modal-solution").textContent = copy.solution;
     document.getElementById("modal-code-title").textContent = copy.codeSnippetTitle;
     document.getElementById("modal-code-content").textContent = copy.codeSnippet;
-    document.getElementById("modal-github").href = project.githubUrl;
+    document.getElementById("modal-github").href = item.githubUrl;
 
-    document.getElementById("modal-tags").innerHTML = (project.stack || [])
+    document.getElementById("modal-tags").innerHTML = (item.stack || [])
       .map((s) => `<span class="chip">${escapeHtml(s)}</span>`)
       .join("");
 
@@ -400,8 +439,8 @@
 
     const previewWrap = document.getElementById("modal-preview-wrap");
     const previewImg = document.getElementById("modal-preview-img");
-    if (previewWrap && previewImg && project.previewImage) {
-      previewImg.src = project.previewImage;
+    if (previewWrap && previewImg && item.image) {
+      previewImg.src = item.image;
       previewImg.alt = `${copy.title} preview`;
       previewWrap.hidden = false;
     } else if (previewWrap) {
@@ -409,12 +448,12 @@
     }
 
     if (modalPlayBtn) {
-      if (project.playGameId) {
+      if (item.kind === "live" && resolveLiveUrl(item)) {
         modalPlayBtn.hidden = false;
+        modalPlayBtn.querySelector("span").textContent = copy.actionLabel || t("games.playNow");
         modalPlayBtn.onclick = () => {
-          const g = cfg.games.find((x) => x.id === project.playGameId);
-          closeProjectModal();
-          if (g) openGameModal(g);
+          closeNotesModal();
+          openLiveModal(item);
         };
       } else {
         modalPlayBtn.hidden = true;
@@ -422,44 +461,44 @@
     }
   }
 
-  function openProjectModal(project) {
-    activeModalProject = project;
-    populateProjectModal(project);
+  function openNotesModal(item) {
+    activeModalItem = item;
+    populateNotesModal(item);
     projectModal.hidden = false;
     document.body.style.overflow = "hidden";
     projectModalClose.focus();
   }
 
-  function closeProjectModal() {
+  function closeNotesModal() {
     projectModal.hidden = true;
-    activeModalProject = null;
+    activeModalItem = null;
     document.body.style.overflow = "";
   }
 
-  if (projectModalClose) projectModalClose.addEventListener("click", closeProjectModal);
+  if (projectModalClose) projectModalClose.addEventListener("click", closeNotesModal);
   if (projectModal) {
     projectModal.addEventListener("click", (e) => {
-      if (e.target === projectModal) closeProjectModal();
+      if (e.target === projectModal) closeNotesModal();
     });
   }
 
-  // 1-Click Game Player Modal
+  // 1-Click Live Preview / Game Player Modal
   const gameModal = document.getElementById("game-modal");
   const gameModalClose = document.getElementById("game-modal-close");
   const gameIframe = document.getElementById("game-iframe");
   const gameRestartBtn = document.getElementById("game-restart-btn");
   const gameNewTabLink = document.getElementById("game-newtab-link");
 
-  function updateGameModalLabels(game) {
-    const copy = game[currentLang] || game.en;
+  function updateLiveModalLabels(item) {
+    const copy = item[currentLang] || item.en;
     document.getElementById("game-modal-title").textContent = copy.title;
-    document.getElementById("game-modal-controls-hint").textContent = copy.controls;
+    document.getElementById("game-modal-controls-hint").textContent = copy.controls || copy.tag;
   }
 
-  function openGameModal(game) {
-    activeGame = game;
-    const url = resolveGameUrl(game);
-    updateGameModalLabels(game);
+  function openLiveModal(item) {
+    activeLiveItem = item;
+    const url = resolveLiveUrl(item);
+    updateLiveModalLabels(item);
     gameIframe.src = url;
     gameNewTabLink.href = url;
     gameModal.hidden = false;
@@ -467,45 +506,54 @@
     gameModalClose.focus();
   }
 
-  function closeGameModal() {
+  function closeLiveModal() {
     gameModal.hidden = true;
     gameIframe.src = "about:blank";
-    activeGame = null;
+    activeLiveItem = null;
     document.body.style.overflow = "";
   }
 
   if (gameIframe) {
     gameIframe.addEventListener("load", () => {
-      if (activeGame && gameIframe.contentWindow) {
+      if (activeLiveItem && gameIframe.contentWindow) {
         try {
           gameIframe.contentWindow.focus();
         } catch {}
       }
     });
   }
-  if (gameModalClose) gameModalClose.addEventListener("click", closeGameModal);
+  if (gameModalClose) gameModalClose.addEventListener("click", closeLiveModal);
   if (gameRestartBtn) {
     gameRestartBtn.addEventListener("click", () => {
-      if (activeGame && gameIframe) {
-        const url = resolveGameUrl(activeGame);
+      if (activeLiveItem && gameIframe) {
+        const url = resolveLiveUrl(activeLiveItem);
         gameIframe.src = "about:blank";
         setTimeout(() => {
-          if (activeGame) gameIframe.src = url;
+          if (activeLiveItem) gameIframe.src = url;
         }, 40);
       }
     });
   }
   if (gameModal) {
     gameModal.addEventListener("click", (e) => {
-      if (e.target === gameModal) closeGameModal();
+      if (e.target === gameModal) closeLiveModal();
     });
   }
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (projectModal && !projectModal.hidden) closeProjectModal();
-      if (gameModal && !gameModal.hidden) closeGameModal();
+      if (projectModal && !projectModal.hidden) closeNotesModal();
+      if (gameModal && !gameModal.hidden) closeLiveModal();
     }
+  });
+
+  // Nav link shortcut: clicking "Games" opens the games folder automatically
+  document.querySelectorAll('a[href="#games"]').forEach((a) => {
+    a.addEventListener("click", () => {
+      activeFolder = "games";
+      renderFolders();
+      renderFolderItems();
+    });
   });
 
   // Language Switcher
@@ -531,10 +579,10 @@
     document.getElementById("about-location").textContent = cfg.location[currentLang];
 
     renderShowcase();
-    renderGames();
-    renderProjects();
-    if (activeModalProject) populateProjectModal(activeModalProject);
-    if (activeGame) updateGameModalLabels(activeGame);
+    renderFolders();
+    renderFolderItems();
+    if (activeModalItem) populateNotesModal(activeModalItem);
+    if (activeLiveItem) updateLiveModalLabels(activeLiveItem);
   }
 
   const langBtn = document.getElementById("lang-toggle");
@@ -552,17 +600,6 @@
       localStorage.setItem("ov-theme-v2", next);
     });
   }
-
-  // Filter buttons
-  document.querySelectorAll(".filter-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      currentFilter = btn.getAttribute("data-filter");
-      document.querySelectorAll(".filter-btn").forEach((b) => {
-        b.classList.toggle("active", b === btn);
-      });
-      renderProjects();
-    });
-  });
 
   // Mobile Menu
   const mobileBtn = document.getElementById("mobile-menu-btn");
@@ -605,7 +642,7 @@
     if (btn) btn.addEventListener("click", copyEmail);
   });
 
-  // Contact form (Netlify Forms + local mailto fallback)
+  // Contact form
   const form = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
   if (form) {

@@ -50,7 +50,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="./style.css?v=6" />
+    <link rel="stylesheet" href="./style.css?v=7" />
 
     <script type="application/ld+json">
       {
@@ -78,8 +78,8 @@
 
         <nav class="main-nav" id="main-nav" aria-label="Main navigation">
           <ul class="nav-links">
+            <li><a href="#folders" data-i18n="nav.folders">Folders</a></li>
             <li><a href="#games" data-i18n="nav.games">Games</a></li>
-            <li><a href="#work" data-i18n="nav.work">Work</a></li>
             <li><a href="#about" data-i18n="nav.about">About</a></li>
             <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
           </ul>
@@ -158,8 +158,8 @@
             </p>
 
             <div class="hero-actions">
-              <a href="#games" class="btn btn-accent" data-i18n="hero.playGames">
-                Play My 4 Games &darr;
+              <a href="#folders" class="btn btn-accent" data-i18n="hero.browseFolders">
+                Browse Project Folders &darr;
               </a>
               <a href="./resume.html" class="btn btn-outline" id="hero-resume-link" data-i18n="hero.viewResume">
                 View Resume
@@ -206,53 +206,51 @@
         </div>
       </section>
 
-      <!-- 01 / PLAYABLE GAMES ARCADE -->
-      <section class="section section-tinted" id="games">
-        <div class="container">
-          <div class="section-head">
-            <span class="section-num">01 / <span data-i18n="games.eyebrow">Playable in Browser</span></span>
-            <h2 class="section-title" data-i18n="games.title">Four original games — click any card to play</h2>
-            <p class="section-sub" data-i18n="games.lead">
-              Every game below runs directly inside this page with no downloads. Building games forced me to learn game loops, collision math, audio synthesis, and clean state management.
-            </p>
-          </div>
-
-          <div class="games-grid" id="games-grid">
-            <!-- Rendered from config.js -->
-          </div>
-        </div>
-      </section>
-
-      <!-- 02 / SELECTED SOFTWARE WORK -->
-      <section class="section" id="work">
+      <!-- 01 / SEPARATE PROJECT FOLDERS EXPLORER -->
+      <section class="section section-tinted" id="folders">
+        <div id="games" class="anchor-offset" aria-hidden="true"></div>
+        <div id="work" class="anchor-offset" aria-hidden="true"></div>
         <div class="container">
           <div class="section-head-row">
             <div>
-              <span class="section-num">02 / <span data-i18n="projects.eyebrow">Engineering Breakdown</span></span>
-              <h2 class="section-title" data-i18n="projects.title">How I built them</h2>
-              <p class="section-sub" data-i18n="projects.lead">
-                Real projects I’ve written and shipped — click technical notes on any project to inspect the problem, structure, and actual source code.
+              <span class="section-num">01 / <span data-i18n="folders.eyebrow">Project Folders</span></span>
+              <h2 class="section-title" data-i18n="folders.title">Organized by category — open any folder</h2>
+              <p class="section-sub" data-i18n="folders.lead">
+                Each area of my work lives in its own folder: playable browser games, an interactive e-commerce storefront, responsive websites, and Python desktop &amp; automation tools.
               </p>
             </div>
-            <div class="filter-bar" role="tablist" aria-label="Filter work">
-              <button type="button" class="filter-btn active" data-filter="all" data-i18n="projects.filterAll">All</button>
-              <button type="button" class="filter-btn" data-filter="desktop" data-i18n="projects.filterDesktop">Python Desktop</button>
-              <button type="button" class="filter-btn" data-filter="web" data-i18n="projects.filterWeb">Web &amp; Canvas</button>
-            </div>
+            <button type="button" class="filter-btn" id="show-all-folders-btn" data-i18n="folders.showAll">
+              View All Folders
+            </button>
           </div>
 
-          <div class="projects-grid" id="projects-grid">
+          <!-- 4 Interactive Folder Cards -->
+          <div class="folders-grid" id="folders-grid" role="tablist" aria-label="Project category folders">
             <!-- Rendered from config.js -->
+          </div>
+
+          <!-- Active Folder Path Breadcrumb -->
+          <div class="folder-bar" id="folder-bar">
+            <div class="folder-path">
+              <span class="folder-dot" aria-hidden="true"></span>
+              <span id="active-folder-path">portfolio / games/</span>
+            </div>
+            <span class="folder-count-label" id="active-folder-count">4 items</span>
+          </div>
+
+          <!-- Items inside active folder -->
+          <div class="items-grid" id="folder-items-grid">
+            <!-- Rendered dynamically from config.js -->
           </div>
         </div>
       </section>
 
-      <!-- 03 / ABOUT & STACK (EDITORIAL 2-COLUMN) -->
-      <section class="section section-tinted" id="about">
+      <!-- 02 / ABOUT & STACK (EDITORIAL 2-COLUMN) -->
+      <section class="section" id="about">
         <div class="container">
           <div class="about-grid">
             <div class="about-story">
-              <span class="section-num">03 / <span data-i18n="about.eyebrow">Background</span></span>
+              <span class="section-num">02 / <span data-i18n="about.eyebrow">Background</span></span>
               <h2 class="section-title" data-i18n="about.title">Learning by shipping real software</h2>
               <p data-i18n="about.p1">
                 I’m currently studying Software Development through <strong>BYU-Pathway Worldwide</strong> while living in <strong>Springfield, Virginia</strong>. I learn fastest by building complete programs from scratch — debugging real problems, organizing code cleanly, and putting my work online where people can actually use it.
@@ -319,12 +317,12 @@
         </div>
       </section>
 
-      <!-- 04 / CONTACT -->
-      <section class="section" id="contact">
+      <!-- 03 / CONTACT -->
+      <section class="section section-tinted" id="contact">
         <div class="container">
           <div class="contact-layout">
             <div class="contact-left">
-              <span class="section-num">04 / <span data-i18n="contact.eyebrow">Get in Touch</span></span>
+              <span class="section-num">03 / <span data-i18n="contact.eyebrow">Get in Touch</span></span>
               <h2 class="section-title" data-i18n="contact.title">Let’s talk about your team or an open role</h2>
               <p class="section-sub" data-i18n="contact.lead">
                 Whether you’re a hiring manager in Northern Virginia / DC, a recruiter, or a fellow developer who tried one of my games, feel free to email me directly or send a quick note here.
@@ -517,7 +515,7 @@
     <!-- TOAST -->
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-    <script src="./config.js?v=6"></script>
-    <script src="./script.js?v=6"></script>
+    <script src="./config.js?v=7"></script>
+    <script src="./script.js?v=7"></script>
   </body>
 </html>
