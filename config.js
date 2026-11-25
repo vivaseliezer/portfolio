@@ -1,305 +1,362 @@
 /**
- * ============================================================
- * PORTFOLIO CONFIGURATION — ORLANDO VIVAS
- * ============================================================
- * Todo el sitio (Inglés y Español) se actualiza automáticamente
- * desde este archivo.
+ * Portfolio Data — Orlando Vivas
+ * Edit personal details, links, projects, and games here.
  */
 
 window.PORTFOLIO_CONFIG = {
-  // Información básica / Basic Info
   firstName: "Orlando",
   lastName: "Vivas",
   fullName: "Orlando Vivas",
-  brandTag: "orlandovivas.dev",
+  brandTag: "Orlando Vivas",
   location: {
-    en: "Springfield, VA (Open to On-site, Hybrid & Remote)",
-    es: "Springfield, VA (Disponible Presencial, Híbrido y Remoto)",
+    en: "Springfield, VA — Open to On-site, Hybrid & Remote",
+    es: "Springfield, VA — Presencial, Híbrido y Remoto",
   },
   availability: {
-    en: "Open to Junior Software Developer Roles",
-    es: "Disponible para roles Junior Software Developer",
+    en: "SPRINGFIELD, VA · OPEN TO JUNIOR SOFTWARE ROLES",
+    es: "SPRINGFIELD, VA · DISPONIBLE PARA ROLES JUNIOR",
   },
 
-  // Enlaces reales
   links: {
     email: "oralvivas122@gmail.com",
     schoolEmail: "ovivasramirez@byupathway.edu",
     linkedin: "https://www.linkedin.com/in/orlando-vivas-a7278544/",
     github: "https://github.com/vivaseliezer",
-    resumeUrl: "./resume.html",
+    resumeHtml: "./resume.html",
+    resumePdf: "./Orlando_Vivas_Resume.pdf",
   },
 
-  // Proyectos destacados (incluyendo tu Billing Software real en Python)
-  projects: [
+  // Hero visual showcase items (real screenshots of Orlando's work)
+  showcase: [
+    {
+      id: "dead-night",
+      gameId: "dead-night",
+      image: "./assets/previews/dead-night.png",
+      en: {
+        tab: "Dead Night",
+        caption: "Dead Night — 10-level zombie shooter with dynamic flashlight lighting & Web Audio.",
+        cta: "Play Dead Night",
+      },
+      es: {
+        tab: "Noche Muerta",
+        caption: "Noche Muerta — Shooter de 10 niveles con linterna dinámica en tiempo real y Web Audio.",
+        cta: "Jugar Noche Muerta",
+      },
+    },
+    {
+      id: "harvest-valley",
+      gameId: "harvest-valley",
+      image: "./assets/previews/harvest-valley.png",
+      en: {
+        tab: "Harvest Valley",
+        caption: "Harvest Valley Farm — Canvas farming simulator with live weather & market prices.",
+        cta: "Play Harvest Valley",
+      },
+      es: {
+        tab: "Harvest Valley",
+        caption: "Harvest Valley Farm — Simulador de granja en Canvas con clima y precios dinámicos.",
+        cta: "Jugar Harvest Valley",
+      },
+    },
     {
       id: "billing-software",
-      category: "backend",
-      featured: true,
-      previewImage: "./assets/billing-software.png",
-      stack: ["Python", "Tkinter GUI", "OOP", "File I/O", "Tax & Billing Logic"],
-      githubUrl: "https://github.com/vivaseliezer",
-      demoUrl: "",
+      projectId: "billing-software",
+      image: "./assets/billing-software.png",
       en: {
-        badge: "Desktop Software • Python GUI",
-        title: "Retail Billing & Receipt Management Software",
-        summary:
-          "Desktop point-of-sale billing application built in Python (Tkinter) that calculates multi-category totals and taxes, generates formatted receipts, saves invoices to disk, and retrieves bills by receipt number.",
-        problem:
-          "Small retail shops need a fast, lightweight offline billing interface to calculate itemized totals, apply category tax rules, and archive customer receipts without complex cloud subscriptions.",
-        solution:
-          "Engineered an object-oriented Python Tkinter desktop application (Bill_App) with real-time subtotal & tax calculations across 3 product categories, input validation, live receipt rendering, file persistence, and receipt lookup.",
-        highlights: [
-          "Calculates itemized prices and category-specific taxes across Medical, Grocery, and Cold Drinks",
-          "Generates formatted itemized customer receipts with unique auto-generated Bill Numbers",
-          "Saves receipts as local text records and supports instant bill search by receipt number",
-        ],
-        codeSnippetTitle: "Python (Tkinter) — Bill Generation & Search",
-        codeSnippet: `def save_bill(self):\n    op = messagebox.askyesno("Save Bill", "Do you want to save the bill?")\n    if op > 0:\n        self.bill_data = self.txtarea.get("1.0", END)\n        with open(f"bills/{self.bill_no.get()}.txt", "w") as f:\n            f.write(self.bill_data)\n        messagebox.showinfo("Saved", f"Bill #{self.bill_no.get()} saved.")`,
+        tab: "Billing App",
+        caption: "Retail Billing Software — Python Tkinter POS calculating taxes & archiving receipts.",
+        cta: "Read Technical Notes",
       },
       es: {
-        badge: "Software de Escritorio • Python GUI",
-        title: "Sistema de Facturación y Recibos (Billing Software)",
-        summary:
-          "Aplicación de escritorio punto de venta desarrollada en Python (Tkinter) que calcula subtotales e impuestos por categoría, genera recibos formateados, guarda facturas en disco y permite buscarlas por número.",
-        problem:
-          "Muchos comercios pequeños necesitan una herramienta rápida y sin internet para calcular totales por producto, aplicar impuestos y archivar recibos de clientes.",
-        solution:
-          "Desarrollé una aplicación orientada a objetos en Python con Tkinter (Bill_App) con cálculo automático de precios e impuestos en 3 categorías, validación de datos, vista previa del recibo, guardado local y buscador por número de factura.",
-        highlights: [
-          "Calcula precios por producto e impuestos por categoría (Médico, Abarrotes y Bebidas)",
-          "Genera recibos detallados con número de factura automático y datos del cliente",
-          "Guarda las facturas en archivos locales y permite buscarlas al instante por número",
-        ],
-        codeSnippetTitle: "Python (Tkinter) — Guardado y Búsqueda de Facturas",
-        codeSnippet: `def save_bill(self):\n    op = messagebox.askyesno("Save Bill", "Do you want to save the bill?")\n    if op > 0:\n        self.bill_data = self.txtarea.get("1.0", END)\n        with open(f"bills/{self.bill_no.get()}.txt", "w") as f:\n            f.write(self.bill_data)\n        messagebox.showinfo("Saved", f"Bill #{self.bill_no.get()} saved.")`,
+        tab: "Billing App",
+        caption: "Billing Software — App de escritorio en Python Tkinter con impuestos y archivo de recibos.",
+        cta: "Ver Notas Técnicas",
       },
     },
     {
-      id: "inventory-api",
-      category: "fullstack",
-      featured: true,
-      stack: ["C#", ".NET Web API", "MySQL", "JavaScript", "REST API"],
-      githubUrl: "https://github.com/vivaseliezer",
-      demoUrl: "",
+      id: "the-goat",
+      gameId: "the-goat",
+      image: "./assets/previews/goat.png",
       en: {
-        badge: "Full-Stack • Enterprise Architecture",
-        title: "Inventory & Order Management System",
-        summary:
-          "Full-stack web application blueprint to track warehouse stock, supplier orders, and low-inventory alerts using a C# REST API backed by a normalized MySQL database.",
-        problem:
-          "Small distribution teams often rely on error-prone spreadsheets, causing stockouts and mismatched order totals.",
-        solution:
-          "Designed a RESTful C#/.NET backend with parameterized MySQL queries, input validation, and a responsive JavaScript dashboard with real-time search and status filters.",
-        highlights: [
-          "Normalized 3NF MySQL schema (Products, Orders, OrderItems, Suppliers) with foreign-key integrity",
-          "CRUD REST endpoints with structured HTTP status codes and server-side validation",
-          "Automated low-stock threshold alerts and order history filtering",
-        ],
-        codeSnippetTitle: "MySQL — Low Stock Query",
-        codeSnippet: `SELECT p.sku, p.name, p.stock_qty, s.company_name\nFROM products p\nINNER JOIN suppliers s ON p.supplier_id = s.id\nWHERE p.stock_qty <= p.reorder_level\nORDER BY p.stock_qty ASC;`,
+        tab: "The Goat",
+        caption: "The Goat vs The Legends — 4K Canvas action game inspired by folklore legends.",
+        cta: "Play The Goat",
       },
       es: {
-        badge: "Full-Stack • Arquitectura Empresarial",
-        title: "Sistema de Gestión de Inventario y Pedidos",
-        summary:
-          "Aplicación web full-stack para controlar stock de almacén, pedidos a proveedores y alertas de bajo inventario con una API REST en C# y base de datos MySQL normalizada.",
-        problem:
-          "Muchos negocios y almacenes dependen de hojas de cálculo propensas a errores, causando falta de stock y descuadres en pedidos.",
-        solution:
-          "Diseñé un backend REST en C#/.NET con consultas parametrizadas en MySQL, validación de datos y un panel responsivo en JavaScript con búsqueda y filtros en tiempo real.",
-        highlights: [
-          "Esquema MySQL normalizado en 3FN (Productos, Pedidos, Detalles, Proveedores) con llaves foráneas",
-          "Endpoints CRUD REST con códigos HTTP claros y validación en servidor",
-          "Alertas automáticas de stock mínimo y filtrado del historial de pedidos",
-        ],
-        codeSnippetTitle: "MySQL — Consulta de Stock Bajo",
-        codeSnippet: `SELECT p.sku, p.name, p.stock_qty, s.company_name\nFROM products p\nINNER JOIN suppliers s ON p.supplier_id = s.id\nWHERE p.stock_qty <= p.reorder_level\nORDER BY p.stock_qty ASC;`,
-      },
-    },
-    {
-      id: "sprint-tracker",
-      category: "fullstack",
-      featured: false,
-      stack: ["Python", "Flask", "MySQL", "HTML5", "CSS3", "JavaScript"],
-      githubUrl: "https://github.com/vivaseliezer",
-      demoUrl: "",
-      en: {
-        badge: "Full-Stack • Agile Workflow",
-        title: "Team Sprint & Bug Tracker",
-        summary:
-          "Lightweight issue tracker inspired by Jira/Linear that lets engineering teams create tickets, assign priorities, filter by sprint status, and persist data in MySQL.",
-        problem:
-          "Small engineering teams need a fast way to organize bugs and feature tickets without heavyweight configuration.",
-        solution:
-          "Architected a Python Flask API + MySQL persistence layer paired with a clean Kanban/list interface using semantic HTML, CSS Grid, and Fetch API.",
-        highlights: [
-          "Full ticket lifecycle (Backlog → In Progress → Code Review → Done)",
-          "Priority & assignee filtering with zero page reloads via Fetch API",
-          "Clean separation of concerns between routes, database service layer, and UI",
-        ],
-        codeSnippetTitle: "Python — REST Endpoint Example",
-        codeSnippet: `@app.route("/api/tickets/<int:ticket_id>", methods=["PATCH"])\ndef update_status(ticket_id):\n    data = request.get_json()\n    status = data.get("status")\n    if status not in VALID_STATUSES:\n        return jsonify({"error": "Invalid status"}), 400\n    db.update_ticket_status(ticket_id, status)\n    return jsonify({"updated": True}), 200`,
-      },
-      es: {
-        badge: "Full-Stack • Flujo Agile",
-        title: "Gestor de Sprints y Bugs para Equipos",
-        summary:
-          "Rastreador de incidencias inspirado en Jira/Linear para crear tickets, asignar prioridades, filtrar por estado de sprint y guardar todo en MySQL.",
-        problem:
-          "Los equipos pequeños necesitan organizar bugs y tareas de desarrollo de forma rápida sin configuraciones complejas.",
-        solution:
-          "Diseñé una API en Python con Flask y persistencia en MySQL conectada a una interfaz tipo Kanban hecha con HTML semántico, CSS Grid y Fetch API.",
-        highlights: [
-          "Ciclo completo de tickets (Backlog → En Progreso → Revisión → Completado)",
-          "Filtros por prioridad y responsable sin recargar la página con Fetch API",
-          "Arquitectura limpia separando rutas, capa de base de datos e interfaz",
-        ],
-        codeSnippetTitle: "Python — Ejemplo de Endpoint REST",
-        codeSnippet: `@app.route("/api/tickets/<int:ticket_id>", methods=["PATCH"])\ndef update_status(ticket_id):\n    data = request.get_json()\n    status = data.get("status")\n    if status not in VALID_STATUSES:\n        return jsonify({"error": "Estado inválido"}), 400\n    db.update_ticket_status(ticket_id, status)\n    return jsonify({"updated": True}), 200`,
-      },
-    },
-    {
-      id: "interactive-web-games",
-      category: "frontend",
-      featured: false,
-      stack: ["JavaScript (ES6+)", "HTML5 Canvas", "CSS3", "Web Audio API"],
-      githubUrl: "https://github.com/vivaseliezer",
-      demoUrl: "#games",
-      en: {
-        badge: "Frontend Engineering • Live Arcade",
-        title: "Browser Game Suite (4 Playable Titles)",
-        summary:
-          "Collection of 4 original browser games built from scratch with HTML5 Canvas, vanilla JavaScript, collision physics, procedural sound effects, and responsive controls.",
-        problem:
-          "Demonstrating real-time state management, animation loops, collision detection, and UI responsiveness beyond static web pages.",
-        solution:
-          "Engineered modular game loops, real-time lighting engines, AI enemy state machines, and economy simulations playable directly in any modern browser.",
-        highlights: [
-          "Custom 60 FPS requestAnimationFrame loops with delta-time movement and collision detection",
-          "Dynamic Canvas lighting, weather particles, and procedural Web Audio sound synthesis",
-          "Play all 4 titles directly in the Interactive Arcade section below",
-        ],
-        codeSnippetTitle: "JavaScript — AABB Collision Check",
-        codeSnippet: `function isCollide(a, b) {\n  const aRect = a.getBoundingClientRect();\n  const bRect = b.getBoundingClientRect();\n  return !(\n    aRect.top > bRect.bottom || aRect.bottom < bRect.top ||\n    aRect.right < bRect.left || aRect.left > bRect.right\n  );\n}`,
-      },
-      es: {
-        badge: "Ingeniería Frontend • Arcade en Vivo",
-        title: "Colección de 4 Juegos Web Interactivos",
-        summary:
-          "Colección de 4 juegos originales construidos desde cero con HTML5 Canvas, JavaScript puro, física de colisiones, sonido procedural y controles responsivos.",
-        problem:
-          "Demostrar manejo de estado en tiempo real, bucles de animación, colisiones e interfaces dinámicas más allá de páginas estáticas.",
-        solution:
-          "Programé bucles de juego modulares, iluminación en tiempo real, IA de enemigos y simuladores de economía jugables directamente en cualquier navegador.",
-        highlights: [
-          "Bucles a 60 FPS con requestAnimationFrame, delta-time y detección de colisiones",
-          "Iluminación dinámica en Canvas, partículas de clima y síntesis de audio Web Audio",
-          "Prueba los 4 juegos completos directamente en la sección de Juegos aquí abajo",
-        ],
-        codeSnippetTitle: "JavaScript — Detección de Colisiones AABB",
-        codeSnippet: `function isCollide(a, b) {\n  const aRect = a.getBoundingClientRect();\n  const bRect = b.getBoundingClientRect();\n  return !(\n    aRect.top > bRect.bottom || aRect.bottom < bRect.top ||\n    aRect.right < bRect.left || aRect.left > bRect.right\n  );\n}`,
+        tab: "The Goat",
+        caption: "The Goat vs The Legends — Juego de acción en Canvas 4K contra leyendas clásicas.",
+        cta: "Jugar The Goat",
       },
     },
   ],
 
-  // ============================================================
-  // ZONA DE JUEGOS INTERACTIVOS (TUS 4 JUEGOS REALES EN 1 CLIC)
-  // ============================================================
+  // 1-Click Playable Browser Games (all 4 original creations)
   games: [
     {
       id: "dead-night",
       status: "playable",
       openMode: "modal",
+      image: "./assets/previews/dead-night.png",
       playUrl: {
         en: "./games/dead-night/index.html",
         es: "./games/noche-muerta/index.html",
       },
-      githubUrl: "https://github.com/vivaseliezer",
-      accent: "crimson",
-      tech: ["HTML5 Canvas", "JavaScript", "Dynamic Lighting", "Web Audio API"],
+      githubUrl: "https://github.com/vivaseliezer/portfolio/tree/main/games/dead-night",
+      tech: ["HTML5 Canvas", "JavaScript", "Web Audio API", "Bilingual EN/ES"],
       en: {
-        genre: "Original Action Shooter • Bilingual (EN/ES)",
+        tag: "Top-Down Shooter · EN / ES",
         title: "Dead Night",
         description:
-          "Top-down zombie survival shooter featuring 10 campaign levels, endless Survival mode, Boss Rush with 6 unique bosses, real-time flashlight lighting, weather effects, and procedural Web Audio sound.",
-        controls: "WASD / Arrows: Move • Mouse: Aim & Shoot • Space: Dash • F: Final Attack • Touch supported",
+          "10-level campaign, endless Survival, and 6-boss Boss Rush. Features real-time flashlight lighting, rain/fog weather, and sound effects generated purely with Web Audio.",
+        controls: "WASD / Arrows: Move · Mouse: Aim & Shoot · Space: Dash · F: Ultimate",
       },
       es: {
-        genre: "Shooter Original • Bilingüe (EN/ES)",
+        tag: "Shooter Top-Down · EN / ES",
         title: "Noche Muerta (Dead Night)",
         description:
-          "Shooter top-down de supervivencia zombie con 10 niveles de campaña, modo Supervivencia infinito, Boss Rush con 6 jefes, linterna con iluminación dinámica en tiempo real, clima y sonido Web Audio.",
-        controls: "WASD / Flechas: Mover • Mouse: Apuntar y Disparar • Espacio: Dash • F: Ataque Final • Táctil",
-      },
-    },
-    {
-      id: "the-goat",
-      status: "playable",
-      openMode: "modal",
-      playUrl: "./games/goat/index.html",
-      githubUrl: "https://github.com/vivaseliezer/goat",
-      accent: "purple",
-      tech: ["HTML5 4K Canvas", "JavaScript", "Entity AI", "Folklore Action"],
-      en: {
-        genre: "Original Action Game • 4K Anime Edition",
-        title: "The Goat vs The Legends",
-        description:
-          "Defend your home against iconic Latin American folklore legends — El Cadejo, La Llorona, and El Duende — in an atmospheric 4K Canvas action brawler with ram attacks and health/score HUD.",
-        controls: "WASD / Arrow Keys: Move • SPACE: Ram Attack",
-      },
-      es: {
-        genre: "Acción Original • Edición Anime 4K",
-        title: "The Goat vs The Legends",
-        description:
-          "Defiende tu hogar contra leyendas icónicas latinoamericanas — El Cadejo, La Llorona y El Duende — en un juego de acción en Canvas 4K con ataques de embestida y sistema de vida y puntaje.",
-        controls: "WASD / Flechas: Mover • ESPACIO: Embestir",
+          "Campaña de 10 niveles, modo Supervivencia infinito y Boss Rush con 6 jefes. Incluye linterna con iluminación dinámica, clima y audio procedural con Web Audio.",
+        controls: "WASD / Flechas: Mover · Mouse: Apuntar y Disparar · Espacio: Dash · F: Ataque Final",
       },
     },
     {
       id: "harvest-valley",
       status: "playable",
       openMode: "modal",
+      image: "./assets/previews/harvest-valley.png",
       playUrl: "./games/harvest-valley/index.html",
-      githubUrl: "https://github.com/vivaseliezer",
-      accent: "emerald",
-      tech: ["HTML5 Canvas", "JavaScript", "Game Economy", "LocalStorage Save"],
+      githubUrl: "https://github.com/vivaseliezer/portfolio/tree/main/games/harvest-valley",
+      tech: ["HTML5 Canvas", "JavaScript", "State & Economy", "LocalStorage"],
       en: {
-        genre: "Original Simulation • 1-Click Playable",
+        tag: "Farming Simulator",
         title: "Harvest Valley Farm",
         description:
-          "Handheld-style farming simulator with animated canvas crops, dynamic weather (sunny & rainy days), fluctuating market prices, energy management, and automatic browser save persistence.",
-        controls: "Click or tap plots to plant, water, harvest & sell crops at the market",
+          "Handheld-style farm sim with animated crops, sunny and rainy weather cycles, shifting market prices, daily energy limits, and automatic save persistence.",
+        controls: "Click or tap plots to plant, water, harvest & sell crops",
       },
       es: {
-        genre: "Simulación Original • Jugable en 1 Clic",
-        title: "Harvest Valley Farm (Granja)",
+        tag: "Simulador de Granja",
+        title: "Harvest Valley Farm",
         description:
-          "Simulador de granja estilo consola portátil con cultivos animados en Canvas, clima dinámico (sol y lluvia), precios de mercado cambiantes, energía diaria y guardado automático.",
+          "Simulador estilo consola portátil con cultivos animados, días soleados y lluviosos, precios cambiantes de mercado, energía diaria y guardado automático.",
         controls: "Haz clic o toca las parcelas para plantar, regar, cosechar y vender",
+      },
+    },
+    {
+      id: "the-goat",
+      status: "playable",
+      openMode: "modal",
+      image: "./assets/previews/goat.png",
+      playUrl: "./games/goat/index.html",
+      githubUrl: "https://github.com/vivaseliezer/goat",
+      tech: ["4K Canvas", "JavaScript", "Enemy AI", "CSS3"],
+      en: {
+        tag: "Folklore Action · 4K Canvas",
+        title: "The Goat vs The Legends",
+        description:
+          "Protect your home from El Cadejo, La Llorona, and El Duende in a 4K Canvas brawler with ram attacks, wave progression, and health/score HUD.",
+        controls: "WASD / Arrows: Move · Space: Ram Attack",
+      },
+      es: {
+        tag: "Acción · Canvas 4K",
+        title: "The Goat vs The Legends",
+        description:
+          "Defiende tu casa contra El Cadejo, La Llorona y El Duende en un juego de acción en Canvas 4K con ataques de embestida, salud y puntaje.",
+        controls: "WASD / Flechas: Mover · Espacio: Embestir",
       },
     },
     {
       id: "car-game",
       status: "playable",
       openMode: "modal",
+      image: "./assets/previews/car-game.png",
       playUrl: "./games/car-game/index.html",
       githubUrl: "https://github.com/vivaseliezer/carGAME",
-      accent: "cyan",
-      tech: ["JavaScript (ES6+)", "DOM Animation", "Collision Detection", "CSS3"],
+      tech: ["JavaScript", "DOM Animation", "Collision Physics", "CSS3"],
       en: {
-        genre: "Original Arcade Racer • 1-Click Playable",
+        tag: "Arcade Racer",
         title: "Highway Car Dodge",
         description:
-          "Fast-paced highway dodging game with progressive speed scaling, randomized oncoming traffic, real-time AABB collision detection, and live high-score tracking.",
-        controls: "Click Start • Arrow Keys to steer and dodge oncoming cars",
+          "Endless highway dodger built in plain JavaScript with gradually increasing speed, randomized oncoming lanes, real-time AABB collision checks, and high-score tracking.",
+        controls: "Click Start · Arrow Keys to steer and dodge traffic",
       },
       es: {
-        genre: "Carreras Arcade • Jugable en 1 Clic",
-        title: "Highway Car Dodge (carGAME)",
+        tag: "Carreras Arcade",
+        title: "Highway Car Dodge",
         description:
-          "Juego arcade de velocidad en autopista con aceleración progresiva, tráfico aleatorio, detección de colisiones en tiempo real y marcador de récord en vivo.",
-        controls: "Haz clic en Start • Flechas del teclado para esquivar autos",
+          "Juego de velocidad en autopista hecho en JavaScript puro con aceleración progresiva, tráfico aleatorio, detección de colisiones AABB y marcador de récord.",
+        controls: "Haz clic en Start · Flechas del teclado para esquivar autos",
+      },
+    },
+  ],
+
+  // Selected Software Engineering Projects (100% real built work)
+  projects: [
+    {
+      id: "billing-software",
+      category: "desktop",
+      previewImage: "./assets/billing-software.png",
+      stack: ["Python", "Tkinter", "OOP", "File I/O"],
+      githubUrl: "https://github.com/vivaseliezer",
+      playGameId: "",
+      en: {
+        year: "Python Desktop App",
+        title: "Retail Billing & Receipt Management Software",
+        summary:
+          "A lightweight point-of-sale billing app written in Python (Tkinter) that totals 18 retail items across three categories, applies tax rates, prints formatted receipts, and looks up saved bills by number.",
+        problem:
+          "Small neighborhood shops often need an offline, no-subscription register tool to calculate totals and taxes cleanly and keep simple receipt records.",
+        solution:
+          "Built an object-oriented Tkinter interface (Bill_App) with separate product panels, input checks, live receipt rendering in a scrollable text view, local text-file persistence, and bill lookup.",
+        highlights: [
+          "Computes itemized subtotals and category taxes across Medical, Grocery, and Cold Drinks",
+          "Generates unique bill numbers and formatted receipts with customer name and phone",
+          "Saves invoices to disk and retrieves past bills on demand by receipt number",
+        ],
+        codeSnippetTitle: "biling_system.py — Receipt Persistence",
+        codeSnippet: `def save_bill(self):\n    op = messagebox.askyesno("Save Bill", "Do you want to save the bill?")\n    if op > 0:\n        self.bill_data = self.txtarea.get("1.0", END)\n        with open(f"bills/{self.bill_no.get()}.txt", "w") as f:\n            f.write(self.bill_data)\n        messagebox.showinfo("Saved", f"Bill #{self.bill_no.get()} saved.")`,
+      },
+      es: {
+        year: "App de Escritorio en Python",
+        title: "Sistema de Facturación y Recibos (Billing Software)",
+        summary:
+          "Aplicación punto de venta en Python (Tkinter) que suma 18 productos en tres categorías, calcula impuestos, genera recibos formateados y permite buscar facturas guardadas por número.",
+        problem:
+          "Muchos negocios pequeños necesitan una caja registradora ligera y sin suscripciones para calcular totales e impuestos y archivar recibos localmente.",
+        solution:
+          "Desarrollé una interfaz orientada a objetos en Tkinter (Bill_App) con paneles por categoría, validación, vista previa del recibo, guardado en archivos locales y buscador de facturas.",
+        highlights: [
+          "Calcula subtotales e impuestos por categoría (Médico, Abarrotes y Bebidas)",
+          "Asigna números de factura únicos y formatea recibos con datos del cliente",
+          "Guarda facturas en disco y permite consultar recibos anteriores por número",
+        ],
+        codeSnippetTitle: "biling_system.py — Guardado de Recibos",
+        codeSnippet: `def save_bill(self):\n    op = messagebox.askyesno("Save Bill", "Do you want to save the bill?")\n    if op > 0:\n        self.bill_data = self.txtarea.get("1.0", END)\n        with open(f"bills/{self.bill_no.get()}.txt", "w") as f:\n            f.write(self.bill_data)\n        messagebox.showinfo("Saved", f"Bill #{self.bill_no.get()} saved.")`,
+      },
+    },
+    {
+      id: "dead-night-engine",
+      category: "web",
+      previewImage: "./assets/previews/dead-night.png",
+      stack: ["JavaScript (ES6+)", "HTML5 Canvas", "Web Audio API", "Game AI"],
+      githubUrl: "https://github.com/vivaseliezer/portfolio/tree/main/games/dead-night",
+      playGameId: "dead-night",
+      en: {
+        year: "Real-Time Web Engine",
+        title: "Dead Night / Noche Muerta — 2D Survival Engine",
+        summary:
+          "A self-contained browser survival shooter written without external game engines — combining offscreen dynamic lighting, multi-phase boss AI, weather particles, and synthesized audio.",
+        problem:
+          "Running smooth 60 FPS gameplay with dynamic darkness, dozens of enemies, and sound effects directly in a browser without heavy asset downloads.",
+        solution:
+          "Rendered lighting on a half-resolution offscreen canvas using destination-out radial gradients, separated enemy state machines by boss phase, and synthesized every gunshot and roar via Web Audio oscillators.",
+        highlights: [
+          "Zero external audio files: gunshots, zombie groans, and boss heartbeat built with Web Audio API",
+          "10 campaign zones with distinct procedural maps, 4 unlockable weapons, and 6 unique bosses",
+          "Full English and Spanish editions that switch automatically with the portfolio language",
+        ],
+        codeSnippetTitle: "Dead Night — Half-Res Offscreen Flashlight Cutout",
+        codeSnippet: `L.globalCompositeOperation = "destination-out";\nconst fl = L.createRadialGradient(p.x, p.y, 20, p.x, p.y, 520);\nfl.addColorStop(0, "rgba(0,0,0,.95)");\nfl.addColorStop(1, "rgba(0,0,0,0)");\nL.fillStyle = fl;\nL.beginPath(); L.moveTo(p.x, p.y);\nL.arc(p.x, p.y, 520, p.angle - 0.42, p.angle + 0.42);\nL.closePath(); L.fill();`,
+      },
+      es: {
+        year: "Motor Web en Tiempo Real",
+        title: "Dead Night / Noche Muerta — Motor 2D en Canvas",
+        summary:
+          "Shooter de supervivencia completo sin motores externos: combina iluminación dinámica en canvas secundario, IA de jefes por fases, partículas de clima y audio sintetizado.",
+        problem:
+          "Lograr 60 FPS fluidos con oscuridad dinámica, decenas de enemigos y efectos de sonido en navegador sin depender de archivos pesados.",
+        solution:
+          "Calculé la iluminación en un canvas secundario a media resolución con gradientes destination-out, separé la IA por estados y sinteticé cada disparo y rugido con osciladores de Web Audio.",
+        highlights: [
+          "Cero archivos MP3: disparos, gruñidos y música de jefes generados con Web Audio API",
+          "10 niveles de campaña con mapas procedurales, 4 armas desbloqueables y 6 jefes",
+          "Ediciones completas en inglés y español que cambian con el idioma del portafolio",
+        ],
+        codeSnippetTitle: "Dead Night — Recorte Dinámico de Linterna",
+        codeSnippet: `L.globalCompositeOperation = "destination-out";\nconst fl = L.createRadialGradient(p.x, p.y, 20, p.x, p.y, 520);\nfl.addColorStop(0, "rgba(0,0,0,.95)");\nfl.addColorStop(1, "rgba(0,0,0,0)");\nL.fillStyle = fl;\nL.beginPath(); L.moveTo(p.x, p.y);\nL.arc(p.x, p.y, 520, p.angle - 0.42, p.angle + 0.42);\nL.closePath(); L.fill();`,
+      },
+    },
+    {
+      id: "harvest-valley-sim",
+      category: "web",
+      previewImage: "./assets/previews/harvest-valley.png",
+      stack: ["JavaScript", "HTML5 Canvas", "CSS Grid", "LocalStorage"],
+      githubUrl: "https://github.com/vivaseliezer/portfolio/tree/main/games/harvest-valley",
+      playGameId: "harvest-valley",
+      en: {
+        year: "Browser Simulation",
+        title: "Harvest Valley Farm — Economy & Crop Simulator",
+        summary:
+          "A cozy browser simulation pairing a 2D animated farm scene with stateful crop timers, randomized daily market trends, energy limits, and persistent saves.",
+        problem:
+          "Keeping visual canvas rendering tightly synchronized with inventory counts, daily weather states, and user clicks across desktop and mobile screens.",
+        solution:
+          "Structured a single central state object persisted to LocalStorage, driving both the Canvas farm plots/farmer animations and the DOM market/inventory dashboard.",
+        highlights: [
+          "Dynamic weather system (Sunny & Rainy days) affecting field state and animation",
+          "Fluctuating crop prices (Wheat, Corn, Carrot) with visual up/down market indicators",
+          "Automatic state persistence in LocalStorage so players keep progress across refreshes",
+        ],
+        codeSnippetTitle: "Harvest Valley — Canvas Animation & State Sync",
+        codeSnippet: `function draw(ms) {\n  const t = ms / 1000;\n  drawSky(t); drawLand();\n  drawPlots(t); drawFarmer(t);\n  drawRain(); drawFloaters();\n  requestAnimationFrame(draw);\n}`,
+      },
+      es: {
+        year: "Simulación Web",
+        title: "Harvest Valley Farm — Simulador de Economía",
+        summary:
+          "Simulador de granja que combina una escena animada en Canvas 2D con tiempos de cosecha, precios diarios aleatorios, energía y guardado persistente.",
+        problem:
+          "Mantener sincronizados el dibujo del Canvas, el inventario, el clima diario y las acciones del usuario tanto en computadora como en celular.",
+        solution:
+          "Centralicé el estado del juego con guardado automático en LocalStorage, alimentando tanto los cultivos animados en Canvas como el panel de mercado e inventario.",
+        highlights: [
+          "Sistema de clima dinámico (Soleado y Lluvioso) con animaciones en vivo",
+          "Precios variables (Trigo, Maíz, Zanahoria) con indicadores de tendencia",
+          "Persistencia automática en LocalStorage para conservar el avance",
+        ],
+        codeSnippetTitle: "Harvest Valley — Ciclo de Render y Estado",
+        codeSnippet: `function draw(ms) {\n  const t = ms / 1000;\n  drawSky(t); drawLand();\n  drawPlots(t); drawFarmer(t);\n  drawRain(); drawFloaters();\n  requestAnimationFrame(draw);\n}`,
+      },
+    },
+    {
+      id: "goat-and-car",
+      category: "web",
+      previewImage: "./assets/previews/goat.png",
+      stack: ["JavaScript (ES6+)", "4K Canvas", "AABB Collision", "Git & GitHub"],
+      githubUrl: "https://github.com/vivaseliezer/goat",
+      playGameId: "the-goat",
+      en: {
+        year: "Open-Source GitHub Repos",
+        title: "The Goat vs The Legends & Highway Car Dodge",
+        summary:
+          "Two standalone browser games hosted publicly on GitHub focusing on responsive keyboard input, entity spawning, and clean bounding-box collision physics.",
+        problem:
+          "Practicing clean JavaScript architecture, modular entity classes, and frame-rate-consistent movement across two very different genres.",
+        solution:
+          "Split The Goat into dedicated entity and game-loop modules on a 3840×2160 Canvas, and built Highway Car Dodge with pure DOM positioning and real-time collision guards.",
+        highlights: [
+          "Modular separation of entities (js/entities.js) and main loop (js/game.js)",
+          "Real-time bounding-box collision checks and progressive speed difficulty",
+          "Public source repositories on GitHub (vivaseliezer/goat & vivaseliezer/carGAME)",
+        ],
+        codeSnippetTitle: "carGAME/game.js — Real-Time Collision Detection",
+        codeSnippet: `function isCollide(a, b) {\n  const aRect = a.getBoundingClientRect();\n  const bRect = b.getBoundingClientRect();\n  return !(\n    aRect.top > bRect.bottom || aRect.bottom < bRect.top ||\n    aRect.right < bRect.left || aRect.left > bRect.right\n  );\n}`,
+      },
+      es: {
+        year: "Repositorios en GitHub",
+        title: "The Goat vs The Legends & Highway Car Dodge",
+        summary:
+          "Dos juegos independientes publicados en GitHub enfocados en control por teclado, generación de entidades y física de colisiones en tiempo real.",
+        problem:
+          "Practicar arquitectura limpia en JavaScript, separación de módulos y detección de colisiones en dos géneros distintos.",
+        solution:
+          "Organicé The Goat en módulos de entidades y bucle principal sobre Canvas 4K, y construí Highway Car Dodge con animaciones DOM y detección de impactos AABB.",
+        highlights: [
+          "Código modular separando entidades (js/entities.js) y lógica principal (js/game.js)",
+          "Detección de colisiones en tiempo real y aceleración progresiva",
+          "Repositorios públicos en GitHub (vivaseliezer/goat y vivaseliezer/carGAME)",
+        ],
+        codeSnippetTitle: "carGAME/game.js — Detección de Colisiones",
+        codeSnippet: `function isCollide(a, b) {\n  const aRect = a.getBoundingClientRect();\n  const bRect = b.getBoundingClientRect();\n  return !(\n    aRect.top > bRect.bottom || aRect.bottom < bRect.top ||\n    aRect.right < bRect.left || aRect.left > bRect.right\n  );\n}`,
       },
     },
   ],
